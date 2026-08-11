@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zona de Almas</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#080a10;
+    color:white;
+}
+
+button{cursor:pointer}
+
+#topbar{
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    background:#171c25;
+    border-bottom:2px solid #303744;
+    gap:10px;
+}
+
+.stat{font-weight:bold}
+
+.topButton{
+    padding:10px 15px;
+    border:0;
+    border-radius:8px;
+    background:#7542c8;
+    color:white;
+    font-weight:bold;
+}
+
+#game{
+    display:flex;
+    height:calc(100vh - 65px);
+}
+
+#main{
+    flex:1;
+    padding:20px;
+    overflow:auto;
+    background:
+        radial-gradient(circle at 50% 10%,#39205c,transparent 40%),
+        #0b0e14;
+    transition:background 1s;
+}
+
+#main.galaxy{
+    background:
+        radial-gradient(circle at 20% 20%,#496cff,transparent 25%),
+        radial-gradient(circle at 80% 30%,#673cff,transparent 25%),
+        radial-gradient(circle at 50% 80%,#1675ff,transparent 30%),
+        #030b25;
+    animation:galaxyPulse 2s infinite alternate;
+}
+
+@keyframes galaxyPulse{
+    from{filter:brightness(1)}
+    to{filter:brightness(1.35)}
+}
+
+.zoneTitle{
+    text-align:center;
+    font-size:30px;
+}
+
+#eventText{
+    text-align:center;
+    color:#8fc9ff;
+    font-weight:bold;
+    display:none;
+    text-shadow:0 0 10px #4da6ff;
+}
+
+#mobs{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
+
+.mob{
+    min-height:130px;
+    border:2px solid #394252;
+    border-radius:14px;
+    background:linear-gradient(145deg,#292f3b,#171b23);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    transition:.15s;
+    cursor:pointer;
+}
+
+.mob:hover{transform:scale(1.04)}
+
+.mobEmoji,.reward{
+    position:relative;
+    z-index:5;
+}
+
+.mobEmoji{font-size:43px}
+
+.reward{
+    color:#caa0ff;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.rare{
+    border-color:#a855f7;
+    background:radial-gradient(circle,rgba(168,85,247,.5),#160d25);
+    box-shadow:0 0 15px #9b3dff,0 0 35px #7c22ce,inset 0 0 30px rgba(168,85,247,.4);
+    animation:auraPurple 2.5s infinite alternate;
+}
+
+.celestial{
+    border-color:#ffe44d;
+    background:radial-gradient(circle,rgba(255,220,40,.5),#211d08);
+    box-shadow:0 0 15px #ffe44d,0 0 40px #ffca28;
+    animation:auraYellow 2.5s infinite alternate;
+}
+
+.cat{
+    border-color:#ff2020;
+    background:radial-gradient(circle,rgba(255,0,0,.55),#250707);
+    box-shadow:0 0 15px red,0 0 40px red;
+    animation:auraRed 2s infinite alternate;
+}
+
+.cry{
+    border-color:#b65cff;
+    background:radial-gradient(circle,rgba(150,60,255,.5),#190d28);
+    box-shadow:0 0 15px #a855f7,0 0 35px #7c22ce;
+    animation:auraPurpleStrong 2.2s infinite alternate;
+}
+
+.lightning{
+    border-color:#ff2525;
+    background:radial-gradient(circle,rgba(255,0,0,.7),#250303);
+    box-shadow:0 0 20px red,0 0 45px red,0 0 80px rgba(255,0,0,.8);
+    animation:ultraRed 1.8s infinite alternate;
+}
+
+.rare::before,.rare::after,
+.cat::before,.cat::after,
+.cry::before,.cry::after,
+.lightning::before,.lightning::after{
+    content:"⚡";
+    position:absolute;
+    z-index:1;
+    opacity:.6;
+}
+
+.rare::before{left:0;top:5px;font-size:30px;animation:boltSlow1 3s infinite linear}
+.rare::after{right:0;bottom:5px;font-size:25px;animation:boltSlow2 3.5s infinite linear}
+
+.cry::before{left:0;top:0;font-size:32px;animation:boltSlow1 3.2s infinite linear}
+.cry::after{right:0;bottom:0;font-size:28px;animation:boltSlow2 3.8s infinite linear}
+
+.cat::before{left:0;top:0;font-size:32px;animation:boltSlow1 2.8s infinite linear}
+.cat::after{right:0;bottom:0;font-size:28px;animation:boltSlow2 3.2s infinite linear}
+
+.lightning::before{left:0;top:0;font-size:38px;animation:boltSlow1 2.4s infinite linear}
+.lightning::after{right:0;bottom:0;font-size:34px;animation:boltSlow2 2.7s infinite linear}
+
+@keyframes auraPurple{
+    from{transform:scale(1);filter:brightness(1)}
+    to{transform:scale(1.04);filter:brightness(1.5)}
+}
+
+@keyframes auraPurpleStrong{
+    from{transform:scale(1);filter:brightness(1)}
+    to{transform:scale(1.05);filter:brightness(1.6)}
+}
+
+@keyframes auraYellow{
+    from{transform:scale(1);filter:brightness(1)}
+    to{transform:scale(1.04);filter:brightness(1.5)}
+}
+
+@keyframes auraRed{
+    from{transform:scale(1);filter:brightness(1)}
+    to{transform:scale(1.04);filter:brightness(1.6)}
+}
+
+@keyframes ultraRed{
+    from{transform:scale(1);filter:brightness(1)}
+    to{transform:scale(1.05);filter:brightness(1.8)}
+}
+
+@keyframes boltSlow1{
+    0%{transform:translate(0,0) rotate(0);opacity:.1}
+    30%{transform:translate(35px,40px) rotate(40deg);opacity:.8}
+    60%{transform:translate(75px,10px) rotate(-20deg);opacity:.5}
+    100%{transform:translate(120px,70px) rotate(50deg);opacity:0}
+}
+
+@keyframes boltSlow2{
+    0%{transform:translate(0,0) rotate(20deg);opacity:0}
+    30%{opacity:.8}
+    70%{transform:translate(-70px,-45px) rotate(-30deg);opacity:.7}
+    100%{transform:translate(-110px,20px) rotate(40deg);opacity:0}
+}
+
+#side{
+    width:310px;
+    overflow:auto;
+    padding:18px;
+    background:#191e28;
+    border-left:2px solid #303744;
+}
+
+.panel{
+    background:#252b36;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+.panel h2{
+    margin-top:0;
+    font-size:18px;
+}
+
+.panel button{
+    width:100%;
+    margin-top:6px;
+    padding:10px;
+    border:0;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+}
+
+.green{background:#28784a}
+.gold{background:#a77a0c}
+.red{background:#983838}
+.blue{background:#365da8}
+.purple{background:#7542c8}
+
+#expContainer{
+    height:15px;
+    background:#10131a;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+#expBar{
+    width:0%;
+    height:100%;
+    background:#8d53e8;
+    transition:.3s;
+}
+
+/* ================= PvP ================= */
+
+#pvpScreen{
+    position:fixed;
+    inset:0;
+    display:none;
+    background:
+        radial-gradient(circle,#35152d,#08050a 70%);
+    z-index:6000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.pvpBox{
+    width:min(700px,95vw);
+    background:#17131d;
+    border:2px solid #9b3dff;
+    border-radius:22px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 0 40px rgba(155,61,255,.4);
+}
+
+.pvpTitle{
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.enemyEmoji{
+    font-size:100px;
+    margin:10px;
+}
+
+.enemyName{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.healthBox{
+    margin:15px 0;
+}
+
+.healthText{
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.healthBar{
+    height:25px;
+    background:#080808;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.healthFill{
+    height:100%;
+    width:100%;
+    background:#e43d4b;
+    transition:.25s;
+}
+
+.playerHealthFill{
+    background:#35c96d;
+}
+
+.pvpStats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.pvpAttack{
+    width:100%;
+    padding:18px;
+    border:0;
+    border-radius:12px;
+    background:#a52c38;
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.pvpAttack:hover{
+    filter:brightness(1.2);
+}
+
+.pvpExit{
+    width:100%;
+    padding:10px;
+    border:0;
+    border-radius:10px;
+    background:#303846;
+    color:white;
+    margin-top:8px;
+}
+
+#pvpLog{
+    min-height:28px;
+    margin-top:12px;
+    color:#cdb7ff;
+}
+
+/* ================= ARMADURA ================= */
+
+.armorIcon{
+    font-size:35px;
+}
+
+/* ================= TOP ================= */
+
+#topsScreen{
+    position:fixed;
+    inset:0;
+    display:none;
+    background:rgba(3,5,9,.97);
+    z-index:5000;
+    padding:30px;
+    overflow:auto;
+}
+
+.topsBox{
+    max-width:650px;
+    margin:auto;
+    padding:25px;
+    border-radius:18px;
+    background:#191e28;
+    border:2px solid #814de0;
+}
+
+.topsBox h1{text-align:center}
+
+.topPlayer{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:13px;
+    margin:7px 0;
+    border-radius:10px;
+    background:#252b36;
+}
+
+.rank{
+    width:45px;
+    font-size:23px;
+    font-weight:bold;
+}
+
+.playerName{
+    flex:1;
+    font-weight:bold;
+}
+
+.playerMoney{
+    color:#62e58b;
+    font-weight:bold;
+}
+
+.closeButton{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:0;
+    border-radius:8px;
+    background:#303846;
+    color:white;
+}
+
+/* ================= EVENT FLASH ================= */
+
+#whiteFlash{
+    position:fixed;
+    inset:0;
+    background:white;
+    opacity:0;
+    pointer-events:none;
+    z-index:10000;
+}
+
+#whiteFlash.flash{
+    animation:whiteFlash .5s linear;
+}
+
+@keyframes whiteFlash{
+    0%{opacity:0}
+    40%{opacity:1}
+    100%{opacity:0}
+}
+
+#message{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:12px 20px;
+    border-radius:10px;
+    background:#252b36;
+    opacity:0;
+    transition:.25s;
+    z-index:9000;
+    pointer-events:none;
+}
+
+#message.show{opacity:1}
+
+@media(max-width:900px){
+    #mobs{grid-template-columns:repeat(3,1fr)}
+    #side{width:260px}
+}
+
+@media(max-width:650px){
+    #topbar{
+        overflow-x:auto;
+        justify-content:flex-start;
+        padding:0 10px;
+    }
+
+    #game{
+        flex-direction:column;
+        height:auto;
+    }
+
+    #side{
+        width:100%;
+        border-left:0;
+        border-top:2px solid #303744;
+    }
+
+    #mobs{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<div id="topbar">
+    <div class="stat">💰 $<span id="money">0</span></div>
+    <div class="stat">👻 <span id="souls">0</span></div>
+    <div class="stat">⚔️ Lv.<span id="swordLevel">1</span></div>
+    <div class="stat">🛡️ Lv.<span id="armorLevel">1</span></div>
+    <div class="stat">⭐ Lv.<span id="playerLevel">1</span></div>
+
+    <button class="topButton" onclick="openTops()">🏆 TOPS</button>
+</div>
+
+<div id="game">
+
+<main id="main">
+
+<h1 class="zoneTitle">👻 ZONA DE ALMAS</h1>
+
+<div id="eventText">
+    🌌 ¡EVENTO GALÁCTICO ACTIVO! ¡MÁS PROBABILIDADES DE MOBS RAROS!
+</div>
+
+<div id="mobs"></div>
+
+</main>
+
+<aside id="side">
+
+<div class="panel">
+<h2>👤 Jugador</h2>
+
+<p>Nombre: <b id="username">Jugador</b></p>
+
+<button class="blue" onclick="changeName()">
+✏️ Cambiar nombre
+</button>
+</div>
+
+<div class="panel">
+<h2>💰 Economía</h2>
+
+<p>💰 Dinero: <b>$<span id="economyMoney">0</span></b></p>
+
+<hr>
+
+<p>👻 Almas: <b id="sideSouls">0</b></p>
+<p>1 alma = $2</p>
+
+<button class="gold" onclick="sellSouls()">
+💵 Vender almas
+</button>
+</div>
+
+<div class="panel">
+<h2>🎒 Inventario</h2>
+
+<p>🧥 Cuero: <b id="leather">0</b></p>
+<p>🗑️ Chatarra: <b id="scrap">0</b></p>
+<p>🟡 Oro: <b id="gold">0</b></p>
+<p>🫧 Perlas: <b id="pearls">0</b></p>
+
+<hr>
+
+<p>💎 Valor total: $<b id="inventoryValue">0</b></p>
+
+<button class="gold" onclick="sellInventory()">
+💵 Vender todo
+</button>
+</div>
+
+<div class="panel">
+<h2>⚔️ Mejoras de espada</h2>
+
+<p>Nivel: <b id="swordSide">1</b> / 500</p>
+<p>Daño: <b id="damage">2</b></p>
+<p>Precio: $<b id="upgradePrice">50</b></p>
+
+<button class="green" onclick="upgradeSword()">
+⬆️ Mejorar espada
+</button>
+</div>
+
+<div class="panel">
+<h2>🛡️ Armadura</h2>
+
+<p class="armorIcon">🛡️</p>
+
+<p>Nivel: <b id="armorSide">1</b> / 500</p>
+
+<p>❤️ Vida extra:
+<b id="armorBonus">2</b>
+</p>
+
+<p>❤️ Vida máxima:
+<b id="maxHealth">102</b>
+</p>
+
+<p>Precio:
+$<b id="armorPrice">50</b>
+</p>
+
+<button class="green" onclick="upgradeArmor()">
+⬆️ Mejorar armadura
+</button>
+</div>
+
+<div class="panel">
+<h2>⭐ Experiencia</h2>
+
+<p>Nivel: <b id="levelSide">1</b></p>
+
+<p>
+EXP:
+<b id="exp">0</b> /
+<b id="expNeeded">100</b>
+</p>
+
+<div id="expContainer">
+<div id="expBar"></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>⚔️ PvP</h2>
+
+<button class="red" onclick="startPvP()">
+⚔️ Entrar al PvP
+</button>
+</div>
+
+<div class="panel">
+<h2>📜 Drops</h2>
+
+<p>😶 = 1 alma</p>
+<p>😒 = 2 almas</p>
+<p>😎 = 4 almas</p>
+<p>😐 = 6 almas</p>
+
+<hr>
+
+<p>😭 = 100 almas</p>
+<p>💲 = 20 almas</p>
+<p>😈 = 30 almas</p>
+<p>💰 = 50 almas</p>
+
+<hr>
+
+<p>🪽 = 2.000 almas</p>
+<p>👻 = 5.000 almas</p>
+<p>🐈‍⬛ = 15.000 almas</p>
+<p>🫧 = 25.000 almas</p>
+
+<hr>
+
+<p>🧥 Cuero = $50</p>
+<p>🗑️ Chatarra = $100</p>
+<p>🟡 Oro = $500</p>
+<p>🫧 Perla = $10.000</p>
+</div>
+
+</aside>
+</div>
+
+<!-- ================= PVP ================= -->
+
+<div id="pvpScreen">
+
+<div class="pvpBox">
+
+<div class="pvpTitle">
+⚔️ COMBATE PvP
+</div>
+
+<div id="pvpProgress">
+Guerrero 1 / 50
+</div>
+
+<div class="enemyEmoji" id="enemyEmoji">⚔️</div>
+
+<div class="enemyName" id="enemyName">
+Guerrero
+</div>
+
+<div class="healthBox">
+
+<div class="healthText">
+❤️ Vida del enemigo:
+<span id="enemyHealthText">100</span>
+</div>
+
+<div class="healthBar">
+<div id="enemyHealthFill" class="healthFill"></div>
+</div>
+
+</div>
+
+<div class="healthBox">
+
+<div class="healthText">
+❤️ Tu vida:
+<span id="playerHealthText">102</span>
+/
+<span id="playerMaxHealthText">102</span>
+</div>
+
+<div class="healthBar">
+<div id="playerHealthFill" class="healthFill playerHealthFill"></div>
+</div>
+
+</div>
+
+<div class="pvpStats">
+
+<div>
+⚔️ Tu daño:
+<b id="pvpDamage">2</b>
+</div>
+
+<div>
+💥 Daño enemigo:
+<b id="pvpEnemyDamage">2</b>
+</div>
+
+</div>
+
+<button class="pvpAttack" onclick="attackPvP()">
+⚔️ ATACAR
+</button>
+
+<div id="pvpLog">
+¡Prepárate!
+</div>
+
+<button class="pvpExit" onclick="exitPvP()">
+✖ Salir del PvP
+</button>
+
+</div>
+</div>
+
+<!-- ================= TOP ================= -->
+
+<div id="topsScreen">
+
+<div class="topsBox">
+
+<h1>🏆 TOP 10 DINERO</h1>
+
+<p style="text-align:center;color:#aaa">
+Jugadores guardados en este navegador
+</p>
+
+<div id="topList"></div>
+
+<button class="closeButton" onclick="closeTops()">
+✖ Cerrar
+</button>
+
+</div>
+</div>
+
+<div id="whiteFlash"></div>
+<div id="message"></div>
+
+<script>
+
+/* =====================================================
+   JUGADOR
+===================================================== */
+
+let player = {
+
+    username:"Jugador",
+
+    money:0,
+    souls:0,
+
+    swordLevel:1,
+    swordUpgradePrice:50,
+
+    armorLevel:1,
+    armorUpgradePrice:50,
+
+    playerLevel:1,
+    exp:0,
+    expNeeded:100,
+
+    inventory:{
+        leather:0,
+        scrap:0,
+        gold:0,
+        pearls:0
+    }
+};
+
+
+/* =====================================================
+   EVENTO GALÁCTICO
+===================================================== */
+
+let galaxyEvent = false;
+
+const EVENT_EVERY = 10 * 60 * 1000;
+const EVENT_DURATION = 3 * 60 * 1000;
+
+function startGalaxyEvent(){
+
+    if(galaxyEvent) return;
+
+    galaxyEvent = true;
+
+    document
+        .getElementById("main")
+        .classList.add("galaxy");
+
+    document
+        .getElementById("eventText")
+        .style.display = "block";
+
+    createMobs();
+
+    showMessage(
+        "🌌 ¡EVENTO GALÁCTICO! x1.5 RAREZA"
+    );
+
+    setTimeout(
+        endGalaxyEvent,
+        EVENT_DURATION
+    );
+}
+
+function endGalaxyEvent(){
+
+    galaxyEvent = false;
+
+    document
+        .getElementById("main")
+        .classList.remove("galaxy");
+
+    document
+        .getElementById("eventText")
+        .style.display = "none";
+
+    const flash =
+        document.getElementById("whiteFlash");
+
+    flash.classList.remove("flash");
+
+    void flash.offsetWidth;
+
+    flash.classList.add("flash");
+
+    createMobs();
+
+    showMessage(
+        "🌌 El evento galáctico terminó."
+    );
+}
+
+setInterval(
+    startGalaxyEvent,
+    EVENT_EVERY
+);
+
+
+/* =====================================================
+   CARGAR / GUARDAR
+===================================================== */
+
+function loadGame(){
+
+    const saved =
+        localStorage.getItem("zonaAlmasSave");
+
+    if(saved){
+
+        try{
+
+            const data =
+                JSON.parse(saved);
+
+            player = {
+
+                ...player,
+                ...data,
+
+                inventory:{
+                    ...player.inventory,
+                    ...(data.inventory || {})
+                }
+
+            };
+
+        }catch(e){}
+
+    }
+
+    updateUI();
+    createMobs();
+}
+
+function saveGame(){
+
+    localStorage.setItem(
+        "zonaAlmasSave",
+        JSON.stringify(player)
+    );
+
+    saveTop();
+}
+
+
+/* =====================================================
+   TOP
+===================================================== */
+
+function saveTop(){
+
+    let tops =
+        JSON.parse(
+            localStorage.getItem("zonaAlmasTop")
+        ) || [];
+
+    const existing =
+        tops.find(
+            p => p.username === player.username
+        );
+
+    if(existing){
+        existing.money = player.money;
+    }else{
+
+        tops.push({
+            username:player.username,
+            money:player.money
+        });
+
+    }
+
+    tops.sort(
+        (a,b)=>b.money-a.money
+    );
+
+    tops = tops.slice(0,10);
+
+    localStorage.setItem(
+        "zonaAlmasTop",
+        JSON.stringify(tops)
+    );
+}
+
+function openTops(){
+
+    updateTopList();
+
+    document.getElementById(
+        "topsScreen"
+    ).style.display="block";
+}
+
+function closeTops(){
+
+    document.getElementById(
+        "topsScreen"
+    ).style.display="none";
+}
+
+function updateTopList(){
+
+    let tops =
+        JSON.parse(
+            localStorage.getItem("zonaAlmasTop")
+        ) || [];
+
+    tops.sort(
+        (a,b)=>b.money-a.money
+    );
+
+    const list =
+        document.getElementById("topList");
+
+    list.innerHTML="";
+
+    tops.slice(0,10).forEach(
+        (p,index)=>{
+
+            let medal=index+1;
+
+            if(index===0) medal="🥇";
+            if(index===1) medal="🥈";
+            if(index===2) medal="🥉";
+
+            const row =
+                document.createElement("div");
+
+            row.className="topPlayer";
+
+            row.innerHTML=`
+                <div class="rank">${medal}</div>
+                <div class="playerName">
+                    ${escapeHTML(p.username)}
+                </div>
+                <div class="playerMoney">
+                    $${formatNumber(p.money)}
+                </div>
+            `;
+
+            list.appendChild(row);
+        }
+    );
+}
+
+
+/* =====================================================
+   NOMBRE
+===================================================== */
+
+function changeName(){
+
+    const name =
+        prompt("Escribe tu nombre:");
+
+    if(!name) return;
+
+    if(name.trim().length<3){
+
+        showMessage(
+            "❌ Mínimo 3 caracteres."
+        );
+
+        return;
+    }
+
+    player.username=name.trim();
+
+    saveGame();
+    updateUI();
+}
+
+
+/* =====================================================
+   MOBS
+===================================================== */
+
+const normalMobs=[
+    {emoji:"😶",souls:1},
+    {emoji:"😒",souls:2},
+    {emoji:"😎",souls:4},
+    {emoji:"😐",souls:6}
+];
+
+const rareMobs=[
+    {emoji:"💲",souls:20},
+    {emoji:"😈",souls:30},
+    {emoji:"💰",souls:50}
+];
+
+function randomMob(){
+
+    let r=Math.random();
+
+    /*
+     * Durante el evento:
+     * 5%  -> 7.5%
+     * 1%  -> 1.5%
+     * 0.5% -> 0.75%
+     * 0.1% -> 0.15%
+     */
+
+    const multiplier =
+        galaxyEvent ? 1.5 : 1;
+
+    const chance5 =
+        0.05 * multiplier;
+
+    const chance1 =
+        0.01 * multiplier;
+
+    const chance05 =
+        0.005 * multiplier;
+
+    const chance01 =
+        0.001 * multiplier;
+
+
+    if(r < chance01){
+
+        return{
+            emoji:"🫧",
+            souls:25000,
+            type:"lightning"
+        };
+    }
+
+    if(r < chance01 + chance05){
+
+        return{
+            emoji:"🐈‍⬛",
+            souls:15000,
+            type:"cat"
+        };
+    }
+
+    if(r < chance01 + chance05 + chance1){
+
+        return{
+            emoji:"👻",
+            souls:5000,
+            type:"rare"
+        };
+    }
+
+    if(
+        r <
+        chance01+
+        chance05+
+        chance1+
+        chance5
+    ){
+
+        return{
+            emoji:"😭",
+            souls:100,
+            type:"cry"
+        };
+    }
+
+    if(r < 0.112){
+
+        const m =
+            rareMobs[
+                Math.floor(
+                    Math.random()*rareMobs.length
+                )
+            ];
+
+        return{
+            emoji:m.emoji,
+            souls:m.souls,
+            type:"rare"
+        };
+    }
+
+    const m =
+        normalMobs[
+            Math.floor(
+                Math.random()*normalMobs.length
+            )
+        ];
+
+    return{
+        emoji:m.emoji,
+        souls:m.souls,
+        type:"normal"
+    };
+}
+
+function createMobs(){
+
+    const container =
+        document.getElementById("mobs");
+
+    container.innerHTML="";
+
+    for(let i=0;i<25;i++){
+        spawnMob();
+    }
+}
+
+function spawnMob(){
+
+    const mob=randomMob();
+
+    const element =
+        document.createElement("div");
+
+    element.className="mob";
+
+    if(mob.type==="rare")
+        element.classList.add("rare");
+
+    if(mob.type==="celestial")
+        element.classList.add("celestial");
+
+    if(mob.type==="cat")
+        element.classList.add("cat");
+
+    if(mob.type==="cry")
+        element.classList.add("cry");
+
+    if(mob.type==="lightning")
+        element.classList.add("lightning");
+
+    element.innerHTML=`
+        <div class="mobEmoji">${mob.emoji}</div>
+        <div class="reward">
+            +${formatNumber(mob.souls)} 👻
+        </div>
+    `;
+
+    element.onclick=()=>{
+        killMob(mob,element);
+    };
+
+    document
+        .getElementById("mobs")
+        .appendChild(element);
+}
+
+
+/* =====================================================
+   MATAR MOB
+===================================================== */
+
+function killMob(mob,element){
+
+    if(element.dataset.dead) return;
+
+    element.dataset.dead="true";
+
+    player.souls += mob.souls;
+
+    if(Math.random()<.05){
+        player.inventory.leather++;
+    }
+
+    if(Math.random()<.03){
+        player.inventory.scrap++;
+    }
+
+    if(Math.random()<.01){
+        player.inventory.gold++;
+    }
+
+    if(Math.random()<.005){
+        player.inventory.pearls++;
+        showMessage("🫧 ¡CONSEGUISTE UNA PERLA!");
+    }
+
+    giveExp(
+        Math.max(5,mob.souls)
+    );
+
+    playHitSound();
+
+    updateUI();
+    saveGame();
+
+    setTimeout(()=>{
+        element.remove();
+        spawnMob();
+    },400);
+}
+
+
+/* =====================================================
+   SONIDO GOLPE
+===================================================== */
+
+function playHitSound(){
+
+    try{
+
+        const AC =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        const ctx=new AC();
+
+        const osc=ctx.createOscillator();
+        const gain=ctx.createGain();
+
+        osc.frequency.value=280;
+        osc.type="sine";
+
+        gain.gain.value=.04;
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime+.08);
+
+    }catch(e){}
+}
+
+
+/* =====================================================
+   ECONOMÍA
+===================================================== */
+
+function sellSouls(){
+
+    if(player.souls<=0){
+
+        showMessage("❌ No tienes almas.");
+        return;
+    }
+
+    const earned=player.souls*2;
+
+    player.money+=earned;
+    player.souls=0;
+
+    updateUI();
+    saveGame();
+
+    showMessage(
+        "💰 +$"+formatNumber(earned)
+    );
+}
+
+function getInventoryValue(){
+
+    return(
+        player.inventory.leather*50+
+        player.inventory.scrap*100+
+        player.inventory.gold*500+
+        player.inventory.pearls*10000
+    );
+}
+
+function sellInventory(){
+
+    const total=getInventoryValue();
+
+    if(total<=0){
+
+        showMessage("❌ No tienes objetos.");
+        return;
+    }
+
+    player.money+=total;
+
+    player.inventory={
+        leather:0,
+        scrap:0,
+        gold:0,
+        pearls:0
+    };
+
+    updateUI();
+    saveGame();
+
+    showMessage(
+        "💰 Vendiste todo por $"+
+        formatNumber(total)
+    );
+}
+
+
+/* =====================================================
+   ESPADA
+   +6% DE PRECIO
+===================================================== */
+
+function swordDamage(){
+
+    return player.swordLevel*2;
+}
+
+function upgradeSword(){
+
+    if(player.swordLevel>=500){
+
+        showMessage(
+            "🏆 ¡Espada nivel máximo!"
+        );
+
+        return;
+    }
+
+    if(player.money<player.swordUpgradePrice){
+
+        showMessage(
+            "❌ No tienes suficiente dinero."
+        );
+
+        return;
+    }
+
+    player.money -=
+        player.swordUpgradePrice;
+
+    player.swordLevel++;
+
+    player.swordUpgradePrice =
+        player.swordUpgradePrice*1.06;
+
+    updateUI();
+    saveGame();
+
+    showMessage(
+        "⚔️ Espada nivel "+
+        player.swordLevel
+    );
+}
+
+
+/* =====================================================
+   ARMADURA
+   NIVEL 1 = +2 VIDA
+   CADA NIVEL +7%
+   PRECIO +6%
+===================================================== */
+
+function armorBonus(){
+
+    return 2 *
+        Math.pow(
+            1.07,
+            player.armorLevel-1
+        );
+}
+
+function maxHealth(){
+
+    return 100+armorBonus();
+}
+
+function upgradeArmor(){
+
+    if(player.armorLevel>=500){
+
+        showMessage(
+            "🏆 ¡Armadura nivel máximo!"
+        );
+
+        return;
+    }
+
+    if(player.money<player.armorUpgradePrice){
+
+        showMessage(
+            "❌ No tienes suficiente dinero."
+        );
+
+        return;
+    }
+
+    player.money -=
+        player.armorUpgradePrice;
+
+    player.armorLevel++;
+
+    player.armorUpgradePrice =
+        player.armorUpgradePrice*1.06;
+
+    updateUI();
+    saveGame();
+
+    showMessage(
+        "🛡️ Armadura nivel "+
+        player.armorLevel
+    );
+}
+
+
+/* =====================================================
+   EXP
+===================================================== */
+
+function giveExp(amount){
+
+    player.exp+=amount;
+
+    while(
+        player.exp>=player.expNeeded
+    ){
+
+        player.exp-=player.expNeeded;
+
+        player.playerLevel++;
+
+        player.expNeeded =
+            player.expNeeded*1.25;
+
+        showMessage(
+            "⭐ ¡Nivel "+
+            player.playerLevel+
+            "!"
+        );
+    }
+
+    updateUI();
+}
+
+
+/* =====================================================
+   50 GUERREROS PvP
+===================================================== */
+
+const pvpMobs=[
+
+["⚔️","Caballero Oscuro"],
+["🛡️","Guerrero Carmesí"],
+["👹","Demonio"],
+["🐺","Lobo de Guerra"],
+["💀","Soldado Maldito"],
+["🔥","Guerrero Infernal"],
+["👺","Oni"],
+["🧟","Campeón Zombie"],
+["🦇","Señor de las Sombras"],
+["👿","Demonio Rojo"],
+["⚡","Guerrero Relámpago"],
+["🗡️","Asesino"],
+["🐉","Cazador de Dragones"],
+["☠️","General Maldito"],
+["🧙","Mago Oscuro"],
+["🦾","Guerrero Mecánico"],
+["👑","Rey Guerrero"],
+["🔥","Señor Infernal"],
+["🌑","Caballero de la Noche"],
+["💀","Verdugo"],
+["🐲","Dragón Guerrero"],
+["⚔️","Maestro de Espadas"],
+["👹","Señor Demonio"],
+["🛡️","Guardián"],
+["🌋","Guerrero Volcánico"],
+["❄️","Guerrero Glacial"],
+["⚡","Maestro del Trueno"],
+["☠️","Guerrero Espectral"],
+["👿","Demonio Supremo"],
+["🔥","Rey Infernal"],
+["🪽","Ángel Caído"],
+["🌑","Sombra Mortal"],
+["💀","Señor de los Muertos"],
+["🐺","Alfa Oscuro"],
+["👺","Oni Supremo"],
+["⚔️","Espadachín Legendario"],
+["🛡️","Titán"],
+["🔥","Titán Infernal"],
+["🌪️","Guerrero Tornado"],
+["⚡","Titán del Trueno"],
+["🐉","Dragón Oscuro"],
+["👑","Rey de las Almas"],
+["☠️","General Supremo"],
+["🌌","Guerrero Cósmico"],
+["💀","Caballero Eterno"],
+["🔥","Demonio Ancestral"],
+["⚔️","Maestro Supremo"],
+["👹","Señor de la Guerra"],
+["🌑","Rey de las Sombras"],
+["💀","Jefe Final"]
+
+];
+
+let pvpIndex=0;
+let pvpEnemyHealth=0;
+let pvpEnemyMaxHealth=0;
+let pvpPlayerHealth=0;
+let pvpEnemyDamage=2;
+let pvpMusic=null;
+let pvpMusicTimer=null;
+let pvpMusicPlaying=false;
+
+
+/* =====================================================
+   MÚSICA PvP
+   SE CREA AL HACER CLIC EN ENTRAR AL PvP
+===================================================== */
+
+function startPvPMusic(){
+
+    stopPvPMusic();
+
+    try{
+
+        const AC =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        pvpMusic =
+            new AC();
+
+        if(pvpMusic.state==="suspended"){
+            pvpMusic.resume();
+        }
+
+        pvpMusicPlaying=true;
+
+        const ctx=pvpMusic;
+
+        const notes=[
+            55,
+            65.41,
+            73.42,
+            55,
+            61.74,
+            49
+        ];
+
+        let noteIndex=0;
+
+        function nextNote(){
+
+            if(!pvpMusicPlaying) return;
+
+            const now=ctx.currentTime;
+
+            const osc=
+                ctx.createOscillator();
+
+            const gain=
+                ctx.createGain();
+
+            osc.type="sine";
+
+            osc.frequency.setValueAtTime(
+                notes[noteIndex],
+                now
+            );
+
+            noteIndex=
+                (noteIndex+1)%notes.length;
+
+            gain.gain.setValueAtTime(
+                0,
+                now
+            );
+
+            gain.gain.linearRampToValueAtTime(
+                .055,
+                now+.2
+            );
+
+            gain.gain.linearRampToValueAtTime(
+                0,
+                now+2.2
+            );
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(now);
+            osc.stop(now+2.3);
+
+            pvpMusicTimer=
+                setTimeout(
+                    nextNote,
+                    1500
+                );
+        }
+
+        nextNote();
+
+    }catch(e){
+        console.log("Audio:",e);
+    }
+}
+
+function stopPvPMusic(){
+
+    pvpMusicPlaying=false;
+
+    if(pvpMusicTimer){
+
+        clearTimeout(pvpMusicTimer);
+        pvpMusicTimer=null;
+    }
+
+    if(pvpMusic){
+
+        try{
+            pvpMusic.close();
+        }catch(e){}
+
+        pvpMusic=null;
+    }
+}
+
+
+/* =====================================================
+   ENTRAR PvP
+===================================================== */
+
+function startPvP(){
+
+    /*
+     * La música empieza EXACTAMENTE
+     * después del clic del usuario.
+     */
+
+    startPvPMusic();
+
+    pvpIndex=0;
+
+    pvpPlayerHealth=maxHealth();
+
+    document.getElementById(
+        "pvpScreen"
+    ).style.display="flex";
+
+    loadPvPFighter();
+}
+
+
+/* =====================================================
+   SIGUIENTE GUERRERO
+===================================================== */
+
+function loadPvPFighter(){
+
+    if(pvpIndex>=50){
+
+        stopPvPMusic();
+
+        document.getElementById(
+            "pvpScreen"
+        ).style.display="none";
+
+        showMessage(
+            "🏆 ¡DERROTASTE A LOS 50 GUERREROS!"
+        );
+
+        return;
+    }
+
+    const enemy=
+        pvpMobs[pvpIndex];
+
+    /*
+     * Vida enemiga aumenta con cada guerrero.
+     */
+
+    pvpEnemyMaxHealth=
+        25+
+        pvpIndex*18;
+
+    pvpEnemyHealth=
+        pvpEnemyMaxHealth;
+
+    /*
+     * Primer guerrero = 2 daño.
+     * Cada siguiente aumenta 5%.
+     */
+
+    pvpEnemyDamage=
+        2*
+        Math.pow(
+            1.05,
+            pvpIndex
+        );
+
+    pvpPlayerHealth=
+        maxHealth();
+
+    document.getElementById(
+        "enemyEmoji"
+    ).textContent=enemy[0];
+
+    document.getElementById(
+        "enemyName"
+    ).textContent=enemy[1];
+
+    document.getElementById(
+        "pvpProgress"
+    ).textContent=
+        "Guerrero "+
+        (pvpIndex+1)+
+        " / 50";
+
+    updatePvPUI();
+
+    document.getElementById(
+        "pvpLog"
+    ).textContent=
+        "⚔️ ¡Derrota a "+enemy[1]+"!";
+}
+
+
+/* =====================================================
+   ATACAR
+===================================================== */
+
+function attackPvP(){
+
+    if(pvpEnemyHealth<=0) return;
+
+    const damage=
+        swordDamage();
+
+    pvpEnemyHealth -= damage;
+
+    if(pvpEnemyHealth<=0){
+
+        pvpEnemyHealth=0;
+
+        updatePvPUI();
+
+        /*
+         * EXP aumenta según el guerrero.
+         */
+
+        const expReward=
+            100+
+            pvpIndex*75;
+
+        giveExp(expReward);
+
+        showMessage(
+            "💥 ¡Derrotaste al guerrero! +"+
+            formatNumber(expReward)+
+            " EXP"
+        );
+
+        setTimeout(()=>{
+
+            /*
+             * Al matar:
+             * VIDA RESTAURADA AL MÁXIMO.
+             */
+
+            pvpIndex++;
+
+            pvpPlayerHealth=
+                maxHealth();
+
+            loadPvPFighter();
+
+            saveGame();
+
+        },800);
+
+        return;
+    }
+
+
+    /*
+     * El enemigo responde.
+     */
+
+    pvpPlayerHealth -=
+        pvpEnemyDamage;
+
+    if(pvpPlayerHealth<0){
+        pvpPlayerHealth=0;
+    }
+
+    document.getElementById(
+        "pvpLog"
+    ).textContent=
+        "⚔️ Hiciste "+
+        formatNumber(damage)+
+        " daño. El enemigo te hizo "+
+        formatNumber(pvpEnemyDamage)+
+        " daño.";
+
+    updatePvPUI();
+
+
+    /*
+     * Si tu vida llega a 0,
+     * pierdes el combate y sales.
+     */
+
+    if(pvpPlayerHealth<=0){
+
+        setTimeout(()=>{
+
+            stopPvPMusic();
+
+            document.getElementById(
+                "pvpScreen"
+            ).style.display="none";
+
+            showMessage(
+                "💀 ¡Has perdido el combate PvP!"
+            );
+
+        },600);
+    }
+}
+
+
+/* =====================================================
+   PvP UI
+===================================================== */
+
+function updatePvPUI(){
+
+    document.getElementById(
+        "enemyHealthText"
+    ).textContent=
+        formatNumber(pvpEnemyHealth);
+
+    document.getElementById(
+        "enemyHealthFill"
+    ).style.width=
+        Math.max(
+            0,
+            pvpEnemyHealth/
+            pvpEnemyMaxHealth*
+            100
+        )+"%";
+
+    document.getElementById(
+        "playerHealthText"
+    ).textContent=
+        formatNumber(pvpPlayerHealth);
+
+    document.getElementById(
+        "playerMaxHealthText"
+    ).textContent=
+        formatNumber(maxHealth());
+
+    document.getElementById(
+        "playerHealthFill"
+    ).style.width=
+        Math.max(
+            0,
+            pvpPlayerHealth/
+            maxHealth()*
+            100
+        )+"%";
+
+    document.getElementById(
+        "pvpDamage"
+    ).textContent=
+        formatNumber(swordDamage());
+
+    document.getElementById(
+        "pvpEnemyDamage"
+    ).textContent=
+        formatNumber(pvpEnemyDamage);
+}
+
+
+/* =====================================================
+   SALIR PvP
+===================================================== */
+
+function exitPvP(){
+
+    stopPvPMusic();
+
+    document.getElementById(
+        "pvpScreen"
+    ).style.display="none";
+
+    showMessage(
+        "⚔️ Saliste del PvP."
+    );
+}
+
+
+/* =====================================================
+   ACTUALIZAR UI
+===================================================== */
+
+function updateUI(){
+
+    document.getElementById("money")
+        .textContent=
+        formatNumber(player.money);
+
+    document.getElementById("economyMoney")
+        .textContent=
+        formatNumber(player.money);
+
+    document.getElementById("souls")
+        .textContent=
+        formatNumber(player.souls);
+
+    document.getElementById("sideSouls")
+        .textContent=
+        formatNumber(player.souls);
+
+    document.getElementById("username")
+        .textContent=
+        player.username;
+
+    document.getElementById("swordLevel")
+        .textContent=
+        player.swordLevel;
+
+    document.getElementById("swordSide")
+        .textContent=
+        player.swordLevel;
+
+    document.getElementById("damage")
+        .textContent=
+        formatNumber(swordDamage());
+
+    document.getElementById("upgradePrice")
+        .textContent=
+        formatNumber(player.swordUpgradePrice);
+
+    document.getElementById("armorLevel")
+        .textContent=
+        player.armorLevel;
+
+    document.getElementById("armorSide")
+        .textContent=
+        player.armorLevel;
+
+    document.getElementById("armorBonus")
+        .textContent=
+        formatNumber(armorBonus());
+
+    document.getElementById("maxHealth")
+        .textContent=
+        formatNumber(maxHealth());
+
+    document.getElementById("armorPrice")
+        .textContent=
+        formatNumber(player.armorUpgradePrice);
+
+    document.getElementById("playerLevel")
+        .textContent=
+        player.playerLevel;
+
+    document.getElementById("levelSide")
+        .textContent=
+        player.playerLevel;
+
+    document.getElementById("exp")
+        .textContent=
+        formatNumber(player.exp);
+
+    document.getElementById("expNeeded")
+        .textContent=
+        formatNumber(player.expNeeded);
+
+    document.getElementById("expBar")
+        .style.width=
+        (
+            player.exp/
+            player.expNeeded*
+            100
+        )+"%";
+
+    document.getElementById("leather")
+        .textContent=
+        player.inventory.leather;
+
+    document.getElementById("scrap")
+        .textContent=
+        player.inventory.scrap;
+
+    document.getElementById("gold")
+        .textContent=
+        player.inventory.gold;
+
+    document.getElementById("pearls")
+        .textContent=
+        player.inventory.pearls;
+
+    document.getElementById("inventoryValue")
+        .textContent=
+        formatNumber(
+            getInventoryValue()
+        );
+}
+
+
+/* =====================================================
+   UTILIDADES
+===================================================== */
+
+function formatNumber(number){
+
+    return Number(number)
+        .toLocaleString(
+            "es-ES",
+            {
+                maximumFractionDigits:2
+            }
+        );
+}
+
+function escapeHTML(text){
+
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+function showMessage(text){
+
+    const box=
+        document.getElementById("message");
+
+    box.textContent=text;
+
+    box.classList.add("show");
+
+    setTimeout(()=>{
+        box.classList.remove("show");
+    },2200);
+}
+
+
+/* =====================================================
+   AUTOGUARDADO
+===================================================== */
+
+setInterval(
+    saveGame,
+    5000
+);
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+loadGame();
+
+</script>
+
+</body>
+</html>
