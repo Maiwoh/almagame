@@ -4816,6 +4816,12 @@ async function sincronizarJugador(){
         return;
     }
 
+    /* Actualizar el dinero del juego con Supabase */
+    player.money = Number(data.monedas || 0);
+
+    updateUI();
+    saveGame();
+
     console.log(
         "✅ Jugador conectado:",
         data.nombre
