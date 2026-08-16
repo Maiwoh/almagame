@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Zona de Almas</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box
+}
 
 body{
 margin:0;
@@ -15,7 +22,9 @@ background:#080a10;
 color:white;
 }
 
-button{cursor:pointer}
+button{
+cursor:pointer
+}
 
 #topbar{
 height:65px;
@@ -94,7 +103,8 @@ cursor:pointer;
 transform:scale(1.04);
 }
 
-.mobEmoji,.reward{
+.mobEmoji,
+.reward{
 position:relative;
 z-index:5;
 }
@@ -158,12 +168,18 @@ box-shadow:0 0 20px #168cff,0 0 55px #006eff;
 animation:blueAura 2s infinite alternate;
 }
 
-.rare::before,.rare::after,
-.cat::before,.cat::after,
-.cry::before,.cry::after,
-.lightning::before,.lightning::after,
-.robotMob::before,.robotMob::after,
-.blueMob::before,.blueMob::after{
+.rare::before,
+.rare::after,
+.cat::before,
+.cat::after,
+.cry::before,
+.cry::after,
+.lightning::before,
+.lightning::after,
+.robotMob::before,
+.robotMob::after,
+.blueMob::before,
+.blueMob::after{
 content:"⚡";
 position:absolute;
 z-index:1;
@@ -171,16 +187,24 @@ opacity:.6;
 pointer-events:none;
 }
 
-.rare::before,.cry::before,.cat::before,
-.lightning::before,.robotMob::before,.blueMob::before{
+.rare::before,
+.cry::before,
+.cat::before,
+.lightning::before,
+.robotMob::before,
+.blueMob::before{
 left:0;
 top:5px;
 font-size:30px;
 animation:boltSlow1 7s infinite linear;
 }
 
-.rare::after,.cry::after,.cat::after,
-.lightning::after,.robotMob::after,.blueMob::after{
+.rare::after,
+.cry::after,
+.cat::after,
+.lightning::after,
+.robotMob::after,
+.blueMob::after{
 right:0;
 bottom:5px;
 font-size:28px;
@@ -496,18 +520,8 @@ font-weight:bold;
 margin-top:15px;
 }
 
-.marketItem{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-background:#252b36;
-padding:12px;
-border-radius:10px;
-margin:8px 0;
-}
-
-input{
+input,
+select{
 width:100%;
 padding:10px;
 border:0;
@@ -551,12 +565,163 @@ text-align:center;
 opacity:1;
 }
 
+/* ===========================
+   NUEVO MERCADO
+=========================== */
+
+.auctionHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:18px;
+}
+
+.auctionHeader h2{
+margin:0;
+font-size:25px;
+}
+
+.auctionHeader p{
+color:#aaa;
+}
+
+.auctionCount{
+background:#7542c8;
+padding:7px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+white-space:nowrap;
+}
+
+.auctionGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:14px;
+}
+
+.auctionCard{
+position:relative;
+background:linear-gradient(145deg,#292f3b,#171b23);
+border:1px solid #414a5c;
+border-radius:16px;
+padding:18px;
+transition:.2s;
+overflow:hidden;
+}
+
+.auctionCard:hover{
+transform:translateY(-3px);
+border-color:#8d53e8;
+box-shadow:0 0 20px rgba(141,83,232,.2);
+}
+
+.auctionIcon{
+width:65px;
+height:65px;
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+background:#171b23;
+border:1px solid #414a5c;
+margin-bottom:12px;
+}
+
+.auctionName{
+font-size:18px;
+font-weight:bold;
+margin-bottom:5px;
+}
+
+.auctionSeller{
+color:#aaa;
+font-size:13px;
+margin-bottom:12px;
+}
+
+.auctionInfo{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#11151c;
+padding:10px;
+border-radius:9px;
+margin-bottom:12px;
+}
+
+.auctionPrice{
+color:#ffd84d;
+font-size:18px;
+font-weight:bold;
+}
+
+.auctionBuy{
+width:100%;
+padding:12px;
+border:0;
+border-radius:9px;
+background:#28784a;
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+transition:.15s;
+}
+
+.auctionBuy:hover{
+filter:brightness(1.15);
+transform:scale(1.02);
+}
+
+.auctionEmpty{
+text-align:center;
+padding:35px 15px;
+background:#171b23;
+border-radius:15px;
+border:1px dashed #414a5c;
+color:#aaa;
+}
+
+.sellAuctionBox{
+background:#171b23;
+border:1px solid #414a5c;
+border-radius:16px;
+padding:18px;
+}
+
+.sellAuctionBox h2{
+margin-top:0;
+}
+
+.sellLabel{
+font-size:13px;
+color:#aaa;
+margin-top:10px;
+display:block;
+margin-bottom:5px;
+}
+
+.auctionBack{
+background:#303846;
+}
+
 @media(max-width:900px){
-#mobs{grid-template-columns:repeat(3,1fr)}
-#side{width:260px}
+
+#mobs{
+grid-template-columns:repeat(3,1fr)
+}
+
+#side{
+width:260px
+}
+
 }
 
 @media(max-width:650px){
+
 #topbar{
 justify-content:flex-start;
 padding:0 10px;
@@ -580,7 +745,13 @@ grid-template-columns:repeat(2,1fr);
 .vsArena{
 grid-template-columns:1fr;
 }
+
+.auctionGrid{
+grid-template-columns:1fr;
 }
+
+}
+
 </style>
 </head>
 
@@ -620,69 +791,169 @@ grid-template-columns:1fr;
 
 <div class="panel">
 <h2>👤 Jugador</h2>
-<p>Nombre: <b id="username">Jugador</b></p>
-<button class="blue" onclick="changeName()">✏️ Cambiar nombre</button>
+
+<p>Nombre:
+<b id="username">Jugador</b>
+</p>
+
+<button class="blue" onclick="changeName()">
+✏️ Cambiar nombre
+</button>
+
 </div>
 
 <div class="panel">
+
 <h2>💰 Economía</h2>
-<p>💰 Dinero: <b>$<span id="economyMoney">0</span></b></p>
+
+<p>
+💰 Dinero:
+<b>$<span id="economyMoney">0</span></b>
+</p>
+
 <hr>
-<p>👻 Almas: <b id="sideSouls">0</b></p>
+
+<p>
+👻 Almas:
+<b id="sideSouls">0</b>
+</p>
+
 <p>1 alma = $2</p>
-<button class="gold" onclick="sellSouls()">💵 Vender almas</button>
+
+<button class="gold" onclick="sellSouls()">
+💵 Vender almas
+</button>
+
 </div>
 
 <div class="panel">
+
 <h2>⚔️ Espada equipada</h2>
-<p id="equippedSwordText">⚔️ Espada nivel 1</p>
-<p>Daño: <b id="damage">2</b></p>
-<button class="green" onclick="upgradeEquippedSword()">⬆️ Mejorar espada</button>
-<button class="blue" onclick="openInventory()">🎒 Ver inventario</button>
+
+<p id="equippedSwordText">
+⚔️ Espada nivel 1
+</p>
+
+<p>
+Daño:
+<b id="damage">2</b>
+</p>
+
+<button class="green" onclick="upgradeEquippedSword()">
+⬆️ Mejorar espada
+</button>
+
+<button class="blue" onclick="openInventory()">
+🎒 Ver inventario
+</button>
+
 </div>
 
 <div class="panel">
+
 <h2>🛡️ Armadura equipada</h2>
-<p id="equippedArmorText">🛡️ Armadura nivel 1</p>
-<p>❤️ Vida extra: <b id="armorBonus">2</b></p>
-<p>❤️ Vida máxima: <b id="maxHealth">102</b></p>
-<button class="green" onclick="upgradeEquippedArmor()">⬆️ Mejorar armadura</button>
-<button class="blue" onclick="openInventory()">🎒 Ver inventario</button>
+
+<p id="equippedArmorText">
+🛡️ Armadura nivel 1
+</p>
+
+<p>
+❤️ Vida extra:
+<b id="armorBonus">2</b>
+</p>
+
+<p>
+❤️ Vida máxima:
+<b id="maxHealth">102</b>
+</p>
+
+<button class="green" onclick="upgradeEquippedArmor()">
+⬆️ Mejorar armadura
+</button>
+
+<button class="blue" onclick="openInventory()">
+🎒 Ver inventario
+</button>
+
 </div>
 
 <div class="panel">
+
 <h2>⭐ Experiencia</h2>
-<p>Nivel: <b id="levelSide">1</b></p>
-<p>EXP: <b id="exp">0</b> / <b id="expNeeded">100</b></p>
+
+<p>
+Nivel:
+<b id="levelSide">1</b>
+</p>
+
+<p>
+EXP:
+<b id="exp">0</b> /
+<b id="expNeeded">100</b>
+</p>
+
 <div id="expContainer">
 <div id="expBar"></div>
 </div>
+
 </div>
 
 <div class="panel">
+
 <h2>🔮 Prestigio</h2>
-<p>Prestigio actual: <b id="prestigeSide">0</b></p>
-<button class="purple" onclick="openPrestige()">🔮 Ver Prestigios</button>
+
+<p>
+Prestigio actual:
+<b id="prestigeSide">0</b>
+</p>
+
+<button class="purple" onclick="openPrestige()">
+🔮 Ver Prestigios
+</button>
+
 </div>
 
 <div class="panel">
+
 <h2>🦠 Bacteria</h2>
-<p>🦠 Bacteria tiene <b>100.000</b> de vida.</p>
-<button class="red" onclick="startBacteria()">🦠 Derrotar a Bacteria</button>
+
+<p>
+🦠 Bacteria tiene <b>100.000</b> de vida.
+</p>
+
+<button class="red" onclick="startBacteria()">
+🦠 Derrotar a Bacteria
+</button>
+
 </div>
 
 <div class="panel">
+
 <h2>🕸️ Mercado Negro</h2>
-<p>🪽 Alas de Ángel: <b id="marketWings">0</b></p>
-<button class="blackButton" onclick="openBlackMarket()">🕸️ Entrar al Mercado Negro</button>
+
+<p>
+🪽 Alas de Ángel:
+<b id="marketWings">0</b>
+</p>
+
+<button class="blackButton" onclick="openBlackMarket()">
+🕸️ Entrar al Mercado Negro
+</button>
+
 </div>
 
 <div class="panel">
+
 <h2>⚔️ VS</h2>
-<button class="red" onclick="openVS()">⚔️ Tú VS Jugador</button>
+
+<button class="red" onclick="openVS()">
+⚔️ Tú VS Jugador
+</button>
+
 </div>
 
 <div class="panel">
+
 <h2>📜 Drops</h2>
 
 <p>😶 = 1 alma</p>
@@ -719,7 +990,10 @@ grid-template-columns:1fr;
 </div>
 
 </aside>
+
 </div>
+
+<!-- LOGROS -->
 
 <div id="achievementsScreen" class="screen">
 
@@ -738,7 +1012,10 @@ Completa desafíos para desbloquearlos.
 </button>
 
 </div>
+
 </div>
+
+<!-- INVENTARIO -->
 
 <div id="inventoryScreen" class="screen">
 
@@ -757,7 +1034,10 @@ Completa desafíos para desbloquearlos.
 </button>
 
 </div>
+
 </div>
+
+<!-- COMPRAR EQUIPO -->
 
 <div id="buyEquipmentScreen" class="screen">
 
@@ -769,10 +1049,21 @@ Completa desafíos para desbloquearlos.
 
 <h2>⚔️ Espadas</h2>
 
-<p>Cada espada cuesta $50.</p>
+<p>
+Cada espada cuesta <b>$50</b>.
+</p>
+
+<input
+id="swordBuyQuantity"
+type="number"
+min="1"
+max="10000"
+value="1"
+placeholder="Cantidad de espadas"
+>
 
 <button class="bigButton green" onclick="buySword()">
-⚔️ Comprar espada
+⚔️ Comprar espadas
 </button>
 
 </div>
@@ -781,10 +1072,21 @@ Completa desafíos para desbloquearlos.
 
 <h2>🛡️ Armaduras</h2>
 
-<p>Cada armadura cuesta $50.</p>
+<p>
+Cada armadura cuesta <b>$50</b>.
+</p>
+
+<input
+id="armorBuyQuantity"
+type="number"
+min="1"
+max="10000"
+value="1"
+placeholder="Cantidad de armaduras"
+>
 
 <button class="bigButton green" onclick="buyArmor()">
-🛡️ Comprar armadura
+🛡️ Comprar armaduras
 </button>
 
 </div>
@@ -794,7 +1096,10 @@ Completa desafíos para desbloquearlos.
 </button>
 
 </div>
+
 </div>
+
+<!-- PRESTIGIO -->
 
 <div id="prestigeScreen" class="screen">
 
@@ -813,7 +1118,10 @@ El prestigio reinicia tu nivel y EXP, pero conserva tus equipos.
 </button>
 
 </div>
+
 </div>
+
+<!-- MERCADO NEGRO -->
 
 <div id="blackMarket" class="screen">
 
@@ -825,7 +1133,9 @@ El prestigio reinicia tu nivel y EXP, pero conserva tus equipos.
 
 <h2>🪽 OFERTA PROHIBIDA</h2>
 
-<p style="font-size:22px">🪽 x5 Alas de Ángel</p>
+<p style="font-size:22px">
+🪽 x5 Alas de Ángel
+</p>
 
 <p>⬇️</p>
 
@@ -833,8 +1143,10 @@ El prestigio reinicia tu nivel y EXP, pero conserva tus equipos.
 🍀 +0.5% SUERTE PERMANENTE
 </p>
 
-<p>Tienes:
-<b id="marketWingCount">0</b> / 5 🪽</p>
+<p>
+Tienes:
+<b id="marketWingCount">0</b> / 5 🪽
+</p>
 
 <button class="bigButton blackButton" onclick="buyLuck()">
 🕸️ COMERCIAR
@@ -847,7 +1159,10 @@ El prestigio reinicia tu nivel y EXP, pero conserva tus equipos.
 </button>
 
 </div>
+
 </div>
+
+<!-- MERCADO -->
 
 <div id="marketScreen" class="screen">
 
@@ -870,7 +1185,10 @@ El prestigio reinicia tu nivel y EXP, pero conserva tus equipos.
 </button>
 
 </div>
+
 </div>
+
+<!-- BACTERIA -->
 
 <div id="bacteriaScreen" class="screen">
 
@@ -923,7 +1241,10 @@ style="background:#35c96d"></div>
 </button>
 
 </div>
+
 </div>
+
+<!-- VS -->
 
 <div id="vsScreen" class="screen">
 
@@ -945,13 +1266,18 @@ style="background:#35c96d"></div>
 
 </div>
 
-<div id="vsWaiting" style="display:none;text-align:center">
+<div id="vsWaiting"
+style="display:none;text-align:center">
 
 <h2>⏳ Esperando jugadores...</h2>
 
-<p>Tu sala está disponible para otros jugadores.</p>
+<p>
+Tu sala está disponible para otros jugadores.
+</p>
 
-<div style="font-size:50px">⚔️</div>
+<div style="font-size:50px">
+⚔️
+</div>
 
 <button class="closeButton" onclick="cancelRoom()">
 Cancelar sala
@@ -1019,7 +1345,9 @@ Cancelar sala
 
 </div>
 
-<p id="vsLog">⚔️ ¡Prepárate!</p>
+<p id="vsLog">
+⚔️ ¡Prepárate!
+</p>
 
 <button class="closeButton" onclick="exitVS()">
 ✖ Salir
@@ -1032,22 +1360,52 @@ Cancelar sala
 </button>
 
 </div>
+
 </div>
 
 <div id="message"></div>
 
 <script>
 
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL=
+"https://abcyztazzqpjrzzfhrvf.supabase.co";
+
+const SUPABASE_KEY=
+"sb_publishable_568jxqS7yPaB_utMv6jjpA__Xd4jo3E";
+
+const db=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+console.log("✅ Supabase conectado");
+
+
+/* =========================================
+   JUGADOR
+========================================= */
+
 let player={
+
 username:"Jugador",
+
 money:0,
+
 souls:0,
 
 playerLevel:1,
+
 exp:0,
+
 expNeeded:100,
 
 prestige:0,
+
 luck:0,
 
 inventory:{
@@ -1067,8 +1425,15 @@ armors:[
 ],
 
 equippedSword:0,
+
 equippedArmor:0
+
 };
+
+
+/* =========================================
+   PRESTIGIOS
+========================================= */
 
 const prestigeData=[
 
@@ -1126,6 +1491,11 @@ multiplier:4
 
 ];
 
+
+/* =========================================
+   LOGROS
+========================================= */
+
 const achievements=[
 
 {
@@ -1174,6 +1544,11 @@ icon:"🕸️"
 
 let completedAchievements=[];
 
+
+/* =========================================
+   SONIDOS
+========================================= */
+
 function victorySound(){
 
 try{
@@ -1184,7 +1559,8 @@ window.webkitAudioContext;
 
 const ctx=new AC();
 
-if(ctx.state==="suspended")ctx.resume();
+if(ctx.state==="suspended")
+ctx.resume();
 
 const now=ctx.currentTime;
 
@@ -1196,7 +1572,10 @@ const gain=ctx.createGain();
 osc.type="triangle";
 osc.frequency.value=freq;
 
-gain.gain.setValueAtTime(.0001,now+i*.12);
+gain.gain.setValueAtTime(
+.0001,
+now+i*.12
+);
 
 gain.gain.exponentialRampToValueAtTime(
 .13,
@@ -1217,18 +1596,76 @@ osc.stop(now+i*.12+.28);
 });
 
 setTimeout(()=>{
-
 try{ctx.close()}catch(e){}
-
 },900);
 
 }catch(e){}
 
 }
 
+
+function playSatisfyingKillSound(){
+
+try{
+
+const AC=
+window.AudioContext||
+window.webkitAudioContext;
+
+const ctx=new AC();
+
+if(ctx.state==="suspended")
+ctx.resume();
+
+const now=ctx.currentTime;
+
+const osc=ctx.createOscillator();
+const gain=ctx.createGain();
+
+osc.type="triangle";
+
+osc.frequency.setValueAtTime(260,now);
+
+osc.frequency.exponentialRampToValueAtTime(
+520,
+now+.08
+);
+
+gain.gain.setValueAtTime(.0001,now);
+
+gain.gain.exponentialRampToValueAtTime(
+.12,
+now+.015
+);
+
+gain.gain.exponentialRampToValueAtTime(
+.0001,
+now+.18
+);
+
+osc.connect(gain);
+gain.connect(ctx.destination);
+
+osc.start(now);
+osc.stop(now+.2);
+
+setTimeout(()=>{
+try{ctx.close()}catch(e){}
+},600);
+
+}catch(e){}
+
+}
+
+
+/* =========================================
+   LOGROS
+========================================= */
+
 function unlockAchievement(id){
 
-if(completedAchievements.includes(id))return;
+if(completedAchievements.includes(id))
+return;
 
 completedAchievements.push(id);
 
@@ -1237,12 +1674,14 @@ saveGame();
 const achievement=
 achievements.find(a=>a.id===id);
 
-if(!achievement)return;
+if(!achievement)
+return;
 
 victorySound();
 
 showMessage(
-"🏆 "+achievement.title+
+"🏆 "+
+achievement.title+
 " — ¡LOGRO COMPLETADO!"
 );
 
@@ -1250,11 +1689,17 @@ renderAchievements();
 
 }
 
+
+/* =========================================
+   EVENTO
+========================================= */
+
 let galaxyEvent=false;
 
 function startGalaxyEvent(){
 
-if(galaxyEvent)return;
+if(galaxyEvent)
+return;
 
 galaxyEvent=true;
 
@@ -1263,9 +1708,14 @@ document.getElementById("eventText")
 
 createMobs();
 
-showMessage("🌌 ¡EVENTO GALÁCTICO!");
+showMessage(
+"🌌 ¡EVENTO GALÁCTICO!"
+);
 
-setTimeout(endGalaxyEvent,180000);
+setTimeout(
+endGalaxyEvent,
+180000
+);
 
 }
 
@@ -1280,7 +1730,15 @@ createMobs();
 
 }
 
-setInterval(startGalaxyEvent,600000);
+setInterval(
+startGalaxyEvent,
+600000
+);
+
+
+/* =========================================
+   GUARDADO
+========================================= */
 
 function saveGame(){
 
@@ -1295,6 +1753,7 @@ JSON.stringify(completedAchievements)
 );
 
 }
+
 
 function loadGame(){
 
@@ -1326,60 +1785,85 @@ player.armors=[{level:1}];
 
 }
 
-const achievementsSaved=
-localStorage.getItem("zonaAlmasAchievements");
+const savedAchievements=
+localStorage.getItem(
+"zonaAlmasAchievements"
+);
 
-if(achievementsSaved){
+if(savedAchievements){
 
 try{
 
 completedAchievements=
-JSON.parse(achievementsSaved);
+JSON.parse(savedAchievements);
 
 }catch(e){}
 
 }
 
 updateUI();
+
 createMobs();
 
 }
 
+
+/* =========================================
+   NOMBRE
+========================================= */
+
 function changeName(){
 
-const name=prompt("Escribe tu nombre:");
+const name=prompt(
+"Escribe tu nombre:"
+);
 
-if(!name)return;
+if(!name)
+return;
 
 if(name.trim().length<3){
 
-showMessage("❌ Mínimo 3 caracteres.");
+showMessage(
+"❌ Mínimo 3 caracteres."
+);
 
 return;
+
 }
 
-player.username=name.trim();
+player.username=
+name.trim();
 
 saveGame();
 updateUI();
 
 }
 
+
+/* =========================================
+   MOBS
+========================================= */
+
 const normalMobs=[
+
 {emoji:"😶",souls:1},
 {emoji:"😒",souls:2},
 {emoji:"😎",souls:4},
 {emoji:"😐",souls:6},
 {emoji:"😺",souls:8},
 {emoji:"🥲",souls:6}
+
 ];
 
 const rareMobs=[
+
 {emoji:"💲",souls:20},
 {emoji:"😈",souls:30},
 {emoji:"💰",souls:50},
 {emoji:"😛",souls:15,type:"rare"}
+
 ];
+
 
 function randomMob(){
 
@@ -1407,7 +1891,7 @@ type:"rare"
 
 }
 
-if(r<.005+luck+.02){
+if(r<.02+luck){
 
 return{
 emoji:"😭",
@@ -1417,7 +1901,7 @@ type:"cry"
 
 }
 
-if(r<.02+luck+.01){
+if(r<.04+luck){
 
 return{
 emoji:"🪽",
@@ -1427,7 +1911,7 @@ type:"celestial"
 
 }
 
-if(r<.03+luck+.01){
+if(r<.05+luck){
 
 return{
 emoji:"🐈‍⬛",
@@ -1437,7 +1921,7 @@ type:"cat"
 
 }
 
-if(r<.04+luck+.01){
+if(r<.06+luck){
 
 return{
 emoji:"🫧",
@@ -1447,7 +1931,7 @@ type:"lightning"
 
 }
 
-if(r<.05+luck+.01){
+if(r<.07+luck){
 
 return{
 emoji:"🦾",
@@ -1461,7 +1945,9 @@ if(r<.17+luck){
 
 const m=
 rareMobs[
-Math.floor(Math.random()*rareMobs.length)
+Math.floor(
+Math.random()*rareMobs.length
+)
 ];
 
 return{
@@ -1474,7 +1960,9 @@ type:m.type||"rare"
 
 const m=
 normalMobs[
-Math.floor(Math.random()*normalMobs.length)
+Math.floor(
+Math.random()*normalMobs.length
+)
 ];
 
 return{
@@ -1484,6 +1972,7 @@ type:"normal"
 };
 
 }
+
 
 function createMobs(){
 
@@ -1497,11 +1986,13 @@ spawnMob();
 
 }
 
+
 function spawnMob(){
 
 const mob=randomMob();
 
-const element=document.createElement("div");
+const element=
+document.createElement("div");
 
 element.className="mob";
 
@@ -1510,7 +2001,9 @@ element.classList.add(mob.type);
 
 element.innerHTML=`
 
-<div class="mobEmoji">${mob.emoji}</div>
+<div class="mobEmoji">
+${mob.emoji}
+</div>
 
 <div class="reward">
 +${formatNumber(mob.souls)} 👻
@@ -1519,9 +2012,7 @@ element.innerHTML=`
 `;
 
 element.onclick=()=>{
-
 killMob(mob,element);
-
 };
 
 document
@@ -1530,14 +2021,20 @@ document
 
 }
 
+
 function killMob(mob,element){
 
-if(element.dataset.dead)return;
+if(element.dataset.dead)
+return;
 
-if(player.equippedSword===null ||
-player.equippedSword===undefined){
+if(
+player.equippedSword===null||
+player.equippedSword===undefined
+){
 
-showMessage("❌ No tienes una espada equipada.");
+showMessage(
+"❌ No tienes una espada equipada."
+);
 
 return;
 
@@ -1550,8 +2047,11 @@ let earned=mob.souls;
 const prestige=
 prestigeData[player.prestige-1];
 
-if(prestige &&
-Math.random()<prestige.chance/100){
+if(
+prestige &&
+Math.random()<
+prestige.chance/100
+){
 
 earned*=prestige.multiplier;
 
@@ -1582,7 +2082,9 @@ player.inventory.gold++;
 if(Math.random()<.005)
 player.inventory.pearls++;
 
-giveExp(Math.max(5,mob.souls));
+giveExp(
+Math.max(5,mob.souls)
+);
 
 playSatisfyingKillSound();
 
@@ -1592,160 +2094,98 @@ saveGame();
 setTimeout(()=>{
 
 element.remove();
+
 spawnMob();
 
 },400);
 
 }
 
-function playSatisfyingKillSound(){
 
-try{
-
-const AC=
-window.AudioContext||
-window.webkitAudioContext;
-
-const ctx=new AC();
-
-if(ctx.state==="suspended")
-ctx.resume();
-
-const now=ctx.currentTime;
-
-const osc1=ctx.createOscillator();
-const gain1=ctx.createGain();
-
-osc1.type="triangle";
-
-osc1.frequency.setValueAtTime(260,now);
-osc1.frequency.exponentialRampToValueAtTime(
-520,
-now+.08
-);
-
-gain1.gain.setValueAtTime(.0001,now);
-
-gain1.gain.exponentialRampToValueAtTime(
-.12,
-now+.015
-);
-
-gain1.gain.exponentialRampToValueAtTime(
-.0001,
-now+.18
-);
-
-osc1.connect(gain1);
-gain1.connect(ctx.destination);
-
-osc1.start(now);
-osc1.stop(now+.2);
-
-const osc2=ctx.createOscillator();
-const gain2=ctx.createGain();
-
-osc2.type="sine";
-
-osc2.frequency.setValueAtTime(
-520,
-now+.04
-);
-
-osc2.frequency.exponentialRampToValueAtTime(
-880,
-now+.18
-);
-
-gain2.gain.setValueAtTime(
-.0001,
-now+.04
-);
-
-gain2.gain.exponentialRampToValueAtTime(
-.08,
-now+.06
-);
-
-gain2.gain.exponentialRampToValueAtTime(
-.0001,
-now+.32
-);
-
-osc2.connect(gain2);
-gain2.connect(ctx.destination);
-
-osc2.start(now+.04);
-osc2.stop(now+.35);
-
-setTimeout(()=>{
-
-try{ctx.close()}catch(e){}
-
-},600);
-
-}catch(e){}
-
-}
+/* =========================================
+   ESPADA
+========================================= */
 
 function getEquippedSword(){
 
 if(
-player.equippedSword===null ||
+player.equippedSword===null||
 player.equippedSword===undefined
-)return null;
+)
+return null;
 
 return player.swords[player.equippedSword];
 
 }
 
+
 function swordDamage(){
 
-const sword=getEquippedSword();
+const sword=
+getEquippedSword();
 
-if(!sword)return 0;
+if(!sword)
+return 0;
 
 return sword.level*2;
 
 }
 
+
 function swordUpgradePrice(sword){
 
-return 50*Math.pow(1.05,sword.level-1);
+return 50*Math.pow(
+1.05,
+sword.level-1
+);
 
 }
 
+
 function upgradeEquippedSword(){
 
-const sword=getEquippedSword();
+const sword=
+getEquippedSword();
 
 if(!sword){
 
-showMessage("❌ No tienes espada equipada.");
+showMessage(
+"❌ No tienes espada equipada."
+);
 
 return;
+
 }
 
 if(sword.level>=2000){
 
-showMessage("🏆 Espada nivel máximo.");
+showMessage(
+"🏆 Espada nivel máximo."
+);
 
 return;
+
 }
 
-const price=swordUpgradePrice(sword);
+const price=
+swordUpgradePrice(sword);
 
 if(player.money<price){
 
-showMessage("❌ No tienes suficiente dinero.");
+showMessage(
+"❌ No tienes suficiente dinero."
+);
 
 return;
+
 }
 
 player.money-=price;
+
 sword.level++;
 
 updateUI();
+
 saveGame();
 
 showMessage(
@@ -1755,26 +2195,39 @@ sword.level
 
 }
 
+
+/* =========================================
+   ARMADURA
+========================================= */
+
 function getEquippedArmor(){
 
 if(
-player.equippedArmor===null ||
+player.equippedArmor===null||
 player.equippedArmor===undefined
-)return null;
+)
+return null;
 
 return player.armors[player.equippedArmor];
 
 }
 
+
 function armorBonus(){
 
-const armor=getEquippedArmor();
+const armor=
+getEquippedArmor();
 
-if(!armor)return 0;
+if(!armor)
+return 0;
 
-return 2*Math.pow(1.01,armor.level-1);
+return 2*Math.pow(
+1.01,
+armor.level-1
+);
 
 }
+
 
 function maxHealth(){
 
@@ -1782,43 +2235,61 @@ return 100+armorBonus();
 
 }
 
+
 function armorUpgradePrice(armor){
 
-return 50*Math.pow(1.05,armor.level-1);
+return 50*Math.pow(
+1.05,
+armor.level-1
+);
 
 }
 
+
 function upgradeEquippedArmor(){
 
-const armor=getEquippedArmor();
+const armor=
+getEquippedArmor();
 
 if(!armor){
 
-showMessage("❌ No tienes armadura equipada.");
+showMessage(
+"❌ No tienes armadura equipada."
+);
 
 return;
+
 }
 
 if(armor.level>=2000){
 
-showMessage("🏆 Armadura nivel máximo.");
+showMessage(
+"🏆 Armadura nivel máximo."
+);
 
 return;
+
 }
 
-const price=armorUpgradePrice(armor);
+const price=
+armorUpgradePrice(armor);
 
 if(player.money<price){
 
-showMessage("❌ No tienes suficiente dinero.");
+showMessage(
+"❌ No tienes suficiente dinero."
+);
 
 return;
+
 }
 
 player.money-=price;
+
 armor.level++;
 
 updateUI();
+
 saveGame();
 
 showMessage(
@@ -1828,49 +2299,172 @@ armor.level
 
 }
 
+
+/* =========================================
+   COMPRAR MUCHAS ESPADAS
+========================================= */
+
 function buySword(){
 
-if(player.money<50){
+const input=
+document.getElementById(
+"swordBuyQuantity"
+);
 
-showMessage("❌ Necesitas $50.");
+let quantity=
+parseInt(input?.value)||1;
+
+if(quantity<1){
+
+showMessage(
+"❌ La cantidad debe ser mínimo 1."
+);
 
 return;
+
 }
 
-player.money-=50;
+if(quantity>10000){
+
+showMessage(
+"❌ Máximo 10.000 espadas por compra."
+);
+
+return;
+
+}
+
+const totalPrice=
+quantity*50;
+
+if(player.money<totalPrice){
+
+showMessage(
+"❌ Necesitas $"+
+formatNumber(totalPrice)+
+" para comprar "+
+quantity+
+" espadas."
+);
+
+return;
+
+}
+
+player.money-=totalPrice;
+
+for(let i=0;i<quantity;i++){
 
 player.swords.push({
 level:1
 });
 
+}
+
 updateUI();
 saveGame();
 
-showMessage("⚔️ ¡Compraste una espada!");
+showMessage(
+"⚔️ ¡Compraste "+
+formatNumber(quantity)+
+" espada"+
+(quantity===1?"":"s")+
+" por $"+
+formatNumber(totalPrice)+"!"
+);
+
+if(input)
+input.value=1;
+
+renderInventory();
 
 }
+
+
+/* =========================================
+   COMPRAR MUCHAS ARMADURAS
+========================================= */
 
 function buyArmor(){
 
-if(player.money<50){
+const input=
+document.getElementById(
+"armorBuyQuantity"
+);
 
-showMessage("❌ Necesitas $50.");
+let quantity=
+parseInt(input?.value)||1;
+
+if(quantity<1){
+
+showMessage(
+"❌ La cantidad debe ser mínimo 1."
+);
 
 return;
+
 }
 
-player.money-=50;
+if(quantity>10000){
+
+showMessage(
+"❌ Máximo 10.000 armaduras por compra."
+);
+
+return;
+
+}
+
+const totalPrice=
+quantity*50;
+
+if(player.money<totalPrice){
+
+showMessage(
+"❌ Necesitas $"+
+formatNumber(totalPrice)+
+" para comprar "+
+quantity+
+" armaduras."
+);
+
+return;
+
+}
+
+player.money-=totalPrice;
+
+for(let i=0;i<quantity;i++){
 
 player.armors.push({
 level:1
 });
 
+}
+
 updateUI();
 saveGame();
 
-showMessage("🛡️ ¡Compraste una armadura!");
+showMessage(
+"🛡️ ¡Compraste "+
+formatNumber(quantity)+
+" armadura"+
+(quantity===1?"":"s")+
+" por $"+
+formatNumber(totalPrice)+"!"
+);
+
+if(input)
+input.value=1;
+
+renderInventory();
 
 }
+
+
+/* =========================================
+   INVENTARIO
+========================================= */
 
 function openInventory(){
 
@@ -1882,28 +2476,42 @@ document.getElementById(
 
 }
 
+
 function renderInventory(){
 
 const list=
-document.getElementById("inventoryList");
+document.getElementById(
+"inventoryList"
+);
 
 list.innerHTML="";
 
-player.swords.forEach((sword,index)=>{
+player.swords.forEach(
+(sword,index)=>{
 
 const item=
 document.createElement("div");
 
 item.className=
 "inventoryItem "+
-(player.equippedSword===index?"equipped":"");
+(
+player.equippedSword===index
+?"equipped":""
+);
 
 item.innerHTML=`
 
 <div>
+
 ⚔️ Espada nivel ${sword.level}
+
 <br>
-<small>Daño: ${formatNumber(sword.level*2)}</small>
+
+<small>
+Daño:
+${formatNumber(sword.level*2)}
+</small>
+
 </div>
 
 <button class="blue"
@@ -1923,21 +2531,38 @@ list.appendChild(item);
 
 });
 
-player.armors.forEach((armor,index)=>{
+
+player.armors.forEach(
+(armor,index)=>{
 
 const item=
 document.createElement("div");
 
 item.className=
 "inventoryItem "+
-(player.equippedArmor===index?"equipped":"");
+(
+player.equippedArmor===index
+?"equipped":""
+);
 
 item.innerHTML=`
 
 <div>
+
 🛡️ Armadura nivel ${armor.level}
+
 <br>
-<small>Vida extra: ${formatNumber(2*Math.pow(1.01,armor.level-1))}</small>
+
+<small>
+Vida extra:
+${formatNumber(
+2*Math.pow(
+1.01,
+armor.level-1
+)
+)}
+</small>
+
 </div>
 
 <button class="blue"
@@ -1959,19 +2584,26 @@ list.appendChild(item);
 
 }
 
+
 function toggleSword(index){
 
-if(player.equippedSword===index){
+if(
+player.equippedSword===index
+){
 
 player.equippedSword=null;
 
-showMessage("⚔️ Espada desequipada.");
+showMessage(
+"⚔️ Espada desequipada."
+);
 
 }else{
 
 player.equippedSword=index;
 
-showMessage("⚔️ Espada equipada.");
+showMessage(
+"⚔️ Espada equipada."
+);
 
 }
 
@@ -1981,19 +2613,26 @@ renderInventory();
 
 }
 
+
 function toggleArmor(index){
 
-if(player.equippedArmor===index){
+if(
+player.equippedArmor===index
+){
 
 player.equippedArmor=null;
 
-showMessage("🛡️ Armadura desequipada.");
+showMessage(
+"🛡️ Armadura desequipada."
+);
 
 }else{
 
 player.equippedArmor=index;
 
-showMessage("🛡️ Armadura equipada.");
+showMessage(
+"🛡️ Armadura equipada."
+);
 
 }
 
@@ -2003,21 +2642,41 @@ renderInventory();
 
 }
 
+
+function openBuyEquipment(){
+
+document.getElementById(
+"buyEquipmentScreen"
+).style.display="block";
+
+}
+
+
+/* =========================================
+   EXPERIENCIA
+========================================= */
+
 function giveExp(amount){
 
 player.exp+=amount;
 
-while(player.exp>=player.expNeeded){
+while(
+player.exp>=player.expNeeded
+){
 
 player.exp-=player.expNeeded;
+
 player.playerLevel++;
 
 player.expNeeded=
-Math.floor(player.expNeeded*1.25);
+Math.floor(
+player.expNeeded*1.25
+);
 
 showMessage(
 "⭐ ¡Nivel "+
-player.playerLevel+"!"
+player.playerLevel+
+"!"
 );
 
 }
@@ -2025,6 +2684,11 @@ player.playerLevel+"!"
 updateUI();
 
 }
+
+
+/* =========================================
+   PRESTIGIO
+========================================= */
 
 function openPrestige(){
 
@@ -2036,16 +2700,20 @@ document.getElementById(
 
 }
 
+
 function updatePrestigeCards(){
 
 const container=
-document.getElementById("prestigeCards");
+document.getElementById(
+"prestigeCards"
+);
 
 container.innerHTML="";
 
 prestigeData.forEach(p=>{
 
-if(p.level<=player.prestige)return;
+if(p.level<=player.prestige)
+return;
 
 const can=
 player.playerLevel>=p.requiredLevel &&
@@ -2063,21 +2731,29 @@ card.className="card";
 
 card.innerHTML=`
 
-<h2>🔮 Prestigio ${p.level}</h2>
+<h2>
+🔮 Prestigio ${p.level}
+</h2>
 
 <p>🧥 Cuero: <b>${p.leather}</b></p>
 <p>🗑️ Chatarra: <b>${p.scrap}</b></p>
 <p>🟡 Oro: <b>${p.gold}</b></p>
 <p>🫧 Perlas: <b>${p.pearls}</b></p>
 
-<p>⭐ Nivel necesario:
-<b>${p.requiredLevel}</b></p>
+<p>
+⭐ Nivel necesario:
+<b>${p.requiredLevel}</b>
+</p>
 
-<p>👻 Almas:
-<b>${formatNumber(p.souls)}</b></p>
+<p>
+👻 Almas:
+<b>${formatNumber(p.souls)}</b>
+</p>
 
-<p>💰 Dinero:
-<b>$${formatNumber(p.money)}</b></p>
+<p>
+💰 Dinero:
+<b>$${formatNumber(p.money)}</b>
+</p>
 
 <hr>
 
@@ -2090,7 +2766,9 @@ de conseguir x${p.multiplier} almas.
 class="bigButton purple"
 onclick="doPrestige(${p.level})"
 ${can?"":"disabled"}>
+
 🔮 Hacer Prestigio ${p.level}
+
 </button>
 
 `;
@@ -2105,9 +2783,13 @@ container.innerHTML+=`
 
 <div class="card">
 
-<h2>🏆 Prestigio máximo actual</h2>
+<h2>
+🏆 Prestigio máximo actual
+</h2>
 
-<p>Has llegado al Prestigio 4.</p>
+<p>
+Has llegado al Prestigio 4.
+</p>
 
 </div>
 
@@ -2116,6 +2798,7 @@ container.innerHTML+=`
 }
 
 }
+
 
 function doPrestige(level){
 
@@ -2126,6 +2809,7 @@ showMessage(
 );
 
 return;
+
 }
 
 const p=
@@ -2134,46 +2818,72 @@ prestigeData[level-1];
 if(player.playerLevel<p.requiredLevel){
 
 showMessage(
-"❌ Necesitas nivel "+p.requiredLevel+"."
+"❌ Necesitas nivel "+
+p.requiredLevel+"."
 );
 
 return;
+
 }
 
 if(player.souls<p.souls){
 
-showMessage("❌ No tienes suficientes almas.");
+showMessage(
+"❌ No tienes suficientes almas."
+);
+
 return;
+
 }
 
 if(player.money<p.money){
 
-showMessage("❌ No tienes suficiente dinero.");
+showMessage(
+"❌ No tienes suficiente dinero."
+);
+
 return;
+
 }
 
 if(player.inventory.leather<p.leather){
 
-showMessage("❌ No tienes suficiente cuero.");
+showMessage(
+"❌ No tienes suficiente cuero."
+);
+
 return;
+
 }
 
 if(player.inventory.scrap<p.scrap){
 
-showMessage("❌ No tienes suficiente chatarra.");
+showMessage(
+"❌ No tienes suficiente chatarra."
+);
+
 return;
+
 }
 
 if(player.inventory.gold<p.gold){
 
-showMessage("❌ No tienes suficiente oro.");
+showMessage(
+"❌ No tienes suficiente oro."
+);
+
 return;
+
 }
 
 if(player.inventory.pearls<p.pearls){
 
-showMessage("❌ No tienes suficientes perlas.");
+showMessage(
+"❌ No tienes suficientes perlas."
+);
+
 return;
+
 }
 
 player.souls-=p.souls;
@@ -2195,10 +2905,17 @@ saveGame();
 updatePrestigeCards();
 
 showMessage(
-"🔮 ¡PRESTIGIO "+level+" COMPLETADO!"
+"🔮 ¡PRESTIGIO "+
+level+
+" COMPLETADO!"
 );
 
 }
+
+
+/* =========================================
+   MERCADO NEGRO
+========================================= */
 
 function openBlackMarket(){
 
@@ -2211,25 +2928,35 @@ document.getElementById(
 ).textContent=
 player.inventory.angelWings;
 
-unlockAchievement("mysterious");
+unlockAchievement(
+"mysterious"
+);
 
 }
 
+
 function buyLuck(){
 
-if(player.inventory.angelWings<5){
+if(
+player.inventory.angelWings<5
+){
 
 showMessage(
 "🕸️ No tienes 5 Alas de Ángel."
 );
 
 return;
+
 }
 
 player.inventory.angelWings-=5;
-player.luck=(player.luck||0)+.5;
 
-unlockAchievement("business");
+player.luck=
+(player.luck||0)+.5;
+
+unlockAchievement(
+"business"
+);
 
 updateUI();
 saveGame();
@@ -2245,22 +2972,41 @@ showMessage(
 
 }
 
-function getAuctions(){
 
-return JSON.parse(
-localStorage.getItem("zonaAlmasAuctions")
-)||[];
+/* =========================================
+   SUPABASE SUBASTAS
+========================================= */
 
-}
+async function getAuctions(){
 
-function saveAuctions(a){
+const{
+data,
+error
+}=await db
+.from("subastas")
+.select("*")
+.order("creado_en",{ascending:false});
 
-localStorage.setItem(
-"zonaAlmasAuctions",
-JSON.stringify(a)
+if(error){
+
+console.error(error);
+
+showMessage(
+"❌ No se pudieron cargar las subastas."
 );
 
+return[];
+
 }
+
+return data||[];
+
+}
+
+
+/* =========================================
+   ABRIR MERCADO
+========================================= */
 
 function openMarket(){
 
@@ -2268,285 +3014,582 @@ document.getElementById(
 "marketScreen"
 ).style.display="block";
 
-showMarketMenu();
+showAuctions();
 
 }
 
-function showMarketMenu(){
 
-document.getElementById(
-"marketContent"
-).innerHTML=`
-<div class="card">
-<h2>Seleccione qué quieres hacer:</h2>
+/* =========================================
+   MOSTRAR SUBASTAS ONLINE
+========================================= */
 
-<button class="bigButton blue"
-onclick="showAuctions()">
-Ver las subastas
-</button>
-
-<button class="bigButton purple"
-onclick="showSellAuction()">
-Vender artículo
-</button>
-
-</div>
-`;
-
-}
-
-function showAuctions(){
+async function showAuctions(){
 
 const content=
-document.getElementById("marketContent");
+document.getElementById(
+"marketContent"
+);
 
-const auctions=getAuctions();
+content.innerHTML=`
 
-content.innerHTML=
-"<h2>🛒 Subastas</h2>";
+<div style="text-align:center;padding:30px">
+
+<div style="font-size:50px">
+🛒
+</div>
+
+<h2>
+Cargando subastas...
+</h2>
+
+<p style="color:#aaa">
+Conectando con Zona de Almas.
+</p>
+
+</div>
+
+`;
+
+const auctions=
+await getAuctions();
+
+content.innerHTML="";
+
+const header=
+document.createElement("div");
+
+header.className=
+"auctionHeader";
+
+header.innerHTML=`
+
+<div>
+
+<h2>
+🛒 Subastas
+</h2>
+
+<p>
+Compra artículos publicados por otros jugadores.
+</p>
+
+</div>
+
+<div class="auctionCount">
+
+${auctions.length}
+publicación${auctions.length===1?"":"es"}
+
+</div>
+
+`;
+
+content.appendChild(header);
 
 if(!auctions.length){
 
-content.innerHTML+=
-"<p>No hay artículos en subasta.</p>";
+content.innerHTML+=`
 
-return;
-}
+<div class="auctionEmpty">
 
-auctions.forEach((a,index)=>{
-
-const item=
-document.createElement("div");
-
-item.className="marketItem";
-
-item.innerHTML=`
-
-<div>
-<b>${a.name}</b>
-<br>
-Cantidad: ${a.quantity}
-<br>
-Vendedor: ${escapeHTML(a.seller)}
-<br>
-Precio total: $${formatNumber(a.price)}
+<div style="font-size:55px">
+🛒
 </div>
 
-<button class="green"
-onclick="buyAuction(${index})">
-Comprar
+<h3>
+No hay subastas todavía
+</h3>
+
+<p>
+Sé el primero en publicar un artículo.
+</p>
+
+<button
+class="bigButton purple"
+onclick="showSellAuction()">
+
+💰 Publicar artículo
+
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
+const grid=
+document.createElement("div");
+
+grid.className=
+"auctionGrid";
+
+auctions.forEach(
+a=>{
+
+const card=
+document.createElement("div");
+
+card.className=
+"auctionCard";
+
+let icon="📦";
+
+if(a.tipo==="sword")
+icon="⚔️";
+
+if(a.tipo==="armor")
+icon="🛡️";
+
+card.innerHTML=`
+
+<div class="auctionIcon">
+${icon}
+</div>
+
+<div class="auctionName">
+${escapeHTML(a.nombre)}
+</div>
+
+<div class="auctionSeller">
+
+👤 Vendedor:
+<b>
+${escapeHTML(a.vendedor)}
+</b>
+
+</div>
+
+<div class="auctionInfo">
+
+<div>
+
+<span style="color:#aaa;font-size:12px">
+Nivel
+</span>
+
+<br>
+
+<b>
+${formatNumber(a.nivel)}
+</b>
+
+</div>
+
+<div style="text-align:right">
+
+<span style="color:#aaa;font-size:12px">
+Precio
+</span>
+
+<br>
+
+<span class="auctionPrice">
+$${formatNumber(a.precio)}
+</span>
+
+</div>
+
+</div>
+
+<button
+class="auctionBuy"
+onclick="buyAuction(${a.id})">
+
+🛒 Comprar
+
 </button>
 
 `;
 
-content.appendChild(item);
+grid.appendChild(card);
+
+});
+
+content.appendChild(grid);
+
+}
+
+
+/* =========================================
+   PUBLICAR
+========================================= */
+
+async function showSellAuction(){
+
+const content=
+document.getElementById(
+"marketContent"
+);
+
+content.innerHTML=`
+
+<div class="sellAuctionBox">
+
+<h2>
+💰 Publicar artículo
+</h2>
+
+<p style="color:#aaa">
+
+Pon un artículo a la venta para que
+otros jugadores puedan comprarlo.
+
+</p>
+
+<label class="sellLabel">
+📦 Tipo de artículo
+</label>
+
+<select id="sellType"
+onchange="refreshSellItems()">
+
+<option value="sword">
+⚔️ Espada
+</option>
+
+<option value="armor">
+🛡️ Armadura
+</option>
+
+</select>
+
+<label class="sellLabel">
+🎒 Artículo
+</label>
+
+<select id="sellIndex">
+</select>
+
+<label class="sellLabel">
+💰 Precio total
+</label>
+
+<input
+id="sellPrice"
+type="number"
+min="1"
+placeholder="Ejemplo: 500"
+>
+
+<button
+class="bigButton purple"
+onclick="publishAuction()">
+
+💰 Publicar en subastas
+
+</button>
+
+<button
+class="bigButton auctionBack"
+onclick="showAuctions()">
+
+⬅️ Volver a las subastas
+
+</button>
+
+</div>
+
+`;
+
+refreshSellItems();
+
+}
+
+
+function refreshSellItems(){
+
+const type=
+document.getElementById(
+"sellType"
+)?.value;
+
+const select=
+document.getElementById(
+"sellIndex"
+);
+
+if(!select)
+return;
+
+select.innerHTML="";
+
+if(type==="sword"){
+
+player.swords.forEach(
+(s,i)=>{
+
+select.innerHTML+=`
+
+<option value="${i}">
+⚔️ Espada nivel ${s.level}
+</option>
+
+`;
+
+});
+
+}else{
+
+player.armors.forEach(
+(a,i)=>{
+
+select.innerHTML+=`
+
+<option value="${i}">
+🛡️ Armadura nivel ${a.level}
+</option>
+
+`;
 
 });
 
 }
 
-function showSellAuction(){
-
-const content=
-document.getElementById("marketContent");
-
-content.innerHTML=`
-
-<h2>💰 Vender artículo</h2>
-
-<select id="sellType"
-style="width:100%;padding:10px;background:#11151c;color:white;border:0;border-radius:8px">
-
-<option value="sword">⚔️ Espada</option>
-<option value="armor">🛡️ Armadura</option>
-
-</select>
-
-<select id="sellIndex"
-style="width:100%;padding:10px;background:#11151c;color:white;border:0;border-radius:8px;margin-top:6px">
-
-${player.swords.map(
-(s,i)=>`<option value="s${i}">
-Espada nivel ${s.level}
-</option>`
-).join("")}
-
-${player.armors.map(
-(a,i)=>`<option value="a${i}">
-Armadura nivel ${a.level}
-</option>`
-).join("")}
-
-</select>
-
-<input id="sellQuantity"
-type="number"
-min="1"
-value="1"
-placeholder="Cantidad">
-
-<input id="sellPrice"
-type="number"
-min="1"
-placeholder="Precio total">
-
-<button class="bigButton purple"
-onclick="publishAuction()">
-💰 Vender
-</button>
-
-`;
-
 }
 
-function publishAuction(){
+
+/* =========================================
+   PUBLICAR SUBASTA ONLINE
+========================================= */
+
+async function publishAuction(){
 
 const type=
-document.getElementById("sellType").value;
+document.getElementById(
+"sellType"
+).value;
 
-const selected=
-document.getElementById("sellIndex").value;
-
-const quantity=
+const index=
 parseInt(
-document.getElementById("sellQuantity").value
+document.getElementById(
+"sellIndex"
+).value
 );
 
 const price=
 parseFloat(
-document.getElementById("sellPrice").value
+document.getElementById(
+"sellPrice"
+).value
 );
 
-if(!quantity || quantity<1 || !price || price<1){
-
-showMessage("❌ Completa todos los campos.");
-
-return;
-}
-
-let index;
-
-if(selected[0]==="s"){
-
-index=parseInt(selected.substring(1));
-
-if(index>=player.swords.length){
-
-showMessage("❌ Artículo inválido.");
-return;
-}
-
-if(quantity>1){
+if(
+isNaN(index)||
+!price||
+price<1
+){
 
 showMessage(
-"❌ Cada espada se publica individualmente."
+"❌ Completa todos los campos."
 );
 
 return;
+
+}
+
+let item;
+
+if(type==="sword"){
+
+item=
+player.swords[index];
+
+if(!item){
+
+showMessage(
+"❌ Espada inválida."
+);
+
+return;
+
 }
 
 }else{
 
-index=parseInt(selected.substring(1));
+item=
+player.armors[index];
 
-if(index>=player.armors.length){
-
-showMessage("❌ Artículo inválido.");
-return;
-}
-
-if(quantity>1){
+if(!item){
 
 showMessage(
-"❌ Cada armadura se publica individualmente."
+"❌ Armadura inválida."
 );
 
 return;
-}
 
 }
 
-let name;
+}
 
-if(type==="sword")
-name="⚔️ Espada nivel "+player.swords[index].level;
-else
-name="🛡️ Armadura nivel "+player.armors[index].level;
+const nombre=
+type==="sword"
+?
+"⚔️ Espada nivel "+item.level
+:
+"🛡️ Armadura nivel "+item.level;
 
-const auctions=getAuctions();
+const{
+error
+}=await db
+.from("subastas")
+.insert({
 
-auctions.push({
-id:Date.now(),
-seller:player.username,
-name:name,
-type:type,
-index:index,
-quantity:quantity,
-price:price
+vendedor:player.username,
+
+nombre:nombre,
+
+tipo:type,
+
+nivel:item.level,
+
+precio:price
+
 });
 
-saveAuctions(auctions);
+if(error){
+
+console.error(error);
 
 showMessage(
-"🛒 ¡Artículo publicado!"
+"❌ Error al publicar la subasta."
+);
+
+return;
+
+}
+
+
+/*
+NO eliminamos el objeto del inventario
+automáticamente en esta versión para
+evitar que una publicación accidental
+destruya el objeto local.
+*/
+
+showMessage(
+"🛒 ¡Artículo publicado online!"
 );
 
 showAuctions();
 
 }
 
-function buyAuction(index){
 
-const auctions=getAuctions();
+/* =========================================
+   COMPRAR SUBASTA
+========================================= */
 
-const a=auctions[index];
+async function buyAuction(id){
 
-if(!a)return;
+const{
+data:auction,
+error:findError
+}=await db
+.from("subastas")
+.select("*")
+.eq("id",id)
+.single();
 
-if(a.seller===player.username){
+if(findError||!auction){
+
+showMessage(
+"❌ Esta subasta ya no existe."
+);
+
+showAuctions();
+
+return;
+
+}
+
+if(
+auction.vendedor===
+player.username
+){
 
 showMessage(
 "❌ No puedes comprar tu propia publicación."
 );
 
 return;
+
 }
 
-if(player.money<a.price){
+if(player.money<auction.precio){
 
 showMessage(
 "❌ No tienes suficiente dinero."
 );
 
 return;
+
 }
 
-player.money-=a.price;
+player.money-=Number(
+auction.precio
+);
 
-if(a.type==="sword"){
+if(auction.tipo==="sword"){
 
 player.swords.push({
-level:parseInt(
-a.name.match(/\d+/)[0]
-)
+level:auction.nivel
 });
 
 }else{
 
 player.armors.push({
-level:parseInt(
-a.name.match(/\d+/)[0]
-)
+level:auction.nivel
 });
 
 }
 
-auctions.splice(index,1);
 
-saveAuctions(auctions);
+/*
+Eliminamos la publicación de Supabase
+después de comprarla.
+*/
+
+const{
+error:deleteError
+}=await db
+.from("subastas")
+.delete()
+.eq("id",id);
+
+if(deleteError){
+
+console.error(deleteError);
+
+/*
+Si no se pudo borrar, devolvemos el dinero
+y quitamos el objeto comprado.
+*/
+
+player.money+=Number(
+auction.precio
+);
+
+if(auction.tipo==="sword")
+player.swords.pop();
+else
+player.armors.pop();
+
+showMessage(
+"❌ No se pudo completar la compra."
+);
+
+return;
+
+}
+
 saveGame();
 
 updateUI();
+
+renderInventory();
 
 showMessage(
 "🛒 ¡Compra realizada!"
@@ -2556,11 +3599,17 @@ showAuctions();
 
 }
 
+
+/* =========================================
+   BACTERIA
+========================================= */
+
 let bacteriaHealth=100000;
 let bacteriaMaxHealth=100000;
 let bacteriaPlayerHealth=0;
 let bacteriaInterval=null;
 let bacteriaActive=false;
+
 
 function startBacteria(){
 
@@ -2602,10 +3651,13 @@ beginBacteriaFight();
 
 }
 
+
 function beginBacteriaFight(){
 
 bacteriaHealth=100000;
-bacteriaPlayerHealth=maxHealth();
+
+bacteriaPlayerHealth=
+maxHealth();
 
 bacteriaActive=true;
 
@@ -2619,11 +3671,15 @@ document.getElementById(
 
 updateBacteriaUI();
 
-clearInterval(bacteriaInterval);
+clearInterval(
+bacteriaInterval
+);
 
-bacteriaInterval=setInterval(()=>{
+bacteriaInterval=
+setInterval(()=>{
 
-if(!bacteriaActive)return;
+if(!bacteriaActive)
+return;
 
 bacteriaPlayerHealth-=1.5;
 
@@ -2641,11 +3697,14 @@ updateBacteriaUI();
 
 }
 
+
 function attackBacteria(){
 
-if(!bacteriaActive)return;
+if(!bacteriaActive)
+return;
 
-const damage=swordDamage();
+const damage=
+swordDamage();
 
 if(damage<=0){
 
@@ -2654,6 +3713,7 @@ showMessage(
 );
 
 return;
+
 }
 
 bacteriaHealth-=damage;
@@ -2677,11 +3737,14 @@ updateBacteriaUI();
 
 }
 
+
 function bacteriaWon(){
 
 bacteriaActive=false;
 
-clearInterval(bacteriaInterval);
+clearInterval(
+bacteriaInterval
+);
 
 giveExp(8000);
 
@@ -2697,15 +3760,20 @@ saveGame();
 
 }
 
+
 function bacteriaLost(){
 
 bacteriaActive=false;
 
-clearInterval(bacteriaInterval);
+clearInterval(
+bacteriaInterval
+);
 
 giveExp(500);
 
-unlockAchievement("bacteriaLost");
+unlockAchievement(
+"bacteriaLost"
+);
 
 showMessage(
 "💀 Bacteria te derrotó. +500 EXP"
@@ -2715,46 +3783,58 @@ updateBacteriaUI();
 
 }
 
+
 function updateBacteriaUI(){
 
 document.getElementById(
 "bacteriaHealthText"
 ).textContent=
-formatNumber(bacteriaHealth);
+formatNumber(
+bacteriaHealth
+);
 
 document.getElementById(
 "bacteriaHealthFill"
 ).style.width=
 Math.max(
 0,
-bacteriaHealth/bacteriaMaxHealth*100
+bacteriaHealth/
+bacteriaMaxHealth*100
 )+"%";
 
 document.getElementById(
 "bacteriaPlayerHealthText"
 ).textContent=
-formatNumber(bacteriaPlayerHealth);
+formatNumber(
+bacteriaPlayerHealth
+);
 
 document.getElementById(
 "bacteriaPlayerMaxHealthText"
 ).textContent=
-formatNumber(maxHealth());
+formatNumber(
+maxHealth()
+);
 
 document.getElementById(
 "bacteriaPlayerHealthFill"
 ).style.width=
 Math.max(
 0,
-bacteriaPlayerHealth/maxHealth()*100
+bacteriaPlayerHealth/
+maxHealth()*100
 )+"%";
 
 }
+
 
 function exitBacteria(){
 
 bacteriaActive=false;
 
-clearInterval(bacteriaInterval);
+clearInterval(
+bacteriaInterval
+);
 
 document.getElementById(
 "bacteriaScreen"
@@ -2762,14 +3842,21 @@ document.getElementById(
 
 }
 
-function showDamageNumber(damage,x,y){
+
+function showDamageNumber(
+damage,
+x,
+y
+){
 
 const el=
 document.createElement("div");
 
-el.className="damageNumber";
+el.className=
+"damageNumber";
 
-el.textContent="-"+formatNumber(damage);
+el.textContent=
+"-"+formatNumber(damage);
 
 el.style.left=x+"px";
 el.style.top=y+"px";
@@ -2792,11 +3879,17 @@ el.remove();
 
 }
 
+
+/* =========================================
+   VS
+========================================= */
+
 let vsRoom=null;
 let vsEnemy=null;
 let vsMyHealth=100;
 let vsEnemyHealth=100;
 let vsStarted=false;
+
 
 function openVS(){
 
@@ -2820,15 +3913,27 @@ showRooms();
 
 }
 
+
 function createRoom(){
 
 vsRoom={
+
 id:Date.now(),
+
 owner:player.username,
-sword:getEquippedSword()
-?getEquippedSword().level:0,
-armor:getEquippedArmor()
-?getEquippedArmor().level:0
+
+sword:
+getEquippedSword()
+?
+getEquippedSword().level
+:0,
+
+armor:
+getEquippedArmor()
+?
+getEquippedArmor().level
+:0
+
 };
 
 localStorage.setItem(
@@ -2850,6 +3955,7 @@ showMessage(
 
 }
 
+
 function cancelRoom(){
 
 localStorage.removeItem(
@@ -2866,14 +3972,19 @@ document.getElementById(
 
 }
 
+
 function showRooms(){
 
 const list=
-document.getElementById("roomsList");
+document.getElementById(
+"roomsList"
+);
 
 const room=
 JSON.parse(
-localStorage.getItem("zonaAlmasVSRoom")
+localStorage.getItem(
+"zonaAlmasVSRoom"
+)
 );
 
 list.innerHTML="";
@@ -2884,14 +3995,19 @@ list.innerHTML=
 "<p style='color:#aaa'>No hay salas disponibles.</p>";
 
 return;
+
 }
 
-if(room.owner===player.username){
+if(
+room.owner===
+player.username
+){
 
 list.innerHTML=
 "<p>Tu sala está activa.</p>";
 
 return;
+
 }
 
 const card=
@@ -2901,19 +4017,25 @@ card.className="card";
 
 card.innerHTML=`
 
-<h2>👤 ${escapeHTML(room.owner)}</h2>
+<h2>
+👤 ${escapeHTML(room.owner)}
+</h2>
 
-<p>⚔️ Espada nivel:
+<p>
+⚔️ Espada nivel:
 <b>${room.sword}</b>
 </p>
 
-<p>🛡️ Armadura nivel:
+<p>
+🛡️ Armadura nivel:
 <b>${room.armor}</b>
 </p>
 
 <button class="bigButton red"
 onclick="joinRoom()">
+
 ⚔️ Entrar
+
 </button>
 
 `;
@@ -2922,14 +4044,18 @@ list.appendChild(card);
 
 }
 
+
 function joinRoom(){
 
 const room=
 JSON.parse(
-localStorage.getItem("zonaAlmasVSRoom")
+localStorage.getItem(
+"zonaAlmasVSRoom"
+)
 );
 
-if(!room)return;
+if(!room)
+return;
 
 vsEnemy=room;
 
@@ -2967,18 +4093,23 @@ beginVSFight();
 
 }
 
+
 function beginVSFight(){
 
 vsStarted=true;
 
-vsMyHealth=maxHealth();
+vsMyHealth=
+maxHealth();
 
 const enemyArmor=
 vsEnemy.armor||0;
 
 vsEnemyHealth=
 100+
-2*Math.pow(1.01,enemyArmor-1);
+2*Math.pow(
+1.01,
+enemyArmor-1
+);
 
 document.getElementById(
 "vsCountdownText"
@@ -2989,11 +4120,14 @@ updateVSUI();
 
 }
 
+
 function vsAttackPlayer(){
 
-if(!vsStarted)return;
+if(!vsStarted)
+return;
 
-const mySword=getEquippedSword();
+const mySword=
+getEquippedSword();
 
 if(!mySword){
 
@@ -3002,6 +4136,7 @@ showMessage(
 );
 
 return;
+
 }
 
 const damage=
@@ -3022,6 +4157,7 @@ vsEnemyHealth=0;
 vsWin();
 
 return;
+
 }
 
 const enemyDamage=
@@ -3044,6 +4180,7 @@ updateVSUI();
 
 }
 
+
 function vsWin(){
 
 vsStarted=false;
@@ -3056,12 +4193,13 @@ updateVSUI();
 
 }
 
+
 function vsLose(){
 
 vsStarted=false;
 
 if(
-player.equippedSword!==null &&
+player.equippedSword!==null&&
 player.equippedSword!==undefined
 ){
 
@@ -3075,7 +4213,7 @@ player.equippedSword=null;
 }
 
 if(
-player.equippedArmor!==null &&
+player.equippedArmor!==null&&
 player.equippedArmor!==undefined
 ){
 
@@ -3089,6 +4227,7 @@ player.equippedArmor=null;
 }
 
 saveGame();
+
 updateUI();
 
 showMessage(
@@ -3099,52 +4238,62 @@ updateVSUI();
 
 }
 
+
 function updateVSUI(){
 
 document.getElementById(
 "vsMySword"
 ).textContent=
 getEquippedSword()
-?getEquippedSword().level
+?
+getEquippedSword().level
 :0;
 
 document.getElementById(
 "vsMyArmor"
 ).textContent=
 getEquippedArmor()
-?getEquippedArmor().level
+?
+getEquippedArmor().level
 :0;
 
 document.getElementById(
 "vsEnemySword"
 ).textContent=
 vsEnemy
-?vsEnemy.sword
+?
+vsEnemy.sword
 :0;
 
 document.getElementById(
 "vsEnemyArmor"
 ).textContent=
 vsEnemy
-?vsEnemy.armor
+?
+vsEnemy.armor
 :0;
 
 document.getElementById(
 "vsMyHealth"
 ).textContent=
-formatNumber(vsMyHealth);
+formatNumber(
+vsMyHealth
+);
 
 document.getElementById(
 "vsEnemyHealth"
 ).textContent=
-formatNumber(vsEnemyHealth);
+formatNumber(
+vsEnemyHealth
+);
 
 document.getElementById(
 "vsMyHealthBar"
 ).style.width=
 Math.max(
 0,
-vsMyHealth/maxHealth()*100
+vsMyHealth/
+maxHealth()*100
 )+"%";
 
 const enemyMax=
@@ -3159,10 +4308,12 @@ document.getElementById(
 ).style.width=
 Math.max(
 0,
-vsEnemyHealth/enemyMax*100
+vsEnemyHealth/
+enemyMax*100
 )+"%";
 
 }
+
 
 function exitVS(){
 
@@ -3174,6 +4325,11 @@ document.getElementById(
 
 }
 
+
+/* =========================================
+   LOGROS UI
+========================================= */
+
 function openAchievements(){
 
 renderAchievements();
@@ -3184,17 +4340,22 @@ document.getElementById(
 
 }
 
+
 function renderAchievements(){
 
 const list=
-document.getElementById("achievementList");
+document.getElementById(
+"achievementList"
+);
 
 list.innerHTML="";
 
 achievements.forEach(a=>{
 
 const done=
-completedAchievements.includes(a.id);
+completedAchievements.includes(
+a.id
+);
 
 const item=
 document.createElement("div");
@@ -3206,18 +4367,25 @@ item.className=
 item.innerHTML=`
 
 <div class="achievementIcon">
+
 ${done?"🏆":a.icon}
+
 </div>
 
 <div>
 
 <div class="achievementTitle">
+
 ${a.title}
+
 ${done?" ✓":""}
+
 </div>
 
 <div class="achievementDesc">
+
 ${a.desc}
+
 </div>
 
 </div>
@@ -3230,101 +4398,162 @@ list.appendChild(item);
 
 }
 
+
+/* =========================================
+   UI
+========================================= */
+
 function updateUI(){
 
-document.getElementById("money")
-.textContent=formatNumber(player.money);
+document.getElementById(
+"money"
+).textContent=
+formatNumber(
+player.money
+);
 
-document.getElementById("economyMoney")
-.textContent=formatNumber(player.money);
+document.getElementById(
+"economyMoney"
+).textContent=
+formatNumber(
+player.money
+);
 
-document.getElementById("souls")
-.textContent=formatNumber(player.souls);
+document.getElementById(
+"souls"
+).textContent=
+formatNumber(
+player.souls
+);
 
-document.getElementById("sideSouls")
-.textContent=formatNumber(player.souls);
+document.getElementById(
+"sideSouls"
+).textContent=
+formatNumber(
+player.souls
+);
 
-document.getElementById("username")
-.textContent=player.username;
+document.getElementById(
+"username"
+).textContent=
+player.username;
 
-document.getElementById("swordLevel")
-.textContent=
+document.getElementById(
+"swordLevel"
+).textContent=
 getEquippedSword()
-?getEquippedSword().level
+?
+getEquippedSword().level
 :0;
 
-document.getElementById("armorLevel")
-.textContent=
+document.getElementById(
+"armorLevel"
+).textContent=
 getEquippedArmor()
-?getEquippedArmor().level
+?
+getEquippedArmor().level
 :0;
 
-document.getElementById("damage")
-.textContent=
-formatNumber(swordDamage());
+document.getElementById(
+"damage"
+).textContent=
+formatNumber(
+swordDamage()
+);
 
-document.getElementById("armorBonus")
-.textContent=
-formatNumber(armorBonus());
+document.getElementById(
+"armorBonus"
+).textContent=
+formatNumber(
+armorBonus()
+);
 
-document.getElementById("maxHealth")
-.textContent=
-formatNumber(maxHealth());
+document.getElementById(
+"maxHealth"
+).textContent=
+formatNumber(
+maxHealth()
+);
 
-document.getElementById("playerLevel")
-.textContent=
+document.getElementById(
+"playerLevel"
+).textContent=
 player.playerLevel;
 
-document.getElementById("levelSide")
-.textContent=
+document.getElementById(
+"levelSide"
+).textContent=
 player.playerLevel;
 
-document.getElementById("exp")
-.textContent=
-formatNumber(player.exp);
+document.getElementById(
+"exp"
+).textContent=
+formatNumber(
+player.exp
+);
 
-document.getElementById("expNeeded")
-.textContent=
-formatNumber(player.expNeeded);
+document.getElementById(
+"expNeeded"
+).textContent=
+formatNumber(
+player.expNeeded
+);
 
-document.getElementById("expBar")
-.style.width=
-(player.exp/player.expNeeded*100)+"%";
+document.getElementById(
+"expBar"
+).style.width=
+(
+player.exp/
+player.expNeeded*100
+)+"%";
 
-document.getElementById("marketWings")
-.textContent=
+document.getElementById(
+"marketWings"
+).textContent=
 player.inventory.angelWings;
 
-document.getElementById("prestigeLevel")
-.textContent=
+document.getElementById(
+"prestigeLevel"
+).textContent=
 player.prestige;
 
-document.getElementById("prestigeSide")
-.textContent=
+document.getElementById(
+"prestigeSide"
+).textContent=
 player.prestige;
 
-const sword=getEquippedSword();
-const armor=getEquippedArmor();
+const sword=
+getEquippedSword();
+
+const armor=
+getEquippedArmor();
 
 document.getElementById(
 "equippedSwordText"
 ).textContent=
 sword
-?"⚔️ Espada nivel "+sword.level
-:"❌ Sin espada equipada";
+?
+"⚔️ Espada nivel "+
+sword.level
+:
+"❌ Sin espada equipada";
 
 document.getElementById(
 "equippedArmorText"
 ).textContent=
 armor
-?"🛡️ Armadura nivel "+armor.level
-:"❌ Sin armadura equipada";
+?
+"🛡️ Armadura nivel "+
+armor.level
+:
+"❌ Sin armadura equipada";
 
 }
 
-/* =====================================================
-   VENDER ALMAS — ARREGLADO
-===================================================== */
+
+/* =========================================
+   VENDER ALMAS
+========================================= */
 
 function sellSouls(){
 
@@ -3335,13 +4564,19 @@ showMessage(
 );
 
 return;
+
 }
 
-const amount=player.souls;
-const earnedMoney=amount*2;
+const amount=
+player.souls;
+
+const earnedMoney=
+amount*2;
 
 player.souls=0;
-player.money+=earnedMoney;
+
+player.money+=
+earnedMoney;
 
 updateUI();
 saveGame();
@@ -3356,6 +4591,11 @@ formatNumber(earnedMoney)+
 
 }
 
+
+/* =========================================
+   UTILIDADES
+========================================= */
+
 function formatNumber(number){
 
 return Number(number)
@@ -3368,6 +4608,7 @@ maximumFractionDigits:2
 
 }
 
+
 function escapeHTML(text){
 
 return String(text)
@@ -3379,22 +4620,30 @@ return String(text)
 
 }
 
+
 function showMessage(text){
 
 const box=
-document.getElementById("message");
+document.getElementById(
+"message"
+);
 
 box.textContent=text;
 
 box.classList.add("show");
 
-clearTimeout(box._timer);
+clearTimeout(
+box._timer
+);
 
 box._timer=setTimeout(()=>{
+
 box.classList.remove("show");
+
 },2500);
 
 }
+
 
 function closeScreen(id){
 
@@ -3403,10 +4652,20 @@ document.getElementById(id)
 
 }
 
+
+/* =========================================
+   GUARDADO AUTOMÁTICO
+========================================= */
+
 setInterval(
 saveGame,
 5000
 );
+
+
+/* =========================================
+   INICIAR
+========================================= */
 
 loadGame();
 
