@@ -3495,150 +3495,16 @@ showAuctions();
 async function buyAuction(id){
 
     const {
-        data: auction,
-        error: findError
-    } = await db
-        .from("subastas")
-        .select("*")
-        .eq("id", id)
-        .single();
+        data,
+        error
+    } = await db.rpc("comprar_subasta", {
+        p_subasta_id: id,
+        p_comprador: player.username
+    });
 
-    if(findError || !auction){
+    if(error){
 
-        showMessage(
-            "❌ Esta subasta ya no existe."
-        );
-
-        showAuctions();
-        return;
-    }
-
-    if(auction.vendedor === player.username){
-
-        showMessage(
-            "❌ No puedes comprar tu propia publicación."
-        );
-
-        return;
-    }
-
-    if(player.money < Number(auction.precio)){
-
-        showMessage(
-            "❌ No tienes suficiente dinero."
-        );
-
-        return;
-    }
-
-    const precio = Number(auction.precio);
-
-    /* =====================================
-       PAGAR AL VENDEDOR
-    ===================================== */
-
-    const {
-        data: vendedor,
-        error: vendedorError
-    } = await db
-        .from("jugadores")
-        .select("*")
-        .eq("nombre", auction.vendedor)
-        .single();
-
-    if(vendedorError || !vendedor){
-
-        showMessage(
-            "❌ No se encontró al vendedor."
-        );
-
-        console.error(vendedorError);
-        return;
-    }
-
-    /* =====================================
-       ACTUALIZAR DINERO DEL VENDEDOR
-    ===================================== */
-
-    const nuevoDineroVendedor =
-        Number(vendedor.monedas || 0) + precio;
-
-    const {
-        error: moneyError
-    } = await db
-        .from("jugadores")
-        .update({
-            monedas: nuevoDineroVendedor
-        })
-        .eq("id", vendedor.id);
-
-    if(moneyError){
-
-        console.error(moneyError);
-
-        showMessage(
-            "❌ No se pudo entregar el dinero al vendedor."
-        );
-
-        return;
-    }
-
-    /* =====================================
-       DAR EL ARTÍCULO AL COMPRADOR
-    ===================================== */
-
-    if(auction.tipo === "sword"){
-
-        player.swords.push({
-            level: Number(auction.nivel)
-        });
-
-    }else{
-
-        player.armors.push({
-            level: Number(auction.nivel)
-        });
-
-    }
-
-    /* =====================================
-       QUITAR DINERO AL COMPRADOR
-    ===================================== */
-
-    player.money -= precio;
-
-    /* =====================================
-       ELIMINAR SUBASTA
-    ===================================== */
-
-    const {
-        error: deleteError
-    } = await db
-        .from("subastas")
-        .delete()
-        .eq("id", id);
-
-    if(deleteError){
-
-        console.error(deleteError);
-
-        /* Devolver dinero al comprador */
-        player.money += precio;
-
-        /* Quitar artículo recibido */
-        if(auction.tipo === "sword"){
-            player.swords.pop();
-        }else{
-            player.armors.pop();
-        }
-
-        /* Intentar devolver dinero al vendedor */
-        await db
-            .from("jugadores")
-            .update({
-                monedas: Number(vendedor.monedas || 0)
-            })
-            .eq("id", vendedor.id);
+        console.error("Error comprando:", error);
 
         showMessage(
             "❌ No se pudo completar la compra."
@@ -3647,21 +3513,51 @@ async function buyAuction(id){
         return;
     }
 
-    /* =====================================
-       GUARDAR
-    ===================================== */
+    if(!data || !data.ok){
+
+        showMessage(
+            "❌ No se pudo completar la compra."
+        );
+
+        return;
+    }
+
+    const precio = Number(data.precio);
+
+    /* ================================
+       DAR ARTÍCULO AL COMPRADOR
+    ================================= */
+
+    if(data.tipo === "sword"){
+
+        player.swords.push({
+            level: Number(data.nivel)
+        });
+
+    }else{
+
+        player.armors.push({
+            level: Number(data.nivel)
+        });
+
+    }
+
+    /* ================================
+       QUITAR DINERO AL COMPRADOR
+    ================================= */
+
+    player.money -= precio;
 
     saveGame();
     updateUI();
     renderInventory();
 
     showMessage(
-        "🛒 ¡Compra realizada! +" +
-        formatNumber(precio) +
-        " al vendedor."
+        "🛒 ¡Compra realizada correctamente!"
     );
 
     showAuctions();
+
 }
 
 
