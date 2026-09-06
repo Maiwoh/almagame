@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,22 +25,29 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
     background:
-        radial-gradient(ellipse at center,
-        #240000 0%,
-        #100000 25%,
-        #050000 55%,
-        #000 100%);
+        radial-gradient(
+            ellipse at center,
+            #240000 0%,
+            #100000 25%,
+            #050000 55%,
+            #000 100%
+        );
 }
 
 body::before {
     content: "";
     position: fixed;
     inset: -50%;
+
     background:
-        radial-gradient(ellipse,
-        rgba(120,0,0,.16),
-        transparent 55%);
+        radial-gradient(
+            ellipse,
+            rgba(120,0,0,.16),
+            transparent 55%
+        );
+
     animation: fog 10s infinite alternate ease-in-out;
     pointer-events: none;
 }
@@ -63,14 +69,23 @@ body::after {
     pointer-events: none;
 
     background-image:
-        radial-gradient(circle, rgba(255,0,0,.35) 1px, transparent 1px),
-        radial-gradient(circle, rgba(120,0,0,.3) 1px, transparent 1px);
+        radial-gradient(
+            circle,
+            rgba(255,0,0,.35) 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            circle,
+            rgba(120,0,0,.3) 1px,
+            transparent 1px
+        );
 
     background-size: 90px 90px, 130px 130px;
     background-position: 20px 30px, 70px 90px;
 
     opacity: .35;
 }
+
 
 /* =========================
    APP
@@ -82,6 +97,7 @@ body::after {
 
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
 
@@ -89,13 +105,16 @@ body::after {
     z-index: 2;
 }
 
+
 /* =========================
-   DMS
+   LOGO
 ========================= */
 
 .logo {
     font-family: "Times New Roman", serif;
+
     font-size: clamp(100px, 20vw, 190px);
+
     font-weight: 900;
 
     letter-spacing: 18px;
@@ -111,10 +130,12 @@ body::after {
         0 10px 20px #000;
 
     animation: demonPulse 4s infinite;
+
     user-select: none;
 }
 
 @keyframes demonPulse {
+
     0%, 90%, 100% {
         transform: scaleY(1.05) translate(0);
     }
@@ -132,8 +153,9 @@ body::after {
     }
 }
 
+
 /* =========================
-   FRASE
+   SUBTITULO
 ========================= */
 
 .subtitle {
@@ -142,9 +164,11 @@ body::after {
     color: #8b0000;
 
     font-family: "Courier New", monospace;
+
     font-size: clamp(14px, 3vw, 20px);
 
     letter-spacing: 5px;
+
     text-transform: uppercase;
 
     text-shadow:
@@ -155,6 +179,7 @@ body::after {
 }
 
 @keyframes subtitlePulse {
+
     from {
         opacity: .65;
     }
@@ -164,6 +189,7 @@ body::after {
     }
 }
 
+
 /* =========================
    LINEA
 ========================= */
@@ -171,23 +197,26 @@ body::after {
 .line {
     width: 300px;
     max-width: 70vw;
+
     height: 1px;
 
     margin: 25px 0 28px;
 
-    background: linear-gradient(
-        to right,
-        transparent,
-        #400000,
-        #b00000,
-        #400000,
-        transparent
-    );
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            #400000,
+            #b00000,
+            #400000,
+            transparent
+        );
 
     box-shadow:
         0 0 8px #700000,
         0 0 20px #300000;
 }
+
 
 /* =========================
    MENU
@@ -195,9 +224,11 @@ body::after {
 
 .menu {
     display: flex;
+
     flex-direction: column;
 
     width: 260px;
+
     gap: 12px;
 
     position: relative;
@@ -209,6 +240,7 @@ body::after {
     position: absolute;
 
     left: 50%;
+
     top: -15px;
     bottom: -15px;
 
@@ -216,14 +248,15 @@ body::after {
 
     transform: translateX(-50%);
 
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        #420000,
-        #900000,
-        #420000,
-        transparent
-    );
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #420000,
+            #900000,
+            #420000,
+            transparent
+        );
 
     opacity: .7;
 
@@ -232,6 +265,7 @@ body::after {
 
 .button {
     width: 100%;
+
     padding: 16px 20px;
 
     background:
@@ -247,10 +281,13 @@ body::after {
     color: #aaa;
 
     font-family: "Courier New", monospace;
+
     font-size: 16px;
+
     letter-spacing: 4px;
 
     text-transform: uppercase;
+
     cursor: pointer;
 
     transition: .3s ease;
@@ -258,6 +295,7 @@ body::after {
 
 .button:hover {
     color: #fff;
+
     border-color: #8b0000;
 
     background:
@@ -275,6 +313,7 @@ body::after {
     transform: scale(1.04);
 }
 
+
 /* =========================
    PANTALLAS
 ========================= */
@@ -283,6 +322,7 @@ body::after {
     display: none;
 
     position: fixed;
+
     inset: 0;
 
     z-index: 20;
@@ -311,6 +351,34 @@ body::after {
         0 0 8px red,
         0 0 25px #700000;
 }
+
+
+/* =========================
+   DINERO
+========================= */
+
+.money {
+    position: absolute;
+
+    left: 30px;
+    top: 30px;
+
+    color: #aaa;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 20px;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 5px #700000;
+}
+
+.money span {
+    color: #aaa;
+}
+
 
 /* =========================
    VOLVER
@@ -341,6 +409,7 @@ body::after {
     box-shadow: 0 0 15px #600000;
 }
 
+
 /* =========================
    PROYECTOS
 ========================= */
@@ -351,6 +420,7 @@ body::after {
     margin: 50px auto 0;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 12px;
@@ -364,6 +434,7 @@ body::after {
     position: absolute;
 
     left: 50%;
+
     top: -25px;
     bottom: -25px;
 
@@ -371,14 +442,15 @@ body::after {
 
     transform: translateX(-50%);
 
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        #420000,
-        #b00000,
-        #420000,
-        transparent
-    );
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #420000,
+            #b00000,
+            #420000,
+            transparent
+        );
 
     box-shadow: 0 0 8px #600000;
 
@@ -432,8 +504,9 @@ body::after {
     transform: scale(1.04);
 }
 
+
 /* =========================
-   FICHA A Y B
+   PERFIL PROYECTOS
 ========================= */
 
 .project-profile {
@@ -441,21 +514,22 @@ body::after {
     height: 100%;
 
     display: flex;
+
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     margin-top: -20px;
 }
-
-/* Cuadro central */
 
 .question-image {
     width: 190px;
     height: 190px;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -481,6 +555,7 @@ body::after {
     font-family: "Times New Roman", serif;
 
     font-size: 130px;
+
     font-weight: bold;
 
     color: #720000;
@@ -533,8 +608,9 @@ body::after {
     }
 }
 
+
 /* =========================
-   DATOS
+   STATS
 ========================= */
 
 .stats-pillar {
@@ -543,6 +619,7 @@ body::after {
     margin-top: 30px;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 10px;
@@ -588,6 +665,7 @@ body::after {
         0 0 15px rgba(150,0,0,.35);
 }
 
+
 /* =========================
    DIARIO
 ========================= */
@@ -597,7 +675,9 @@ body::after {
     height: calc(100% - 80px);
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 }
 
@@ -625,6 +705,7 @@ body::after {
     font-family: "Courier New", monospace;
 
     font-size: 18px;
+
     line-height: 1.8;
 
     text-align: center;
@@ -644,6 +725,254 @@ body::after {
     letter-spacing: 6px;
 }
 
+
+/* =========================
+   OPCIONES.UNION
+========================= */
+
+.union-menu {
+    width: 260px;
+
+    margin: 50px auto 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    position: relative;
+}
+
+.union-menu::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    top: -25px;
+    bottom: -25px;
+
+    width: 1px;
+
+    transform: translateX(-50%);
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #420000,
+            #b00000,
+            #420000,
+            transparent
+        );
+
+    box-shadow: 0 0 8px #600000;
+
+    z-index: -1;
+}
+
+.union-button {
+    width: 100%;
+
+    padding: 17px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(12,0,0,.95),
+            rgba(45,0,0,.9),
+            rgba(12,0,0,.95)
+        );
+
+    border: 1px solid #350000;
+
+    color: #999;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.union-button:hover {
+    color: #fff;
+
+    border-color: #900000;
+
+    background:
+        linear-gradient(
+            90deg,
+            #100000,
+            #500000,
+            #100000
+        );
+
+    box-shadow:
+        0 0 15px rgba(180,0,0,.4);
+
+    transform: scale(1.04);
+}
+
+
+/* =========================
+   MENTAL
+========================= */
+
+.mental-profile {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: -20px;
+}
+
+.mental-pillar {
+    width: 280px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.mental-item {
+    width: 100%;
+
+    padding: 14px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            90deg,
+            #090000,
+            #260000,
+            #090000
+        );
+
+    border: 1px solid #350000;
+
+    color: #aaa;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 16px;
+
+    letter-spacing: 2px;
+
+    box-shadow:
+        inset 0 0 15px rgba(255,0,0,.03);
+
+    transition: .3s;
+}
+
+.mental-item:first-child {
+    color: #8b0000;
+
+    font-size: 22px;
+
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 8px #700000;
+}
+
+.mental-item:hover {
+    color: white;
+
+    border-color: #800000;
+
+    box-shadow:
+        0 0 15px rgba(150,0,0,.35);
+}
+
+
+/* =========================
+   BOTON COMPRAR
+========================= */
+
+.buy-button {
+    width: 100%;
+
+    padding: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #100000,
+            #500000,
+            #100000
+        );
+
+    border: 1px solid #650000;
+
+    color: #ddd;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 15px;
+
+    letter-spacing: 3px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.buy-button:hover:not(:disabled) {
+    color: white;
+
+    border-color: red;
+
+    box-shadow:
+        0 0 15px rgba(180,0,0,.45);
+
+    transform: scale(1.03);
+}
+
+.buy-button:disabled {
+    cursor: not-allowed;
+
+    opacity: .75;
+}
+
+
+/* =========================
+   MENSAJE
+========================= */
+
+.no-money {
+    margin-top: 10px;
+
+    color: #8b0000;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    text-align: center;
+
+    min-height: 18px;
+}
+
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -652,18 +981,23 @@ body::after {
 
     .logo {
         font-size: 90px;
+
         letter-spacing: 10px;
+
         padding-left: 10px;
     }
 
     .subtitle {
         font-size: 12px;
+
         letter-spacing: 3px;
     }
 
     .menu,
     .projects-menu,
-    .stats-pillar {
+    .stats-pillar,
+    .union-menu,
+    .mental-pillar {
         width: 220px;
     }
 
@@ -679,11 +1013,19 @@ body::after {
     .question-mark {
         font-size: 105px;
     }
+
+    .money {
+        left: 20px;
+        top: 20px;
+
+        font-size: 17px;
+    }
 }
 </style>
 </head>
 
 <body>
+
 
 <!-- =========================
      INICIO
@@ -691,7 +1033,9 @@ body::after {
 
 <div class="app">
 
-    <div class="logo">DMS</div>
+    <div class="logo">
+        DMS
+    </div>
 
     <div class="subtitle">
         El diablo está cerca
@@ -701,19 +1045,27 @@ body::after {
 
     <div class="menu">
 
-        <button class="button"
-                onclick="openScreen('proyectos')">
+        <button
+            class="button"
+            onclick="openScreen('proyectos')">
             Proyectos
         </button>
 
-        <button class="button"
-                onclick="openScreen('diario')">
+        <button
+            class="button"
+            onclick="openScreen('diario')">
             Diario
         </button>
 
-        <!-- NO HACE NADA -->
-        <button class="button"
-                onclick="void(0)">
+        <button
+            class="button"
+            onclick="openScreen('union')">
+            Opciones.union
+        </button>
+
+        <button
+            class="button"
+            onclick="void(0)">
             ...
         </button>
 
@@ -728,38 +1080,38 @@ body::after {
 
 <div id="proyectos" class="screen">
 
-    <button class="back"
-            onclick="closeScreens()">
+    <button
+        class="back"
+        onclick="closeScreens()">
         ← VOLVER
     </button>
 
-    <h1>PROYECTOS</h1>
+    <h1>
+        PROYECTOS
+    </h1>
 
     <div class="projects-menu">
 
-        <!-- A -->
-        <button class="project-button"
-                onclick="openScreen('proyectoA')">
+        <button
+            class="project-button"
+            onclick="openScreen('proyectoA')">
             A
         </button>
 
-        <!-- B -->
-        <button class="project-button"
-                onclick="openScreen('proyectoB')">
+        <button
+            class="project-button"
+            onclick="openScreen('proyectoB')">
             B
         </button>
 
-        <!-- G -->
         <button class="project-button">
             G
         </button>
 
-        <!-- O -->
         <button class="project-button">
             O
         </button>
 
-        <!-- ... -->
         <button class="project-button">
             ...
         </button>
@@ -775,15 +1127,20 @@ body::after {
 
 <div id="proyectoA" class="screen">
 
-    <button class="back"
-            onclick="openScreen('proyectos')">
+    <button
+        class="back"
+        onclick="openScreen('proyectos')">
         ← VOLVER
     </button>
 
     <div class="project-profile">
 
         <div class="question-image">
-            <div class="question-mark">?</div>
+
+            <div class="question-mark">
+                ?
+            </div>
+
         </div>
 
         <div class="stats-pillar">
@@ -809,15 +1166,20 @@ body::after {
 
 <div id="proyectoB" class="screen">
 
-    <button class="back"
-            onclick="openScreen('proyectos')">
+    <button
+        class="back"
+        onclick="openScreen('proyectos')">
         ← VOLVER
     </button>
 
     <div class="project-profile">
 
         <div class="question-image">
-            <div class="question-mark">?</div>
+
+            <div class="question-mark">
+                ?
+            </div>
+
         </div>
 
         <div class="stats-pillar">
@@ -843,20 +1205,113 @@ body::after {
 
 <div id="diario" class="screen">
 
-    <button class="back"
-            onclick="closeScreens()">
+    <button
+        class="back"
+        onclick="closeScreens()">
         ← VOLVER
     </button>
 
-    <h1>DIARIO</h1>
+    <h1>
+        DIARIO
+    </h1>
 
     <div class="diary-container">
 
         <div class="diary-note">
+
             Mi vida se siente muy pesada.
             Me dejaron la mente hecha pedazos
             y últimamente solo puedo pensar
             en todo lo malo. :(
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     OPCIONES.UNION
+========================= -->
+
+<div id="union" class="screen">
+
+    <div class="money">
+        $<span id="money">0</span>
+    </div>
+
+    <button
+        class="back"
+        onclick="closeScreens()">
+        ← VOLVER
+    </button>
+
+    <h1>
+        OPCIONES.UNION
+    </h1>
+
+    <div class="union-menu">
+
+        <button
+            class="union-button"
+            onclick="openScreen('mental')">
+            Maikel
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MENTAL
+========================= -->
+
+<div id="mental" class="screen">
+
+    <button
+        class="back"
+        onclick="openScreen('union')">
+        ← VOLVER
+    </button>
+
+    <div class="mental-profile">
+
+        <div class="mental-pillar">
+
+            <div class="mental-item">
+                MENTAL
+            </div>
+
+            <div class="mental-item">
+                Edad: 13 años
+            </div>
+
+            <div class="mental-item">
+                Fuerza: 2.2
+            </div>
+
+            <div class="mental-item">
+                Velocidad: 8.6
+            </div>
+
+            <div class="mental-item">
+                Precio: $5
+            </div>
+
+            <button
+                id="buyMentalButton"
+                class="buy-button"
+                onclick="buyMental()">
+                COMPRAR — $5
+            </button>
+
+            <div
+                id="moneyMessage"
+                class="no-money">
+            </div>
+
         </div>
 
     </div>
@@ -866,38 +1321,293 @@ body::after {
 
 <script>
 
+/* =====================================================
+   GUARDADO DEL PROGRESO
+===================================================== */
+
+/*
+   Todo esto se guarda en localStorage.
+
+   Si cierras el juego:
+       → el dinero queda guardado
+       → los personajes comprados quedan guardados
+
+   Si vuelves a abrir el HTML:
+       → recupera automáticamente el progreso.
+*/
+
+
+let money =
+    Number(localStorage.getItem("dms_money")) || 0;
+
+
+let mentalComprado =
+    localStorage.getItem("dms_mental_comprado") === "true";
+
+
+/* =====================================================
+   ACTUALIZAR DINERO
+===================================================== */
+
+function updateMoney() {
+
+    const moneyElement =
+        document.getElementById("money");
+
+    if (moneyElement) {
+
+        moneyElement.textContent = money;
+
+    }
+
+}
+
+
+/* =====================================================
+   GUARDAR DINERO
+===================================================== */
+
+function saveMoney() {
+
+    localStorage.setItem(
+        "dms_money",
+        money
+    );
+
+}
+
+
+/* =====================================================
+   GUARDAR PERSONAJE
+===================================================== */
+
+function saveCharacters() {
+
+    localStorage.setItem(
+        "dms_mental_comprado",
+        mentalComprado
+    );
+
+}
+
+
+/* =====================================================
+   CAMBIAR PANTALLA
+===================================================== */
+
 function openScreen(id) {
 
     document
         .querySelectorAll(".screen")
         .forEach(screen => {
+
             screen.classList.remove("active");
+
         });
 
-    document
-        .getElementById(id)
-        .classList.add("active");
+    const screen =
+        document.getElementById(id);
+
+    if (screen) {
+
+        screen.classList.add("active");
+
+    }
+
+    updateMoney();
+
+    updateMentalButton();
+
 }
 
+
+/* =====================================================
+   DINERO CADA 60 SEGUNDOS
+===================================================== */
+
+/*
+   Cada minuto:
+       + $2
+
+   No hay:
+       ❌ temporizador
+       ❌ contador
+       ❌ anuncio
+       ❌ mensaje
+
+   Solamente se suma el dinero.
+*/
+
+setInterval(function() {
+
+    money += 2;
+
+    saveMoney();
+
+    updateMoney();
+
+}, 60000);
+
+
+/* =====================================================
+   COMPRAR MENTAL
+===================================================== */
+
+function buyMental() {
+
+    const button =
+        document.getElementById(
+            "buyMentalButton"
+        );
+
+    const message =
+        document.getElementById(
+            "moneyMessage"
+        );
+
+
+    /* Ya comprado */
+
+    if (mentalComprado) {
+
+        message.textContent =
+            "YA TIENES ESTE PERSONAJE";
+
+        return;
+
+    }
+
+
+    /* Dinero insuficiente */
+
+    if (money < 5) {
+
+        message.textContent =
+            "DINERO INSUFICIENTE";
+
+        button.textContent =
+            "NO PUEDES COMPRAR";
+
+        setTimeout(function() {
+
+            if (!mentalComprado) {
+
+                button.textContent =
+                    "COMPRAR — $5";
+
+            }
+
+        }, 1500);
+
+        return;
+
+    }
+
+
+    /* Compra */
+
+    money -= 5;
+
+    mentalComprado = true;
+
+
+    /* Guardar inmediatamente */
+
+    saveMoney();
+
+    saveCharacters();
+
+
+    /* Actualizar pantalla */
+
+    updateMoney();
+
+    updateMentalButton();
+
+
+    message.textContent =
+        "MENTAL AÑADIDO";
+
+}
+
+
+/* =====================================================
+   ACTUALIZAR BOTÓN DE MENTAL
+===================================================== */
+
+function updateMentalButton() {
+
+    const button =
+        document.getElementById(
+            "buyMentalButton"
+        );
+
+    if (!button) {
+        return;
+    }
+
+
+    if (mentalComprado) {
+
+        button.textContent =
+            "COMPRADO ✓";
+
+        button.disabled = true;
+
+    } else {
+
+        button.textContent =
+            "COMPRAR — $5";
+
+        button.disabled = false;
+
+    }
+
+}
+
+
+/* =====================================================
+   CERRAR PANTALLAS
+===================================================== */
 
 function closeScreens() {
 
     document
         .querySelectorAll(".screen")
         .forEach(screen => {
+
             screen.classList.remove("active");
+
         });
 
 }
 
 
-document.addEventListener("keydown", function(event) {
+/* =====================================================
+   ESC
+===================================================== */
 
-    if (event.key === "Escape") {
-        closeScreens();
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeScreens();
+
+        }
+
     }
+);
 
-});
+
+/* =====================================================
+   INICIALIZAR
+===================================================== */
+
+updateMoney();
+
+updateMentalButton();
 
 </script>
 
