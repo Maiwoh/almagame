@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1259,6 +1260,12 @@ body::after {
             Maikel
         </button>
 
+        <button
+            class="union-button"
+            onclick="openScreen('foby')">
+            Foby
+        </button>
+
     </div>
 
 </div>
@@ -1319,23 +1326,70 @@ body::after {
 </div>
 
 
+<!-- =========================
+     FOBY
+========================= -->
+
+<div id="foby" class="screen">
+
+    <button
+        class="back"
+        onclick="openScreen('union')">
+        ← VOLVER
+    </button>
+
+    <div class="mental-profile">
+
+        <div class="mental-pillar">
+
+            <div class="mental-item">
+                FOBY
+            </div>
+
+            <div class="mental-item">
+                Edad: 512 años
+            </div>
+
+            <div class="mental-item">
+                Fuerza: 7.5
+            </div>
+
+            <div class="mental-item">
+                Velocidad: 4.5
+            </div>
+
+            <div class="mental-item">
+                Precio: 100 Monedas
+            </div>
+
+            <div class="mental-item">
+                No le quites su carta, no lo toques, no lo contradigas, no lo dejes solo...
+            </div>
+
+            <button
+                id="buyFobyButton"
+                class="buy-button"
+                onclick="buyFoby()">
+                COMPRAR — 100 MONEDAS
+            </button>
+
+            <div
+                id="fobyMoneyMessage"
+                class="no-money">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
 /* =====================================================
    GUARDADO DEL PROGRESO
 ===================================================== */
-
-/*
-   Todo esto se guarda en localStorage.
-
-   Si cierras el juego:
-       → el dinero queda guardado
-       → los personajes comprados quedan guardados
-
-   Si vuelves a abrir el HTML:
-       → recupera automáticamente el progreso.
-*/
-
 
 let money =
     Number(localStorage.getItem("dms_money")) || 0;
@@ -1343,6 +1397,10 @@ let money =
 
 let mentalComprado =
     localStorage.getItem("dms_mental_comprado") === "true";
+
+
+let fobyComprado =
+    localStorage.getItem("dms_foby_comprado") === "true";
 
 
 /* =====================================================
@@ -1378,7 +1436,7 @@ function saveMoney() {
 
 
 /* =====================================================
-   GUARDAR PERSONAJE
+   GUARDAR PERSONAJES
 ===================================================== */
 
 function saveCharacters() {
@@ -1386,6 +1444,20 @@ function saveCharacters() {
     localStorage.setItem(
         "dms_mental_comprado",
         mentalComprado
+    );
+
+}
+
+
+/* =====================================================
+   GUARDAR FOBY
+===================================================== */
+
+function saveFoby() {
+
+    localStorage.setItem(
+        "dms_foby_comprado",
+        fobyComprado
     );
 
 }
@@ -1418,25 +1490,14 @@ function openScreen(id) {
 
     updateMentalButton();
 
+    updateFobyButton();
+
 }
 
 
 /* =====================================================
    DINERO CADA 60 SEGUNDOS
 ===================================================== */
-
-/*
-   Cada minuto:
-       + $2
-
-   No hay:
-       ❌ temporizador
-       ❌ contador
-       ❌ anuncio
-       ❌ mensaje
-
-   Solamente se suma el dinero.
-*/
 
 setInterval(function() {
 
@@ -1466,8 +1527,6 @@ function buyMental() {
         );
 
 
-    /* Ya comprado */
-
     if (mentalComprado) {
 
         message.textContent =
@@ -1477,8 +1536,6 @@ function buyMental() {
 
     }
 
-
-    /* Dinero insuficiente */
 
     if (money < 5) {
 
@@ -1504,21 +1561,15 @@ function buyMental() {
     }
 
 
-    /* Compra */
-
     money -= 5;
 
     mentalComprado = true;
 
 
-    /* Guardar inmediatamente */
-
     saveMoney();
 
     saveCharacters();
 
-
-    /* Actualizar pantalla */
 
     updateMoney();
 
@@ -1558,6 +1609,113 @@ function updateMentalButton() {
 
         button.textContent =
             "COMPRAR — $5";
+
+        button.disabled = false;
+
+    }
+
+}
+
+
+/* =====================================================
+   COMPRAR FOBY
+===================================================== */
+
+function buyFoby() {
+
+    const button =
+        document.getElementById(
+            "buyFobyButton"
+        );
+
+    const message =
+        document.getElementById(
+            "fobyMoneyMessage"
+        );
+
+
+    if (fobyComprado) {
+
+        message.textContent =
+            "YA TIENES ESTE PERSONAJE";
+
+        return;
+
+    }
+
+
+    if (money < 100) {
+
+        message.textContent =
+            "DINERO INSUFICIENTE";
+
+        button.textContent =
+            "NO PUEDES COMPRAR";
+
+        setTimeout(function() {
+
+            if (!fobyComprado) {
+
+                button.textContent =
+                    "COMPRAR — 100 MONEDAS";
+
+            }
+
+        }, 1500);
+
+        return;
+
+    }
+
+
+    money -= 100;
+
+    fobyComprado = true;
+
+
+    saveMoney();
+
+    saveFoby();
+
+
+    updateMoney();
+
+    updateFobyButton();
+
+
+    message.textContent =
+        "FOBY AÑADIDO";
+
+}
+
+
+/* =====================================================
+   ACTUALIZAR BOTÓN DE FOBY
+===================================================== */
+
+function updateFobyButton() {
+
+    const button =
+        document.getElementById(
+            "buyFobyButton"
+        );
+
+    if (!button) {
+        return;
+    }
+
+
+    if (fobyComprado) {
+
+        button.textContent =
+            "COMPRADO ✓";
+
+        button.disabled = true;
+
+    } else {
+
+        button.textContent =
+            "COMPRAR — 100 MONEDAS";
 
         button.disabled = false;
 
@@ -1608,6 +1766,8 @@ document.addEventListener(
 updateMoney();
 
 updateMentalButton();
+
+updateFobyButton();
 
 </script>
 
