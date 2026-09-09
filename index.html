@@ -1,12 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DMS</title>
+<title>SOR</title>
 
 <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -30,61 +30,273 @@ body {
     background:
         radial-gradient(
             ellipse at center,
-            #240000 0%,
-            #100000 25%,
+            var(--bg-main) 0%,
+            var(--bg-secondary) 25%,
             #050000 55%,
             #000 100%
         );
+
+    cursor: var(--sor-cursor, default);
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: -50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(120,0,0,.16),
-            transparent 55%
-        );
-
-    animation: fog 10s infinite alternate ease-in-out;
-    pointer-events: none;
+body,
+body * {
+    cursor: var(--sor-cursor, default) !important;
 }
 
-@keyframes fog {
+button,
+a,
+input,
+textarea,
+label,
+.cursor-card,
+.color-card,
+.file-option,
+.diary-card,
+.trash-card {
+    cursor: var(--sor-cursor, default) !important;
+}
+
+
+/* =========================
+   EFECTOS ESPECIALES
+========================= */
+
+body.special-effects::after {
+    opacity: .55;
+    animation: specialParticles 8s linear infinite;
+}
+
+body.special-effects .logo {
+    animation:
+        sorPulse 4s infinite,
+        specialGlow 2.5s infinite alternate;
+}
+
+body.special-effects .button,
+body.special-effects .file-option,
+body.special-effects .color-card,
+body.special-effects .account-button,
+body.special-effects .streak-button {
+    animation: specialButtonGlow 3s infinite alternate;
+}
+
+body.special-effects .screen.active {
+    animation: screenSpecial 0.35s ease;
+}
+
+body.special-effects::before {
+    animation:
+        fog 10s infinite alternate ease-in-out,
+        specialFog 5s infinite alternate;
+}
+
+@keyframes specialParticles {
     0% {
-        transform: translate(-5%, -3%) scale(1);
+        background-position:
+            20px 30px,
+            70px 90px;
+    }
+
+    50% {
+        background-position:
+            70px 80px,
+            10px 40px;
     }
 
     100% {
-        transform: translate(5%, 4%) scale(1.15);
+        background-position:
+            20px 30px,
+            70px 90px;
     }
 }
 
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
+@keyframes specialGlow {
+    from {
+        filter: brightness(1);
+    }
 
-    background-image:
-        radial-gradient(
-            circle,
-            rgba(255,0,0,.35) 1px,
-            transparent 1px
-        ),
-        radial-gradient(
-            circle,
-            rgba(120,0,0,.3) 1px,
-            transparent 1px
+    to {
+        filter: brightness(1.35);
+    }
+}
+
+@keyframes specialButtonGlow {
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.12);
+    }
+}
+
+@keyframes specialFog {
+    from {
+        filter: blur(0px);
+    }
+
+    to {
+        filter: blur(4px);
+    }
+}
+
+@keyframes screenSpecial {
+    from {
+        opacity: .2;
+        transform: scale(.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================
+   FLECHAS
+========================= */
+
+.cursor-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(150px, 1fr)
+        );
+    gap: 15px;
+    padding: 10px;
+}
+
+.cursor-card {
+    min-height: 125px;
+    border: 1px solid var(--main-dark);
+
+    background:
+        linear-gradient(
+            145deg,
+            #080000,
+            #180000
         );
 
-    background-size: 90px 90px, 130px 130px;
-    background-position: 20px 30px, 70px 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: .3s;
+}
 
-    opacity: .35;
+.cursor-card:hover {
+    border-color: var(--main);
+    box-shadow:
+        0 0 20px var(--main-dark);
+    transform: translateY(-4px);
+}
+
+.cursor-card.selected {
+    border-color: var(--main-light);
+    box-shadow:
+        0 0 20px var(--main),
+        inset 0 0 20px rgba(255,255,255,.03);
+}
+
+.cursor-preview {
+    display: none;
+}
+
+.cursor-name {
+    color: #aaa;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.cursor-card.selected .cursor-name {
+    color: white;
+}
+
+.effects-box {
+    margin-top: 30px;
+    padding: 22px;
+    border: 1px solid var(--main-dark);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15,0,0,.95),
+            rgba(35,0,0,.75),
+            rgba(10,0,0,.95)
+        );
+}
+
+.effects-title {
+    color: #777;
+    font-family: "Courier New", monospace;
+    font-size: 15px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.effects-switch {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.effects-button {
+    min-width: 120px;
+    padding: 13px 20px;
+    background: #080000;
+    border: 1px solid var(--main-dark);
+    color: #777;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    letter-spacing: 3px;
+    transition: .3s;
+}
+
+.effects-button:hover {
+    color: white;
+    border-color: var(--main);
+    box-shadow:
+        0 0 15px var(--main-dark);
+}
+
+.effects-button.selected {
+    color: white;
+    border-color: var(--main-light);
+    box-shadow:
+        0 0 15px var(--main);
+}
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+:root {
+    --main: #8b0000;
+    --main-light: #ff0000;
+    --main-dark: #500000;
+
+    --logo-color: #650000;
+
+    --bg-main: #240000;
+    --bg-secondary: #100000;
+
+    --fog-color: rgba(120,0,0,.16);
+
+    --particle-color: rgba(255,0,0,.35);
+    --particle-color-2: rgba(120,0,0,.3);
+
+    --button-dark: #100000;
+    --button-light: #520000;
+
+    --sor-cursor: default;
 }
 
 
@@ -108,49 +320,102 @@ body::after {
 
 
 /* =========================
+   CUENTA
+========================= */
+
+.account-top {
+    position: fixed;
+    top: 22px;
+    right: 25px;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+}
+
+.account-button {
+    padding: 10px 17px;
+    background: rgba(10,0,0,.9);
+    border: 1px solid var(--main-dark);
+    color: #aaa;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+.account-button:hover {
+    color: white;
+    border-color: var(--main-light);
+    box-shadow:
+        0 0 15px var(--main-dark);
+}
+
+.streak-button {
+    display: none;
+    padding: 7px 12px;
+    background: rgba(10,0,0,.9);
+    border: 1px solid var(--main-dark);
+    color: #aaa;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    transition: .3s;
+}
+
+.streak-button:hover {
+    color: white;
+    border-color: var(--main-light);
+    box-shadow:
+        0 0 12px var(--main-dark);
+}
+
+
+/* =========================
    LOGO
 ========================= */
 
 .logo {
     font-family: "Times New Roman", serif;
-
     font-size: clamp(100px, 20vw, 190px);
-
     font-weight: 900;
-
     letter-spacing: 18px;
     padding-left: 18px;
-
-    color: #650000;
+    color: var(--logo-color);
 
     text-shadow:
-        0 0 3px #ff0000,
-        0 0 10px #c00000,
-        0 0 25px #8b0000,
-        0 0 45px #500000,
+        0 0 3px var(--main-light),
+        0 0 10px var(--main),
+        0 0 25px var(--main-dark),
+        0 0 45px var(--main-dark),
         0 10px 20px #000;
 
-    animation: demonPulse 4s infinite;
-
+    animation: sorPulse 4s infinite;
     user-select: none;
 }
 
-@keyframes demonPulse {
-
+@keyframes sorPulse {
     0%, 90%, 100% {
         transform: scaleY(1.05) translate(0);
     }
 
     92% {
-        transform: scaleY(1.05) translate(-2px, 1px);
+        transform:
+            scaleY(1.05)
+            translate(-2px, 1px);
     }
 
     94% {
-        transform: scaleY(1.05) translate(2px, -1px);
+        transform:
+            scaleY(1.05)
+            translate(2px, -1px);
     }
 
     96% {
-        transform: scaleY(1.05) translate(-1px, 2px);
+        transform:
+            scaleY(1.05)
+            translate(-1px, 2px);
     }
 }
 
@@ -161,26 +426,24 @@ body::after {
 
 .subtitle {
     margin-top: -10px;
-
-    color: #8b0000;
-
+    color: var(--main);
     font-family: "Courier New", monospace;
-
     font-size: clamp(14px, 3vw, 20px);
-
     letter-spacing: 5px;
-
-    text-transform: uppercase;
+    text-transform: lowercase;
 
     text-shadow:
-        0 0 5px #ff0000,
-        0 0 15px #700000;
+        0 0 5px var(--main-light),
+        0 0 15px var(--main-dark);
 
-    animation: subtitlePulse 3s infinite alternate;
+    animation:
+        subtitlePulse
+        3s
+        infinite
+        alternate;
 }
 
 @keyframes subtitlePulse {
-
     from {
         opacity: .65;
     }
@@ -198,24 +461,22 @@ body::after {
 .line {
     width: 300px;
     max-width: 70vw;
-
     height: 1px;
-
-    margin: 25px 0 28px;
+    margin: 25px 0 22px;
 
     background:
         linear-gradient(
             to right,
             transparent,
-            #400000,
-            #b00000,
-            #400000,
+            var(--main-dark),
+            var(--main-light),
+            var(--main-dark),
             transparent
         );
 
     box-shadow:
-        0 0 8px #700000,
-        0 0 20px #300000;
+        0 0 8px var(--main),
+        0 0 20px var(--main-dark);
 }
 
 
@@ -225,48 +486,42 @@ body::after {
 
 .menu {
     display: flex;
-
     flex-direction: column;
-
     width: 260px;
-
     gap: 12px;
-
     position: relative;
 }
 
 .menu::before {
     content: "";
-
     position: absolute;
-
     left: 50%;
-
     top: -15px;
     bottom: -15px;
-
     width: 1px;
-
     transform: translateX(-50%);
 
     background:
         linear-gradient(
             to bottom,
             transparent,
-            #420000,
-            #900000,
-            #420000,
+            var(--main-dark),
+            var(--main),
+            var(--main-dark),
             transparent
         );
 
     opacity: .7;
-
     z-index: -1;
 }
 
+
+/* =========================
+   BOTONES
+========================= */
+
 .button {
     width: 100%;
-
     padding: 16px 20px;
 
     background:
@@ -277,39 +532,31 @@ body::after {
             rgba(20,0,0,.95)
         );
 
-    border: 1px solid #350000;
-
+    border: 1px solid var(--main-dark);
     color: #aaa;
-
     font-family: "Courier New", monospace;
-
     font-size: 16px;
-
     letter-spacing: 4px;
-
     text-transform: uppercase;
-
-    cursor: pointer;
-
     transition: .3s ease;
 }
 
 .button:hover {
     color: #fff;
 
-    border-color: #8b0000;
+    border-color: var(--main);
 
     background:
         linear-gradient(
             90deg,
             #130000,
-            #520000,
+            var(--button-light),
             #130000
         );
 
     box-shadow:
-        0 0 12px rgba(180,0,0,.45),
-        0 0 30px rgba(100,0,0,.25);
+        0 0 12px var(--main),
+        0 0 30px var(--main-dark);
 
     transform: scale(1.04);
 }
@@ -321,19 +568,15 @@ body::after {
 
 .screen {
     display: none;
-
     position: fixed;
-
     inset: 0;
-
     z-index: 20;
-
     padding: 40px;
 
     background:
         radial-gradient(
             ellipse at center,
-            #180000,
+            var(--bg-secondary),
             #050000 60%,
             #000
         );
@@ -344,40 +587,12 @@ body::after {
 }
 
 .screen h1 {
-    color: #8b0000;
-
+    color: var(--main);
     font-size: 48px;
 
     text-shadow:
-        0 0 8px red,
-        0 0 25px #700000;
-}
-
-
-/* =========================
-   DINERO
-========================= */
-
-.money {
-    position: absolute;
-
-    left: 30px;
-    top: 30px;
-
-    color: #aaa;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 20px;
-
-    letter-spacing: 2px;
-
-    text-shadow:
-        0 0 5px #700000;
-}
-
-.money span {
-    color: #aaa;
+        0 0 8px var(--main-light),
+        0 0 25px var(--main-dark);
 }
 
 
@@ -387,251 +602,84 @@ body::after {
 
 .back {
     position: absolute;
-
     right: 30px;
     top: 30px;
-
     padding: 10px 18px;
-
     background: #100000;
-
-    border: 1px solid #500000;
-
+    border: 1px solid var(--main-dark);
     color: #aaa;
-
-    cursor: pointer;
+    font-family: "Courier New", monospace;
 }
 
 .back:hover {
     color: white;
-
-    border-color: red;
-
-    box-shadow: 0 0 15px #600000;
+    border-color: var(--main-light);
+    box-shadow: 0 0 15px var(--main-dark);
 }
 
 
 /* =========================
-   PROYECTOS
+   MENUS
 ========================= */
 
-.projects-menu {
+.diary-menu,
+.config-menu {
     width: 260px;
-
-    margin: 50px auto 0;
-
+    margin: 70px auto 0;
     display: flex;
-
     flex-direction: column;
-
     gap: 12px;
-
     position: relative;
 }
 
-.projects-menu::before {
+.diary-menu::before,
+.config-menu::before {
     content: "";
-
     position: absolute;
-
     left: 50%;
-
     top: -25px;
     bottom: -25px;
-
     width: 1px;
-
     transform: translateX(-50%);
 
     background:
         linear-gradient(
             to bottom,
             transparent,
-            #420000,
-            #b00000,
-            #420000,
+            var(--main-dark),
+            var(--main),
+            var(--main-dark),
             transparent
         );
 
-    box-shadow: 0 0 8px #600000;
-
+    box-shadow: 0 0 8px var(--main-dark);
     z-index: -1;
 }
 
-.project-button {
-    width: 100%;
-
-    padding: 17px;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(12,0,0,.95),
-            rgba(45,0,0,.9),
-            rgba(12,0,0,.95)
-        );
-
-    border: 1px solid #350000;
-
-    color: #999;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 18px;
-
-    letter-spacing: 6px;
-
-    cursor: pointer;
-
-    transition: .3s;
-}
-
-.project-button:hover {
-    color: #fff;
-
-    border-color: #900000;
-
-    background:
-        linear-gradient(
-            90deg,
-            #100000,
-            #500000,
-            #100000
-        );
-
-    box-shadow:
-        0 0 15px rgba(180,0,0,.4);
-
-    transform: scale(1.04);
-}
-
 
 /* =========================
-   PERFIL PROYECTOS
+   EDITOR
 ========================= */
 
-.project-profile {
+.editor-container {
     width: 100%;
-    height: 100%;
-
+    height: calc(100% - 50px);
     display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin-top: -20px;
-}
-
-.question-image {
-    width: 190px;
-    height: 190px;
-
-    display: flex;
-
     justify-content: center;
     align-items: center;
-
-    background:
-        radial-gradient(
-            circle,
-            #180000,
-            #070000 65%,
-            #000
-        );
-
-    border: 2px solid #4d0000;
-
-    box-shadow:
-        0 0 10px #600000,
-        0 0 30px rgba(120,0,0,.45),
-        inset 0 0 30px rgba(120,0,0,.2);
-
-    animation: questionPulse 3s infinite alternate;
 }
 
-.question-mark {
-    font-family: "Times New Roman", serif;
-
-    font-size: 130px;
-
-    font-weight: bold;
-
-    color: #720000;
-
-    text-shadow:
-        0 0 5px red,
-        0 0 15px #a00000,
-        0 0 35px #600000;
-
-    animation: questionFlicker 4s infinite;
-}
-
-@keyframes questionPulse {
-
-    from {
-        box-shadow:
-            0 0 10px #600000,
-            0 0 20px rgba(120,0,0,.3),
-            inset 0 0 20px rgba(120,0,0,.15);
-    }
-
-    to {
-        box-shadow:
-            0 0 15px #900000,
-            0 0 45px rgba(180,0,0,.45),
-            inset 0 0 40px rgba(180,0,0,.2);
-    }
-}
-
-@keyframes questionFlicker {
-
-    0%, 100% {
-        opacity: 1;
-    }
-
-    45% {
-        opacity: .85;
-    }
-
-    47% {
-        opacity: .45;
-    }
-
-    49% {
-        opacity: 1;
-    }
-
-    75% {
-        opacity: .9;
-    }
-}
-
-
-/* =========================
-   STATS
-========================= */
-
-.stats-pillar {
-    width: 260px;
-
-    margin-top: 30px;
-
+.editor-box {
+    width: 700px;
+    max-width: 90%;
     display: flex;
-
     flex-direction: column;
-
-    gap: 10px;
+    gap: 15px;
 }
 
-.stat {
+.diary-title {
     width: 100%;
-
-    padding: 14px;
-
-    text-align: center;
+    padding: 15px;
 
     background:
         linear-gradient(
@@ -641,52 +689,25 @@ body::after {
             #090000
         );
 
-    border: 1px solid #350000;
-
-    color: #aaa;
-
+    border: 1px solid var(--main-dark);
+    outline: none;
+    color: #ddd;
     font-family: "Courier New", monospace;
-
-    font-size: 16px;
-
-    letter-spacing: 3px;
-
-    box-shadow:
-        inset 0 0 15px rgba(255,0,0,.03);
-
-    transition: .3s;
+    font-size: 18px;
+    letter-spacing: 2px;
 }
 
-.stat:hover {
-    color: white;
-
-    border-color: #800000;
-
+.diary-title:focus {
+    border-color: var(--main);
     box-shadow:
-        0 0 15px rgba(150,0,0,.35);
+        0 0 15px var(--main-dark);
 }
 
-
-/* =========================
-   DIARIO
-========================= */
-
-.diary-container {
+.diary-text {
     width: 100%;
-    height: calc(100% - 80px);
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-}
-
-.diary-note {
-    width: 520px;
-    max-width: 90%;
-
-    padding: 35px;
+    height: 300px;
+    resize: none;
+    padding: 20px;
 
     background:
         linear-gradient(
@@ -695,168 +716,215 @@ body::after {
             rgba(8,0,0,.98)
         );
 
-    border: 1px solid #520000;
-
-    box-shadow:
-        0 0 20px rgba(120,0,0,.25),
-        inset 0 0 30px rgba(100,0,0,.08);
-
+    border: 1px solid var(--main-dark);
+    outline: none;
     color: #aaa;
-
     font-family: "Courier New", monospace;
-
-    font-size: 18px;
-
-    line-height: 1.8;
-
-    text-align: center;
+    font-size: 16px;
+    line-height: 1.7;
 }
 
-.diary-note::before {
-    content: "NOTA";
-
-    display: block;
-
-    margin-bottom: 20px;
-
-    color: #8b0000;
-
-    font-size: 13px;
-
-    letter-spacing: 6px;
+.diary-text:focus {
+    border-color: var(--main);
+    box-shadow:
+        0 0 20px var(--main-dark);
 }
 
 
 /* =========================
-   OPCIONES.UNION
+   BOTONES EDITOR
 ========================= */
 
-.union-menu {
-    width: 260px;
-
-    margin: 50px auto 0;
-
+.editor-buttons {
     display: flex;
-
-    flex-direction: column;
-
     gap: 12px;
-
-    position: relative;
-}
-
-.union-menu::before {
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-
-    top: -25px;
-    bottom: -25px;
-
-    width: 1px;
-
-    transform: translateX(-50%);
-
-    background:
-        linear-gradient(
-            to bottom,
-            transparent,
-            #420000,
-            #b00000,
-            #420000,
-            transparent
-        );
-
-    box-shadow: 0 0 8px #600000;
-
-    z-index: -1;
-}
-
-.union-button {
     width: 100%;
-
-    padding: 17px;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(12,0,0,.95),
-            rgba(45,0,0,.9),
-            rgba(12,0,0,.95)
-        );
-
-    border: 1px solid #350000;
-
-    color: #999;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 18px;
-
-    letter-spacing: 4px;
-
-    cursor: pointer;
-
-    transition: .3s;
 }
 
-.union-button:hover {
-    color: #fff;
-
-    border-color: #900000;
+.save-button,
+.delete-button {
+    flex: 1;
+    padding: 15px;
 
     background:
         linear-gradient(
             90deg,
             #100000,
-            #500000,
+            var(--button-light),
             #100000
         );
 
-    box-shadow:
-        0 0 15px rgba(180,0,0,.4);
+    border: 1px solid var(--main);
+    color: #ddd;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    letter-spacing: 3px;
+    transition: .3s;
+}
 
-    transform: scale(1.04);
+.save-button:hover,
+.delete-button:hover {
+    color: white;
+    border-color: var(--main-light);
+    box-shadow:
+        0 0 15px var(--main);
+    transform: scale(1.02);
 }
 
 
 /* =========================
-   MENTAL
+   LISTAS
 ========================= */
 
-.mental-profile {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin-top: -20px;
+.diaries-list,
+.trash-list {
+    width: 700px;
+    max-width: 90%;
+    height: calc(100vh - 150px);
+    margin: 50px auto 0;
+    overflow-y: auto;
+    padding: 10px;
 }
 
-.mental-pillar {
-    width: 280px;
+.diaries-list::-webkit-scrollbar,
+.trash-list::-webkit-scrollbar {
+    width: 5px;
+}
 
+.diaries-list::-webkit-scrollbar-track,
+.trash-list::-webkit-scrollbar-track {
+    background: #080000;
+}
+
+.diaries-list::-webkit-scrollbar-thumb,
+.trash-list::-webkit-scrollbar-thumb {
+    background: var(--main-dark);
+}
+
+
+/* =========================
+   TARJETAS
+========================= */
+
+.diary-card,
+.trash-card {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 14px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(12,0,0,.95),
+            rgba(40,0,0,.9),
+            rgba(12,0,0,.95)
+        );
+
+    border: 1px solid var(--main-dark);
+    transition: .3s;
+}
+
+.diary-card:hover,
+.trash-card:hover {
+    border-color: var(--main);
+    box-shadow:
+        0 0 18px var(--main-dark);
+}
+
+.diary-card-title,
+.trash-title {
+    color: var(--main);
+    font-family: "Courier New", monospace;
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+}
+
+.diary-card-preview,
+.trash-preview {
+    color: #888;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.diary-card-date,
+.trash-date {
+    color: #555;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    margin-top: 10px;
+}
+
+.card-buttons {
     display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
 
+.card-button {
+    padding: 9px 13px;
+    background: #100000;
+    border: 1px solid var(--main-dark);
+    color: #888;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+.card-button:hover {
+    color: white;
+    border-color: var(--main);
+    box-shadow:
+        0 0 10px var(--main-dark);
+}
+
+
+/* =========================
+   ARCHIVOS
+========================= */
+
+.files-container {
+    width: 700px;
+    max-width: 90%;
+    height: calc(100vh - 130px);
+    margin: 40px auto 0;
+    display: flex;
     flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+    padding: 5px 10px 30px;
+}
 
+.files-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.files-container::-webkit-scrollbar-track {
+    background: #080000;
+}
+
+.files-container::-webkit-scrollbar-thumb {
+    background: var(--main-dark);
+}
+
+.search-box {
+    width: 100%;
+    display: flex;
     gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 3;
 }
 
-.mental-item {
-    width: 100%;
-
-    padding: 14px;
-
-    text-align: center;
+.search-input {
+    flex: 1;
+    padding: 16px 18px;
 
     background:
         linear-gradient(
@@ -866,111 +934,791 @@ body::after {
             #090000
         );
 
-    border: 1px solid #350000;
-
-    color: #aaa;
-
+    border: 1px solid var(--main-dark);
+    outline: none;
+    color: #ddd;
     font-family: "Courier New", monospace;
-
     font-size: 16px;
+}
 
-    letter-spacing: 2px;
-
+.search-input:focus {
+    border-color: var(--main);
     box-shadow:
-        inset 0 0 15px rgba(255,0,0,.03);
-
-    transition: .3s;
+        0 0 15px var(--main-dark);
 }
 
-.mental-item:first-child {
-    color: #8b0000;
-
-    font-size: 22px;
-
-    letter-spacing: 5px;
-
-    text-shadow:
-        0 0 8px #700000;
+.search-input::placeholder {
+    color: #666;
 }
 
-.mental-item:hover {
-    color: white;
-
-    border-color: #800000;
-
-    box-shadow:
-        0 0 15px rgba(150,0,0,.35);
-}
-
-
-/* =========================
-   BOTON COMPRAR
-========================= */
-
-.buy-button {
-    width: 100%;
-
-    padding: 15px;
+.search-button {
+    padding: 0 22px;
 
     background:
         linear-gradient(
             90deg,
             #100000,
-            #500000,
+            var(--button-light),
             #100000
         );
 
-    border: 1px solid #650000;
-
-    color: #ddd;
-
+    border: 1px solid var(--main);
+    color: #aaa;
     font-family: "Courier New", monospace;
-
-    font-size: 15px;
-
-    letter-spacing: 3px;
-
-    cursor: pointer;
-
+    font-size: 14px;
+    letter-spacing: 2px;
     transition: .3s;
 }
 
-.buy-button:hover:not(:disabled) {
+.search-button:hover {
     color: white;
-
-    border-color: red;
-
+    border-color: var(--main-light);
     box-shadow:
-        0 0 15px rgba(180,0,0,.45);
-
-    transform: scale(1.03);
+        0 0 15px var(--main);
 }
 
-.buy-button:disabled {
-    cursor: not-allowed;
+.file-option {
+    width: 100%;
+    padding: 20px;
 
-    opacity: .75;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(12,0,0,.95),
+            rgba(40,0,0,.9),
+            rgba(12,0,0,.95)
+        );
+
+    border: 1px solid var(--main-dark);
+    color: #aaa;
+    font-family: "Courier New", monospace;
+    font-size: 17px;
+    letter-spacing: 3px;
+    text-align: left;
+    transition: .3s;
+}
+
+.file-option:hover {
+    color: white;
+    border-color: var(--main);
+    box-shadow:
+        0 0 18px var(--main-dark);
+    transform: scale(1.02);
 }
 
 
 /* =========================
-   MENSAJE
+   CUENTA
 ========================= */
 
-.no-money {
-    margin-top: 10px;
+.account-container {
+    width: 600px;
+    max-width: 90%;
+    margin: 60px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
 
-    color: #8b0000;
+.profile-preview {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 2px solid var(--main-dark);
+    background: #100000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: var(--main);
+    font-size: 40px;
+    margin-bottom: 10px;
+}
 
+.profile-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.account-input {
+    width: 100%;
+    padding: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #090000,
+            #260000,
+            #090000
+        );
+
+    border: 1px solid var(--main-dark);
+    outline: none;
+    color: #ddd;
     font-family: "Courier New", monospace;
+    font-size: 15px;
+}
 
-    font-size: 12px;
+.account-input:focus {
+    border-color: var(--main);
+    box-shadow:
+        0 0 15px var(--main-dark);
+}
 
-    letter-spacing: 2px;
-
+.profile-upload {
+    width: 100%;
+    padding: 13px;
+    border: 1px dashed var(--main-dark);
+    color: #777;
+    font-family: "Courier New", monospace;
     text-align: center;
+}
 
-    min-height: 18px;
+.profile-upload:hover {
+    color: white;
+    border-color: var(--main);
+}
+
+.profile-upload input {
+    display: none;
+}
+
+.account-info {
+    color: #666;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 500px;
+}
+
+.account-created {
+    width: 100%;
+    text-align: center;
+    color: var(--main);
+    font-family: "Courier New", monospace;
+    letter-spacing: 3px;
+    font-size: 18px;
+}
+
+
+/* =========================
+   RACHA
+========================= */
+
+.streak-container {
+    width: 700px;
+    max-width: 90%;
+    height: calc(100vh - 150px);
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.streak-big {
+    font-family: "Courier New", monospace;
+    font-size: clamp(45px, 8vw, 80px);
+    color: var(--main);
+
+    text-shadow:
+        0 0 10px var(--main-light),
+        0 0 30px var(--main-dark);
+
+    letter-spacing: 3px;
+}
+
+.streak-number {
+    margin-top: 20px;
+    font-family: "Courier New", monospace;
+    font-size: 34px;
+    color: #ddd;
+}
+
+.streak-description {
+    margin-top: 30px;
+    max-width: 600px;
+    color: #777;
+    font-family: "Courier New", monospace;
+    font-size: 15px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+}
+
+.streak-time {
+    margin-top: 20px;
+    color: #555;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+}
+
+
+/* =========================
+   ARQ
+========================= */
+
+.arq-container {
+    width: 700px;
+    max-width: 90%;
+    margin: 80px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.arq-logo {
+    width: 150px;
+    height: 150px;
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1c1c1c,
+            #050505
+        );
+
+    border: 1px solid #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 3px;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.12);
+}
+
+.arq-name {
+    margin-top: 25px;
+    color: #ddd;
+    font-family: "Courier New", monospace;
+    font-size: 30px;
+    letter-spacing: 7px;
+}
+
+.arq-link {
+    margin-top: 25px;
+    padding: 15px 30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #100000,
+            var(--button-light),
+            #100000
+        );
+
+    border: 1px solid var(--main);
+    color: #aaa;
+    text-decoration: none;
+    font-family: "Courier New", monospace;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+.arq-link:hover {
+    color: white;
+    border-color: var(--main-light);
+    box-shadow:
+        0 0 18px var(--main);
+    transform: scale(1.04);
+}
+
+
+/* =========================
+   CONFIGURACIÓN
+========================= */
+
+.screen-config {
+    width: 800px;
+    max-width: 92%;
+    height: calc(100vh - 140px);
+    margin: 45px auto 0;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.screen-config::-webkit-scrollbar {
+    width: 5px;
+}
+
+.screen-config::-webkit-scrollbar-track {
+    background: #080000;
+}
+
+.screen-config::-webkit-scrollbar-thumb {
+    background: var(--main-dark);
+}
+
+.color-title {
+    color: #777;
+    font-family: "Courier New", monospace;
+    font-size: 15px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.colors-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(115px, 1fr)
+        );
+    gap: 15px;
+    padding: 10px;
+}
+
+.color-card {
+    min-height: 110px;
+    border: 1px solid #300000;
+    background: #080000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: .3s;
+}
+
+.color-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color);
+    box-shadow:
+        0 0 20px var(--color);
+}
+
+.color-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--color);
+
+    box-shadow:
+        0 0 12px var(--color);
+}
+
+.color-name {
+    color: #aaa;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.color-card.selected {
+    border-color: var(--color);
+    box-shadow:
+        0 0 15px var(--color),
+        inset 0 0 20px rgba(255,255,255,.03);
+}
+
+.color-card.selected .color-name {
+    color: white;
+}
+
+
+/* =========================
+   SITIOS
+========================= */
+
+.youtube-container,
+.social-container,
+.poki-container {
+    width: 700px;
+    max-width: 90%;
+    margin: 70px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.youtube-logo {
+    width: 150px;
+    height: 105px;
+    border-radius: 28px;
+    background: #d00000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow:
+        0 0 15px #800000,
+        0 0 35px rgba(180,0,0,.4);
+}
+
+.youtube-play {
+    width: 0;
+    height: 0;
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+    border-left: 36px solid white;
+    margin-left: 8px;
+}
+
+.tiktok-logo {
+    width: 125px;
+    height: 125px;
+    border-radius: 28px;
+    background: #050505;
+    border: 1px solid #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    font-size: 75px;
+    font-weight: bold;
+    color: white;
+
+    text-shadow:
+        -5px 3px 0 #00f2ea,
+        5px -3px 0 #ff0050;
+
+    box-shadow:
+        0 0 20px rgba(255,0,80,.3),
+        0 0 35px rgba(0,242,234,.2);
+}
+
+.instagram-logo {
+    width: 135px;
+    height: 135px;
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5b00a8,
+            #d9005b,
+            #ff7a00
+        );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow:
+        0 0 20px rgba(220,0,90,.35);
+}
+
+.instagram-camera {
+    width: 75px;
+    height: 75px;
+    border: 6px solid white;
+    border-radius: 23px;
+    position: relative;
+}
+
+.instagram-camera::before {
+    content: "";
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    border: 5px solid white;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.instagram-camera::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    right: 7px;
+    top: 7px;
+}
+
+.poki-logo {
+    width: 145px;
+    height: 145px;
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ff5b00,
+            #ff8a00
+        );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 20px rgba(255,100,0,.4);
+}
+
+.youtube-name,
+.social-name,
+.poki-name {
+    margin-top: 25px;
+    color: #ddd;
+    font-family: "Courier New", monospace;
+    font-size: 27px;
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 8px var(--main-dark);
+}
+
+.site-description {
+    margin-top: 12px;
+    color: #666;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.youtube-link,
+.social-link,
+.poki-link {
+    margin-top: 20px;
+    padding: 15px 28px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #100000,
+            var(--button-light),
+            #100000
+        );
+
+    border: 1px solid var(--main);
+    color: #aaa;
+    text-decoration: none;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+.youtube-link:hover,
+.social-link:hover,
+.poki-link:hover {
+    color: white;
+    border-color: var(--main-light);
+    box-shadow:
+        0 0 18px var(--main);
+    transform: scale(1.04);
+}
+
+.no-diaries {
+    text-align: center;
+    margin-top: 80px;
+    color: var(--main-dark);
+    font-family: "Courier New", monospace;
+    font-size: 15px;
+    letter-spacing: 3px;
+
+    text-shadow:
+        0 0 8px var(--main-dark);
+}
+
+
+/* =========================
+   SORIA
+========================= */
+
+.soria-container {
+    width: 850px;
+    max-width: 94%;
+    height: calc(100vh - 150px);
+    margin: 30px auto 0;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid var(--main-dark);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10,0,0,.96),
+            rgba(25,0,0,.93),
+            rgba(5,0,0,.98)
+        );
+
+    box-shadow:
+        0 0 25px var(--main-dark),
+        inset 0 0 30px rgba(0,0,0,.4);
+}
+
+.soria-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--main-dark);
+    color: var(--main);
+    font-family: "Courier New", monospace;
+    font-size: 18px;
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 0 10px var(--main-dark);
+}
+
+.soria-status {
+    float: right;
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 4px;
+}
+
+.soria-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.soria-messages::-webkit-scrollbar {
+    width: 5px;
+}
+
+.soria-messages::-webkit-scrollbar-track {
+    background: #080000;
+}
+
+.soria-messages::-webkit-scrollbar-thumb {
+    background: var(--main-dark);
+}
+
+.soria-message {
+    max-width: 80%;
+    padding: 14px 17px;
+    border: 1px solid var(--main-dark);
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.soria-message.ai {
+    align-self: flex-start;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30,0,0,.9),
+            rgba(12,0,0,.96)
+        );
+
+    color: #aaa;
+
+    box-shadow:
+        0 0 12px rgba(80,0,0,.25);
+}
+
+.soria-message.user {
+    align-self: flex-end;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(55,0,0,.9),
+            rgba(25,0,0,.96)
+        );
+
+    color: #ddd;
+    border-color: var(--main);
+}
+
+/* NUEVO: apariencia de "Analizando..." */
+
+.soria-message.analyzing {
+    color: var(--main-light);
+    opacity: .75;
+    animation: analyzingPulse 1s infinite alternate;
+}
+
+@keyframes analyzingPulse {
+    from {
+        opacity: .35;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.soria-input-area {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid var(--main-dark);
+    background: rgba(5,0,0,.8);
+}
+
+.soria-input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #090000,
+            #200000,
+            #090000
+        );
+
+    border: 1px solid var(--main-dark);
+    outline: none;
+    color: #ddd;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+}
+
+.soria-input:focus {
+    border-color: var(--main);
+    box-shadow:
+        0 0 15px var(--main-dark);
+}
+
+.soria-send {
+    padding: 0 22px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #100000,
+            var(--button-light),
+            #100000
+        );
+
+    border: 1px solid var(--main);
+    color: #aaa;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+.soria-send:hover {
+    color: white;
+    border-color: var(--main-light);
+    box-shadow:
+        0 0 15px var(--main);
 }
 
 
@@ -982,23 +1730,18 @@ body::after {
 
     .logo {
         font-size: 90px;
-
         letter-spacing: 10px;
-
         padding-left: 10px;
     }
 
     .subtitle {
         font-size: 12px;
-
         letter-spacing: 3px;
     }
 
     .menu,
-    .projects-menu,
-    .stats-pillar,
-    .union-menu,
-    .mental-pillar {
+    .diary-menu,
+    .config-menu {
         width: 220px;
     }
 
@@ -1006,51 +1749,105 @@ body::after {
         padding: 25px;
     }
 
-    .question-image {
-        width: 160px;
-        height: 160px;
+    .screen h1 {
+        font-size: 35px;
     }
 
-    .question-mark {
-        font-size: 105px;
-    }
-
-    .money {
-        left: 20px;
+    .back {
+        right: 20px;
         top: 20px;
+    }
 
-        font-size: 17px;
+    .diary-text {
+        height: 280px;
+    }
+
+    .editor-buttons {
+        flex-direction: column;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-button {
+        padding: 14px;
+    }
+
+    .colors-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .account-top {
+        top: 15px;
+        right: 15px;
+    }
+
+    .cursor-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .soria-message {
+        max-width: 90%;
+    }
+
+    .soria-input-area {
+        flex-direction: column;
+    }
+
+    .soria-send {
+        padding: 14px;
     }
 }
+
 </style>
 </head>
 
 <body>
 
 
-<!-- =========================
+<!-- =====================================================
+     CUENTA / RACHA
+===================================================== -->
+
+<div class="account-top">
+
+    <button
+        id="accountButton"
+        class="account-button"
+        onclick="abrirCuenta()">
+        👤 CUENTA
+    </button>
+
+    <button
+        id="streakButton"
+        class="streak-button"
+        onclick="openScreen('racha')">
+        🔥0 Racha
+    </button>
+
+</div>
+
+
+<!-- =====================================================
      INICIO
-========================= -->
+===================================================== -->
 
 <div class="app">
 
     <div class="logo">
-        DMS
+        SOR
     </div>
 
     <div class="subtitle">
-        El diablo está cerca
+        sistema rápido
     </div>
 
     <div class="line"></div>
 
     <div class="menu">
-
-        <button
-            class="button"
-            onclick="openScreen('proyectos')">
-            Proyectos
-        </button>
 
         <button
             class="button"
@@ -1060,61 +1857,26 @@ body::after {
 
         <button
             class="button"
-            onclick="openScreen('union')">
-            Opciones.union
+            onclick="openScreen('papelera')">
+            Papelera
         </button>
 
         <button
             class="button"
-            onclick="void(0)">
-            ...
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
-     PROYECTOS
-========================= -->
-
-<div id="proyectos" class="screen">
-
-    <button
-        class="back"
-        onclick="closeScreens()">
-        ← VOLVER
-    </button>
-
-    <h1>
-        PROYECTOS
-    </h1>
-
-    <div class="projects-menu">
-
-        <button
-            class="project-button"
-            onclick="openScreen('proyectoA')">
-            A
+            onclick="openScreen('archivos')">
+            Archivos
         </button>
 
         <button
-            class="project-button"
-            onclick="openScreen('proyectoB')">
-            B
+            class="button"
+            onclick="openScreen('configuracion')">
+            Configuración
         </button>
 
-        <button class="project-button">
-            G
-        </button>
-
-        <button class="project-button">
-            O
-        </button>
-
-        <button class="project-button">
-            ...
+        <button
+            class="button"
+            onclick="openScreen('soria')">
+            SorIA
         </button>
 
     </div>
@@ -1122,146 +1884,26 @@ body::after {
 </div>
 
 
-<!-- =========================
-     PROYECTO A
-========================= -->
-
-<div id="proyectoA" class="screen">
-
-    <button
-        class="back"
-        onclick="openScreen('proyectos')">
-        ← VOLVER
-    </button>
-
-    <div class="project-profile">
-
-        <div class="question-image">
-
-            <div class="question-mark">
-                ?
-            </div>
-
-        </div>
-
-        <div class="stats-pillar">
-
-            <div class="stat">
-                Edad: ???
-            </div>
-
-            <div class="stat">
-                Fuerza: ???
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
-     PROYECTO B
-========================= -->
-
-<div id="proyectoB" class="screen">
-
-    <button
-        class="back"
-        onclick="openScreen('proyectos')">
-        ← VOLVER
-    </button>
-
-    <div class="project-profile">
-
-        <div class="question-image">
-
-            <div class="question-mark">
-                ?
-            </div>
-
-        </div>
-
-        <div class="stats-pillar">
-
-            <div class="stat">
-                Edad: ???
-            </div>
-
-            <div class="stat">
-                Fuerza: ???
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
+<!-- =====================================================
      DIARIO
-========================= -->
+===================================================== -->
 
 <div id="diario" class="screen">
 
-    <button
-        class="back"
-        onclick="closeScreens()">
+    <button class="back" onclick="closeScreens()">
         ← VOLVER
     </button>
 
-    <h1>
-        DIARIO
-    </h1>
+    <h1>DIARIO</h1>
 
-    <div class="diary-container">
+    <div class="diary-menu">
 
-        <div class="diary-note">
-
-            Los proyectos mentales de DMS fueron un éxito total,
-            el plan CQR esta cada vez mas cerca (Conquistar)
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
-     OPCIONES.UNION
-========================= -->
-
-<div id="union" class="screen">
-
-    <div class="money">
-        $<span id="money">0</span>
-    </div>
-
-    <button
-        class="back"
-        onclick="closeScreens()">
-        ← VOLVER
-    </button>
-
-    <h1>
-        OPCIONES.UNION
-    </h1>
-
-    <div class="union-menu">
-
-        <button
-            class="union-button"
-            onclick="openScreen('mental')">
-            Maikel
+        <button class="button" onclick="nuevoDiario()">
+            Crear
         </button>
 
-        <button
-            class="union-button"
-            onclick="openScreen('foby')">
-            Foby
+        <button class="button" onclick="mostrarDiarios()">
+            Mis diarios
         </button>
 
     </div>
@@ -1269,52 +1911,51 @@ body::after {
 </div>
 
 
-<!-- =========================
-     MENTAL
-========================= -->
+<!-- =====================================================
+     EDITOR
+===================================================== -->
 
-<div id="mental" class="screen">
+<div id="editor" class="screen">
 
-    <button
-        class="back"
-        onclick="openScreen('union')">
+    <button class="back" onclick="volverAlDiario()">
         ← VOLVER
     </button>
 
-    <div class="mental-profile">
+    <h1 id="editorTitle">CREAR</h1>
 
-        <div class="mental-pillar">
+    <div class="editor-container">
 
-            <div class="mental-item">
-                MENTAL
-            </div>
+        <div class="editor-box">
 
-            <div class="mental-item">
-                Edad: 13 años
-            </div>
+            <input
+                id="diaryTitle"
+                class="diary-title"
+                type="text"
+                placeholder="Título del diario..."
+                maxlength="80"
+            >
 
-            <div class="mental-item">
-                Fuerza: 2.2
-            </div>
+            <textarea
+                id="diaryText"
+                class="diary-text"
+                placeholder="Escribe aquí tu diario..."
+            ></textarea>
 
-            <div class="mental-item">
-                Velocidad: 8.6
-            </div>
+            <div class="editor-buttons">
 
-            <div class="mental-item">
-                Precio: $5
-            </div>
+                <button
+                    class="save-button"
+                    onclick="guardarDiario()">
+                    GUARDAR DIARIO
+                </button>
 
-            <button
-                id="buyMentalButton"
-                class="buy-button"
-                onclick="buyMental()">
-                COMPRAR — $5
-            </button>
+                <button
+                    id="deleteEditorButton"
+                    class="delete-button"
+                    onclick="mandarEditorAPapelera()">
+                    BORRAR DIARIO
+                </button>
 
-            <div
-                id="moneyMessage"
-                class="no-money">
             </div>
 
         </div>
@@ -1324,59 +1965,894 @@ body::after {
 </div>
 
 
-<!-- =========================
-     FOBY
-========================= -->
+<!-- =====================================================
+     MIS DIARIOS
+===================================================== -->
 
-<div id="foby" class="screen">
+<div id="misDiarios" class="screen">
 
-    <button
-        class="back"
-        onclick="openScreen('union')">
+    <button class="back" onclick="openScreen('diario')">
         ← VOLVER
     </button>
 
-    <div class="mental-profile">
+    <h1>MIS DIARIOS</h1>
 
-        <div class="mental-pillar">
+    <div id="diariesList" class="diaries-list"></div>
 
-            <div class="mental-item">
-                FOBY
-            </div>
+</div>
 
-            <div class="mental-item">
-                Edad: 512 años
-            </div>
 
-            <div class="mental-item">
-                Fuerza: 7.5
-            </div>
+<!-- =====================================================
+     PAPELERA
+===================================================== -->
 
-            <div class="mental-item">
-                Velocidad: 4.5
-            </div>
+<div id="papelera" class="screen">
 
-            <div class="mental-item">
-                Precio: 100 Monedas
-            </div>
+    <button class="back" onclick="closeScreens()">
+        ← VOLVER
+    </button>
 
-            <div class="mental-item">
-                No le quites su carta, no lo toques, no lo contradigas, no lo dejes solo...
-            </div>
+    <h1>PAPELERA</h1>
+
+    <div id="trashList" class="trash-list"></div>
+
+</div>
+
+
+<!-- =====================================================
+     ARCHIVOS
+===================================================== -->
+
+<div id="archivos" class="screen">
+
+    <button class="back" onclick="closeScreens()">
+        ← VOLVER
+    </button>
+
+    <h1>ARCHIVOS</h1>
+
+    <div class="files-container">
+
+        <div class="search-box">
+
+            <input
+                id="searchInput"
+                class="search-input"
+                type="text"
+                placeholder="Buscar..."
+                onkeydown="
+                    if(event.key === 'Enter')
+                    buscar()
+                "
+            >
 
             <button
-                id="buyFobyButton"
-                class="buy-button"
-                onclick="buyFoby()">
-                COMPRAR — 100 MONEDAS
+                class="search-button"
+                onclick="buscar()">
+                BUSCAR
             </button>
 
-            <div
-                id="fobyMoneyMessage"
-                class="no-money">
+        </div>
+
+        <button class="file-option" onclick="openScreen('youtube')">
+            YouTube
+        </button>
+
+        <button class="file-option" onclick="openScreen('tiktok')">
+            TikTok
+        </button>
+
+        <button class="file-option" onclick="openScreen('instagram')">
+            Instagram
+        </button>
+
+        <button class="file-option" onclick="openScreen('poki')">
+            Poki
+        </button>
+
+        <button class="file-option" onclick="openScreen('crea')">
+            Crea
+        </button>
+
+        <button class="file-option" onclick="openScreen('aternos')">
+            Aternos
+        </button>
+
+        <button class="file-option" onclick="openScreen('chatgpt')">
+            ChatGPT
+        </button>
+
+        <button class="file-option" onclick="openScreen('gemini')">
+            Gemini
+        </button>
+
+        <button class="file-option" onclick="openScreen('arq')">
+            ARQ
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONFIGURACIÓN
+===================================================== -->
+
+<div id="configuracion" class="screen">
+
+    <button class="back" onclick="closeScreens()">
+        ← VOLVER
+    </button>
+
+    <h1>CONFIGURACIÓN</h1>
+
+    <div class="config-menu">
+
+        <button
+            class="button"
+            onclick="openScreen('configPantalla')">
+            Configuración de pantalla
+        </button>
+
+        <button
+            class="button"
+            onclick="openScreen('configCapricious')">
+            Config.capricious
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONFIGURACIÓN DE PANTALLA
+===================================================== -->
+
+<div id="configPantalla" class="screen">
+
+    <button class="back" onclick="openScreen('configuracion')">
+        ← VOLVER
+    </button>
+
+    <h1>CONFIGURACIÓN DE PANTALLA</h1>
+
+    <div class="screen-config">
+
+        <div class="color-title">
+            SELECCIONA EL COLOR DE LA INTERFAZ
+        </div>
+
+        <div class="colors-grid">
+
+            <div class="color-card" data-color="rojo" style="--color:#ff0000" onclick="cambiarColor('rojo')">
+                <div class="color-circle" style="--color:#ff0000"></div>
+                <div class="color-name">Rojo</div>
+            </div>
+
+            <div class="color-card" data-color="azul" style="--color:#008cff" onclick="cambiarColor('azul')">
+                <div class="color-circle" style="--color:#008cff"></div>
+                <div class="color-name">Azul</div>
+            </div>
+
+            <div class="color-card" data-color="verde" style="--color:#00d66b" onclick="cambiarColor('verde')">
+                <div class="color-circle" style="--color:#00d66b"></div>
+                <div class="color-name">Verde</div>
+            </div>
+
+            <div class="color-card" data-color="morado" style="--color:#a020f0" onclick="cambiarColor('morado')">
+                <div class="color-circle" style="--color:#a020f0"></div>
+                <div class="color-name">Morado</div>
+            </div>
+
+            <div class="color-card" data-color="rosa" style="--color:#ff1493" onclick="cambiarColor('rosa')">
+                <div class="color-circle" style="--color:#ff1493"></div>
+                <div class="color-name">Rosa</div>
+            </div>
+
+            <div class="color-card" data-color="naranja" style="--color:#ff7000" onclick="cambiarColor('naranja')">
+                <div class="color-circle" style="--color:#ff7000"></div>
+                <div class="color-name">Naranja</div>
+            </div>
+
+            <div class="color-card" data-color="amarillo" style="--color:#ffd000" onclick="cambiarColor('amarillo')">
+                <div class="color-circle" style="--color:#ffd000"></div>
+                <div class="color-name">Amarillo</div>
+            </div>
+
+            <div class="color-card" data-color="celeste" style="--color:#00d9ff" onclick="cambiarColor('celeste')">
+                <div class="color-circle" style="--color:#00d9ff"></div>
+                <div class="color-name">Celeste</div>
+            </div>
+
+            <div class="color-card" data-color="turquesa" style="--color:#00e5c3" onclick="cambiarColor('turquesa')">
+                <div class="color-circle" style="--color:#00e5c3"></div>
+                <div class="color-name">Turquesa</div>
+            </div>
+
+            <div class="color-card" data-color="blanco" style="--color:#eeeeee" onclick="cambiarColor('blanco')">
+                <div class="color-circle" style="--color:#eeeeee"></div>
+                <div class="color-name">Blanco</div>
+            </div>
+
+            <div class="color-card" data-color="gris" style="--color:#888888" onclick="cambiarColor('gris')">
+                <div class="color-circle" style="--color:#888888"></div>
+                <div class="color-name">Gris</div>
+            </div>
+
+            <div class="color-card" data-color="dorado" style="--color:#d9a400" onclick="cambiarColor('dorado')">
+                <div class="color-circle" style="--color:#d9a400"></div>
+                <div class="color-name">Dorado</div>
             </div>
 
         </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONFIG.CAPRICIOUS
+===================================================== -->
+
+<div id="configCapricious" class="screen">
+
+    <button class="back" onclick="openScreen('configuracion')">
+        ← VOLVER
+    </button>
+
+    <h1>CONFIG.CAPRICIOUS</h1>
+
+    <div class="screen-config">
+
+        <div class="color-title">
+            SELECCIONA LA FLECHA DE WINDOWS
+        </div>
+
+        <div class="cursor-grid">
+
+            <div class="cursor-card"
+                 data-cursor="windows"
+                 onclick="cambiarCursor('windows')">
+
+                <div class="cursor-name">
+                    Windows
+                </div>
+
+            </div>
+
+            <div class="cursor-card"
+                 data-cursor="white"
+                 onclick="cambiarCursor('white')">
+
+                <div class="cursor-name">
+                    Blanca
+                </div>
+
+            </div>
+
+            <div class="cursor-card"
+                 data-cursor="black"
+                 onclick="cambiarCursor('black')">
+
+                <div class="cursor-name">
+                    Negra
+                </div>
+
+            </div>
+
+            <div class="cursor-card"
+                 data-cursor="arrow"
+                 onclick="cambiarCursor('arrow')">
+
+                <div class="cursor-name">
+                    Flecha
+                </div>
+
+            </div>
+
+            <div class="cursor-card"
+                 data-cursor="pointer"
+                 onclick="cambiarCursor('pointer')">
+
+                <div class="cursor-name">
+                    Puntero
+                </div>
+
+            </div>
+
+            <div class="cursor-card"
+                 data-cursor="crosshair"
+                 onclick="cambiarCursor('crosshair')">
+
+                <div class="cursor-name">
+                    Precisión
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="effects-box">
+
+            <div class="effects-title">
+                EFECTOS ESPECIALES
+            </div>
+
+            <div class="effects-switch">
+
+                <button
+                    id="effectsOff"
+                    class="effects-button"
+                    onclick="cambiarEfectos(false)">
+                    OFF
+                </button>
+
+                <button
+                    id="effectsOn"
+                    class="effects-button"
+                    onclick="cambiarEfectos(true)">
+                    ON
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SORIA
+===================================================== -->
+
+<div id="soria" class="screen">
+
+    <button class="back" onclick="closeScreens()">
+        ← VOLVER
+    </button>
+
+    <h1>SorIA</h1>
+
+    <div class="soria-container">
+
+        <div class="soria-header">
+
+            SORIA
+
+            <span class="soria-status">
+                SISTEMA ACTIVO
+            </span>
+
+        </div>
+
+        <!--
+            IMPORTANTE:
+            Ahora empieza completamente vacío.
+            No hay mensaje automático de bienvenida.
+        -->
+
+        <div
+            id="soriaMessages"
+            class="soria-messages">
+        </div>
+
+        <div class="soria-input-area">
+
+            <input
+                id="soriaInput"
+                class="soria-input"
+                type="text"
+                autocomplete="off"
+                placeholder="Escribe tu pregunta..."
+                onkeydown="
+                    if(event.key === 'Enter'){
+                        event.preventDefault();
+                        enviarSorIA();
+                    }
+                "
+            >
+
+            <button
+                id="soriaSendButton"
+                class="soria-send"
+                onclick="enviarSorIA()">
+                ENVIAR
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CUENTA
+===================================================== -->
+
+<div id="cuenta" class="screen">
+
+    <button class="back" onclick="closeScreens()">
+        ← VOLVER
+    </button>
+
+    <h1>CUENTA</h1>
+
+    <div class="account-container">
+
+        <div id="profilePreview" class="profile-preview">
+            👤
+        </div>
+
+        <input
+            id="accountEmail"
+            class="account-input"
+            type="email"
+            placeholder="Tu Gmail..."
+        >
+
+        <input
+            id="accountPassword"
+            class="account-input"
+            type="password"
+            placeholder="Contraseña..."
+        >
+
+        <input
+            id="accountPasswordConfirm"
+            class="account-input"
+            type="password"
+            placeholder="Confirmar contraseña..."
+        >
+
+        <label class="profile-upload">
+
+            📷 FOTO DE PERFIL OPCIONAL
+
+            <input
+                id="profileInput"
+                type="file"
+                accept="image/*"
+                onchange="cargarFotoPerfil(event)"
+            >
+
+        </label>
+
+        <div class="account-info">
+
+            La foto de perfil es completamente opcional.
+            Esta versión de SOR guarda la cuenta solamente
+            en este dispositivo.
+
+        </div>
+
+        <button
+            id="createAccountButton"
+            class="button"
+            onclick="crearCuenta()">
+            CREAR CUENTA
+        </button>
+
+        <div
+            id="accountCreated"
+            class="account-created"
+            style="display:none;">
+            CUENTA CREADA
+        </div>
+
+        <button
+            id="logoutButton"
+            class="button"
+            onclick="cerrarCuenta()"
+            style="display:none;">
+            CERRAR CUENTA
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RACHA
+===================================================== -->
+
+<div id="racha" class="screen">
+
+    <button class="back" onclick="closeScreens()">
+        ← VOLVER
+    </button>
+
+    <h1>RACHA</h1>
+
+    <div class="streak-container">
+
+        <div class="streak-big">
+            🔥 Racha
+        </div>
+
+        <div id="streakNumber" class="streak-number">
+            0 días
+        </div>
+
+        <div class="streak-description">
+
+            Para aumentar tu racha debes entrar a SOR
+            y utilizar la aplicación durante al menos
+            <strong>3 minutos</strong>.
+
+            <br><br>
+
+            Cuando completes esos 3 minutos,
+            conseguirás <strong>+1 día de racha</strong>.
+
+            <br><br>
+
+            Si pasan más de <strong>24 horas</strong>
+            sin volver a utilizar SOR, tu racha se
+            reiniciará.
+
+        </div>
+
+        <div id="streakTime" class="streak-time">
+            Tiempo utilizado: 0:00
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     YOUTUBE
+===================================================== -->
+
+<div id="youtube" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>YOUTUBE</h1>
+
+    <div class="youtube-container">
+
+        <div class="youtube-logo">
+            <div class="youtube-play"></div>
+        </div>
+
+        <div class="youtube-name">
+            YOUTUBE
+        </div>
+
+        <div class="site-description">
+            Plataforma de videos
+        </div>
+
+        <a
+            class="youtube-link"
+            href="https://www.youtube.com/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR YOUTUBE
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TIKTOK
+===================================================== -->
+
+<div id="tiktok" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>TIKTOK</h1>
+
+    <div class="social-container">
+
+        <div class="tiktok-logo">
+            ♪
+        </div>
+
+        <div class="social-name">
+            TIKTOK
+        </div>
+
+        <div class="site-description">
+            Videos y entretenimiento
+        </div>
+
+        <a
+            class="social-link"
+            href="https://www.tiktok.com/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR TIKTOK
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INSTAGRAM
+===================================================== -->
+
+<div id="instagram" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>INSTAGRAM</h1>
+
+    <div class="social-container">
+
+        <div class="instagram-logo">
+            <div class="instagram-camera"></div>
+        </div>
+
+        <div class="social-name">
+            INSTAGRAM
+        </div>
+
+        <div class="site-description">
+            Fotos, videos y contenido
+        </div>
+
+        <a
+            class="social-link"
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR INSTAGRAM
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     POKI
+===================================================== -->
+
+<div id="poki" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>POKI</h1>
+
+    <div class="poki-container">
+
+        <div class="poki-logo">
+            POKI
+        </div>
+
+        <div class="poki-name">
+            POKI
+        </div>
+
+        <div class="site-description">
+            Juegos online
+        </div>
+
+        <a
+            class="poki-link"
+            href="https://poki.com/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR POKI
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CREA
+===================================================== -->
+
+<div id="crea" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>CREA</h1>
+
+    <div class="social-container">
+
+        <div class="poki-logo">
+            CREA
+        </div>
+
+        <div class="social-name">
+            CREA
+        </div>
+
+        <div class="site-description">
+            Herramientas para crear
+        </div>
+
+        <a
+            class="social-link"
+            href="https://crea.edu.uy/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR CREA
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ATERNOS
+===================================================== -->
+
+<div id="aternos" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>ATERNOS</h1>
+
+    <div class="social-container">
+
+        <div class="poki-logo">
+            A
+        </div>
+
+        <div class="social-name">
+            ATERNOS
+        </div>
+
+        <div class="site-description">
+            Servidores de Minecraft
+        </div>
+
+        <a
+            class="social-link"
+            href="https://aternos.org/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR ATERNOS
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CHATGPT
+===================================================== -->
+
+<div id="chatgpt" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>CHATGPT</h1>
+
+    <div class="social-container">
+
+        <div class="poki-logo">
+            AI
+        </div>
+
+        <div class="social-name">
+            CHATGPT
+        </div>
+
+        <div class="site-description">
+            Inteligencia artificial
+        </div>
+
+        <a
+            class="social-link"
+            href="https://chatgpt.com/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR CHATGPT
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     GEMINI
+===================================================== -->
+
+<div id="gemini" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>GEMINI</h1>
+
+    <div class="social-container">
+
+        <div class="poki-logo">
+            G
+        </div>
+
+        <div class="social-name">
+            GEMINI
+        </div>
+
+        <div class="site-description">
+            Inteligencia artificial de Google
+        </div>
+
+        <a
+            class="social-link"
+            href="https://gemini.google.com/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR GEMINI
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ARQ
+===================================================== -->
+
+<div id="arq" class="screen">
+
+    <button class="back" onclick="openScreen('archivos')">
+        ← VOLVER
+    </button>
+
+    <h1>ARQ</h1>
+
+    <div class="arq-container">
+
+        <div class="arq-logo">
+            ARQ
+        </div>
+
+        <div class="arq-name">
+            ARQ
+        </div>
+
+        <div class="site-description">
+            Finanzas digitales
+        </div>
+
+        <a
+            class="arq-link"
+            href="https://www.arqfinance.com/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ABRIR ARQ
+        </a>
 
     </div>
 
@@ -1386,336 +2862,242 @@ body::after {
 <script>
 
 /* =====================================================
-   GUARDADO DEL PROGRESO
+   COLORES
 ===================================================== */
 
-let money =
-    Number(localStorage.getItem("dms_money")) || 0;
+const colores = {
+
+    rojo:{main:"#8b0000",light:"#ff0000",dark:"#500000",logo:"#650000",bg:"#240000",bg2:"#100000",fog:"rgba(120,0,0,.16)",particle:"rgba(255,0,0,.35)",particle2:"rgba(120,0,0,.3)"},
+    azul:{main:"#0066cc",light:"#008cff",dark:"#003366",logo:"#004d99",bg:"#00152e",bg2:"#000b18",fog:"rgba(0,100,255,.16)",particle:"rgba(0,140,255,.35)",particle2:"rgba(0,80,180,.3)"},
+    verde:{main:"#00994d",light:"#00ff80",dark:"#004d26",logo:"#007a3d",bg:"#002414",bg2:"#001208",fog:"rgba(0,255,100,.14)",particle:"rgba(0,255,100,.35)",particle2:"rgba(0,150,70,.3)"},
+    morado:{main:"#7200b8",light:"#b000ff",dark:"#3a005c",logo:"#58008c",bg:"#1d0030",bg2:"#0d0016",fog:"rgba(170,0,255,.15)",particle:"rgba(190,0,255,.35)",particle2:"rgba(100,0,180,.3)"},
+    rosa:{main:"#c00068",light:"#ff1493",dark:"#650035",logo:"#90004d",bg:"#300018",bg2:"#17000c",fog:"rgba(255,0,140,.15)",particle:"rgba(255,20,147,.35)",particle2:"rgba(180,0,90,.3)"},
+    naranja:{main:"#c94d00",light:"#ff7000",dark:"#662700",logo:"#963900",bg:"#301300",bg2:"#170900",fog:"rgba(255,100,0,.15)",particle:"rgba(255,110,0,.35)",particle2:"rgba(180,60,0,.3)"},
+    amarillo:{main:"#b89400",light:"#ffd000",dark:"#5c4a00",logo:"#8f7500",bg:"#302800",bg2:"#171400",fog:"rgba(255,220,0,.13)",particle:"rgba(255,220,0,.35)",particle2:"rgba(180,150,0,.3)"},
+    celeste:{main:"#008da8",light:"#00d9ff",dark:"#004653",logo:"#006d82",bg:"#00252e",bg2:"#001216",fog:"rgba(0,220,255,.15)",particle:"rgba(0,220,255,.35)",particle2:"rgba(0,130,160,.3)"},
+    turquesa:{main:"#009987",light:"#00e5c3",dark:"#004d43",logo:"#007565",bg:"#00251f",bg2:"#00130f",fog:"rgba(0,230,200,.14)",particle:"rgba(0,230,200,.35)",particle2:"rgba(0,140,120,.3)"},
+    blanco:{main:"#aaaaaa",light:"#ffffff",dark:"#666666",logo:"#888888",bg:"#242424",bg2:"#101010",fog:"rgba(255,255,255,.09)",particle:"rgba(255,255,255,.25)",particle2:"rgba(180,180,180,.2)"},
+    gris:{main:"#666666",light:"#aaaaaa",dark:"#333333",logo:"#505050",bg:"#202020",bg2:"#0d0d0d",fog:"rgba(150,150,150,.08)",particle:"rgba(180,180,180,.25)",particle2:"rgba(100,100,100,.2)"},
+    dorado:{main:"#9c7400",light:"#d9a400",dark:"#503b00",logo:"#765800",bg:"#2a2000",bg2:"#130f00",fog:"rgba(220,170,0,.13)",particle:"rgba(220,170,0,.3)",particle2:"rgba(150,110,0,.25)"}
+
+};
 
 
-let mentalComprado =
-    localStorage.getItem("dms_mental_comprado") === "true";
+function aplicarColor(nombre, guardar=true) {
 
+    const color = colores[nombre];
 
-let fobyComprado =
-    localStorage.getItem("dms_foby_comprado") === "true";
+    if (!color) return;
 
+    const root = document.documentElement;
 
-/* =====================================================
-   ACTUALIZAR DINERO
-===================================================== */
+    root.style.setProperty("--main",color.main);
+    root.style.setProperty("--main-light",color.light);
+    root.style.setProperty("--main-dark",color.dark);
+    root.style.setProperty("--logo-color",color.logo);
+    root.style.setProperty("--bg-main",color.bg);
+    root.style.setProperty("--bg-secondary",color.bg2);
+    root.style.setProperty("--fog-color",color.fog);
+    root.style.setProperty("--particle-color",color.particle);
+    root.style.setProperty("--particle-color-2",color.particle2);
+    root.style.setProperty("--button-dark",color.bg2);
+    root.style.setProperty("--button-light",color.dark);
 
-function updateMoney() {
-
-    const moneyElement =
-        document.getElementById("money");
-
-    if (moneyElement) {
-
-        moneyElement.textContent = money;
-
+    if (guardar) {
+        localStorage.setItem("sor_color",nombre);
     }
 
+    actualizarColorSeleccionado();
+
+}
+
+
+function cambiarColor(nombre) {
+
+    aplicarColor(nombre,true);
+
+}
+
+
+function actualizarColorSeleccionado() {
+
+    const actual =
+        localStorage.getItem("sor_color") || "rojo";
+
+    document.querySelectorAll(".color-card")
+        .forEach(card => {
+
+            card.classList.toggle(
+                "selected",
+                card.dataset.color === actual
+            );
+
+        });
+
 }
 
 
 /* =====================================================
-   GUARDAR DINERO
+   CURSORES
 ===================================================== */
 
-function saveMoney() {
+const cursores = {
+
+    windows: "default",
+
+    white:
+        'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cpath d=%22M4 2L4 25L10 19L14 29L18 27L14 17L23 17Z%22 fill=%22white%22 stroke=%22black%22 stroke-width=%222%22/%3E%3C/svg%3E") 4 2, auto',
+
+    black:
+        'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cpath d=%22M4 2L4 25L10 19L14 29L18 27L14 17L23 17Z%22 fill=%22black%22 stroke=%22white%22 stroke-width=%222%22/%3E%3C/svg%3E") 4 2, auto',
+
+    arrow:
+        'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cpath d=%22M5 3L5 24L11 18L15 28L19 26L15 17L26 17Z%22 fill=%22%23ff0000%22 stroke=%22white%22 stroke-width=%222%22/%3E%3C/svg%3E") 5 3, auto',
+
+    pointer: "pointer",
+
+    crosshair: "crosshair"
+
+};
+
+
+function cambiarCursor(nombre) {
+
+    if (!cursores[nombre]) {
+        nombre = "windows";
+    }
+
+    const cursor = cursores[nombre];
+
+    document.documentElement.style.setProperty(
+        "--sor-cursor",
+        cursor
+    );
 
     localStorage.setItem(
-        "dms_money",
-        money
+        "sor_cursor",
+        nombre
+    );
+
+    actualizarCursorSeleccionado();
+
+}
+
+
+function actualizarCursorSeleccionado() {
+
+    const actual =
+        localStorage.getItem("sor_cursor")
+        || "windows";
+
+    document.querySelectorAll(".cursor-card")
+        .forEach(card => {
+
+            card.classList.toggle(
+                "selected",
+                card.dataset.cursor === actual
+            );
+
+        });
+
+}
+
+
+/* =====================================================
+   EFECTOS
+===================================================== */
+
+function cambiarEfectos(activar) {
+
+    const body = document.body;
+
+    body.classList.toggle(
+        "special-effects",
+        activar
+    );
+
+    localStorage.setItem(
+        "sor_effects",
+        activar ? "on" : "off"
+    );
+
+    actualizarEfectosSeleccionados();
+
+}
+
+
+function actualizarEfectosSeleccionados() {
+
+    const efectos =
+        localStorage.getItem("sor_effects")
+        || "off";
+
+    const off =
+        document.getElementById("effectsOff");
+
+    const on =
+        document.getElementById("effectsOn");
+
+    if (!off || !on) return;
+
+    off.classList.toggle(
+        "selected",
+        efectos !== "on"
+    );
+
+    on.classList.toggle(
+        "selected",
+        efectos === "on"
     );
 
 }
 
 
 /* =====================================================
-   GUARDAR PERSONAJES
-===================================================== */
-
-function saveCharacters() {
-
-    localStorage.setItem(
-        "dms_mental_comprado",
-        mentalComprado
-    );
-
-}
-
-
-/* =====================================================
-   GUARDAR FOBY
-===================================================== */
-
-function saveFoby() {
-
-    localStorage.setItem(
-        "dms_foby_comprado",
-        fobyComprado
-    );
-
-}
-
-
-/* =====================================================
-   CAMBIAR PANTALLA
+   PANTALLAS
 ===================================================== */
 
 function openScreen(id) {
 
-    document
-        .querySelectorAll(".screen")
+    document.querySelectorAll(".screen")
         .forEach(screen => {
-
             screen.classList.remove("active");
-
         });
 
     const screen =
         document.getElementById(id);
 
     if (screen) {
-
         screen.classList.add("active");
-
     }
 
-    updateMoney();
-
-    updateMentalButton();
-
-    updateFobyButton();
-
-}
-
-
-/* =====================================================
-   DINERO CADA 60 SEGUNDOS
-===================================================== */
-
-setInterval(function() {
-
-    money += 2;
-
-    saveMoney();
-
-    updateMoney();
-
-}, 60000);
-
-
-/* =====================================================
-   COMPRAR MENTAL
-===================================================== */
-
-function buyMental() {
-
-    const button =
-        document.getElementById(
-            "buyMentalButton"
-        );
-
-    const message =
-        document.getElementById(
-            "moneyMessage"
-        );
-
-
-    if (mentalComprado) {
-
-        message.textContent =
-            "YA TIENES ESTE PERSONAJE";
-
-        return;
-
+    if (id === "papelera") {
+        mostrarPapelera();
     }
 
-
-    if (money < 5) {
-
-        message.textContent =
-            "DINERO INSUFICIENTE";
-
-        button.textContent =
-            "NO PUEDES COMPRAR";
-
-        setTimeout(function() {
-
-            if (!mentalComprado) {
-
-                button.textContent =
-                    "COMPRAR — $5";
-
-            }
-
-        }, 1500);
-
-        return;
-
+    if (id === "configPantalla") {
+        actualizarColorSeleccionado();
     }
 
-
-    money -= 5;
-
-    mentalComprado = true;
-
-
-    saveMoney();
-
-    saveCharacters();
-
-
-    updateMoney();
-
-    updateMentalButton();
-
-
-    message.textContent =
-        "MENTAL AÑADIDO";
-
-}
-
-
-/* =====================================================
-   ACTUALIZAR BOTÓN DE MENTAL
-===================================================== */
-
-function updateMentalButton() {
-
-    const button =
-        document.getElementById(
-            "buyMentalButton"
-        );
-
-    if (!button) {
-        return;
+    if (id === "configCapricious") {
+        actualizarCursorSeleccionado();
+        actualizarEfectosSeleccionados();
     }
 
-
-    if (mentalComprado) {
-
-        button.textContent =
-            "COMPRADO ✓";
-
-        button.disabled = true;
-
-    } else {
-
-        button.textContent =
-            "COMPRAR — $5";
-
-        button.disabled = false;
-
+    if (id === "racha") {
+        actualizarRachaPantalla();
     }
 
-}
+    if (id === "soria") {
 
+        setTimeout(() => {
 
-/* =====================================================
-   COMPRAR FOBY
-===================================================== */
+            const input =
+                document.getElementById("soriaInput");
 
-function buyFoby() {
+            if (input) input.focus();
 
-    const button =
-        document.getElementById(
-            "buyFobyButton"
-        );
-
-    const message =
-        document.getElementById(
-            "fobyMoneyMessage"
-        );
-
-
-    if (fobyComprado) {
-
-        message.textContent =
-            "YA TIENES ESTE PERSONAJE";
-
-        return;
-
-    }
-
-
-    if (money < 100) {
-
-        message.textContent =
-            "DINERO INSUFICIENTE";
-
-        button.textContent =
-            "NO PUEDES COMPRAR";
-
-        setTimeout(function() {
-
-            if (!fobyComprado) {
-
-                button.textContent =
-                    "COMPRAR — 100 MONEDAS";
-
-            }
-
-        }, 1500);
-
-        return;
-
-    }
-
-
-    money -= 100;
-
-    fobyComprado = true;
-
-
-    saveMoney();
-
-    saveFoby();
-
-
-    updateMoney();
-
-    updateFobyButton();
-
-
-    message.textContent =
-        "FOBY AÑADIDO";
-
-}
-
-
-/* =====================================================
-   ACTUALIZAR BOTÓN DE FOBY
-===================================================== */
-
-function updateFobyButton() {
-
-    const button =
-        document.getElementById(
-            "buyFobyButton"
-        );
-
-    if (!button) {
-        return;
-    }
-
-
-    if (fobyComprado) {
-
-        button.textContent =
-            "COMPRADO ✓";
-
-        button.disabled = true;
-
-    } else {
-
-        button.textContent =
-            "COMPRAR — 100 MONEDAS";
-
-        button.disabled = false;
+        },100);
 
     }
 
@@ -1728,13 +3110,2666 @@ function updateFobyButton() {
 
 function closeScreens() {
 
-    document
-        .querySelectorAll(".screen")
+    document.querySelectorAll(".screen")
         .forEach(screen => {
-
             screen.classList.remove("active");
+        });
+
+}
+
+
+/* =====================================================
+   BUSCAR
+===================================================== */
+
+function buscar() {
+
+    const texto =
+        document.getElementById("searchInput")
+        .value
+        .trim();
+
+    if (texto === "") return;
+
+    const url =
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(texto);
+
+    window.open(url,"_blank");
+
+}
+
+
+/* =====================================================
+   DIARIOS
+===================================================== */
+
+let diarios =
+    JSON.parse(
+        localStorage.getItem("sor_diarios")
+    ) || [];
+
+let papelera =
+    JSON.parse(
+        localStorage.getItem("sor_papelera")
+    ) || [];
+
+let diarioEditando = null;
+
+
+function crearNotaInformacion() {
+
+    if (diarios.length > 0) return;
+
+    diarios.push({
+
+        titulo: "Información",
+
+        texto:
+        "Todo lo que hagas aquí será totalmente privado. Es decir que no hay nadie que revise absolutamente nada de lo que haces...",
+
+        fecha:
+        new Date().toLocaleString()
+
+    });
+
+    guardarDatos();
+
+}
+
+
+crearNotaInformacion();
+
+
+function nuevoDiario() {
+
+    diarioEditando = null;
+
+    document.getElementById("editorTitle")
+        .textContent = "CREAR";
+
+    document.getElementById("diaryTitle")
+        .value = "";
+
+    document.getElementById("diaryText")
+        .value = "";
+
+    document.getElementById("deleteEditorButton")
+        .style.display = "none";
+
+    openScreen("editor");
+
+}
+
+
+function guardarDiario() {
+
+    const titulo =
+        document.getElementById("diaryTitle")
+        .value.trim();
+
+    const texto =
+        document.getElementById("diaryText")
+        .value.trim();
+
+    if (titulo === "" && texto === "") {
+
+        alert("Escribe algo antes de guardar.");
+
+        return;
+    }
+
+    const tituloFinal =
+        titulo || "Sin título";
+
+    if (diarioEditando !== null) {
+
+        diarios[diarioEditando].titulo =
+            tituloFinal;
+
+        diarios[diarioEditando].texto =
+            texto;
+
+        diarios[diarioEditando].fecha =
+            new Date().toLocaleString();
+
+    }
+
+    else {
+
+        diarios.push({
+
+            titulo: tituloFinal,
+
+            texto: texto,
+
+            fecha:
+            new Date().toLocaleString()
 
         });
+
+    }
+
+    guardarDatos();
+
+    diarioEditando = null;
+
+    mostrarDiarios();
+
+}
+
+
+function mostrarDiarios() {
+
+    const lista =
+        document.getElementById("diariesList");
+
+    lista.innerHTML = "";
+
+    if (diarios.length === 0) {
+
+        lista.innerHTML = `
+            <div class="no-diaries">
+                NO HAY DIARIOS GUARDADOS
+            </div>
+        `;
+
+        openScreen("misDiarios");
+
+        return;
+    }
+
+    for (
+        let i = diarios.length - 1;
+        i >= 0;
+        i--
+    ) {
+
+        const diario = diarios[i];
+
+        const card =
+            document.createElement("div");
+
+        card.className = "diary-card";
+
+        card.innerHTML = `
+
+            <div class="diary-card-title">
+                ${escapeHTML(diario.titulo)}
+            </div>
+
+            <div class="diary-card-preview">
+                ${escapeHTML(
+                    diario.texto || "Diario vacío"
+                )}
+            </div>
+
+            <div class="diary-card-date">
+                ${escapeHTML(diario.fecha)}
+            </div>
+
+            <div class="card-buttons">
+
+                <button
+                    class="card-button"
+                    onclick="editarDiario(${i})">
+                    EDITAR
+                </button>
+
+                <button
+                    class="card-button"
+                    onclick="mandarAPapelera(${i})">
+                    BORRAR DIARIO
+                </button>
+
+            </div>
+        `;
+
+        lista.appendChild(card);
+
+    }
+
+    openScreen("misDiarios");
+
+}
+
+
+function editarDiario(indice) {
+
+    const diario = diarios[indice];
+
+    diarioEditando = indice;
+
+    document.getElementById("editorTitle")
+        .textContent = "EDITAR";
+
+    document.getElementById("diaryTitle")
+        .value = diario.titulo;
+
+    document.getElementById("diaryText")
+        .value = diario.texto;
+
+    document.getElementById("deleteEditorButton")
+        .style.display = "block";
+
+    openScreen("editor");
+
+}
+
+
+function mandarAPapelera(indice) {
+
+    const eliminado =
+        diarios.splice(indice,1)[0];
+
+    if (!eliminado) return;
+
+    eliminado.eliminado =
+        new Date().toLocaleString();
+
+    papelera.push(eliminado);
+
+    guardarDatos();
+
+    mostrarDiarios();
+
+}
+
+
+function mandarEditorAPapelera() {
+
+    if (diarioEditando === null) {
+
+        volverAlDiario();
+
+        return;
+    }
+
+    const eliminado =
+        diarios.splice(diarioEditando,1)[0];
+
+    if (eliminado) {
+
+        eliminado.eliminado =
+            new Date().toLocaleString();
+
+        papelera.push(eliminado);
+
+    }
+
+    guardarDatos();
+
+    diarioEditando = null;
+
+    mostrarDiarios();
+
+}
+
+
+function mostrarPapelera() {
+
+    const lista =
+        document.getElementById("trashList");
+
+    lista.innerHTML = "";
+
+    if (papelera.length === 0) {
+
+        lista.innerHTML = `
+            <div class="no-diaries">
+                LA PAPELERA ESTÁ VACÍA
+            </div>
+        `;
+
+        return;
+    }
+
+    for (
+        let i = papelera.length - 1;
+        i >= 0;
+        i--
+    ) {
+
+        const diario = papelera[i];
+
+        const card =
+            document.createElement("div");
+
+        card.className = "trash-card";
+
+        card.innerHTML = `
+
+            <div class="trash-title">
+                ${escapeHTML(diario.titulo)}
+            </div>
+
+            <div class="trash-preview">
+                ${escapeHTML(
+                    diario.texto || "Diario vacío"
+                )}
+            </div>
+
+            <div class="trash-date">
+                Eliminado:
+                ${escapeHTML(diario.eliminado)}
+            </div>
+
+            <div class="card-buttons">
+
+                <button
+                    class="card-button"
+                    onclick="restaurarDiario(${i})">
+                    RESTAURAR
+                </button>
+
+                <button
+                    class="card-button"
+                    onclick="eliminarDefinitivamente(${i})">
+                    ELIMINAR DEFINITIVAMENTE
+                </button>
+
+            </div>
+        `;
+
+        lista.appendChild(card);
+
+    }
+
+}
+
+
+function restaurarDiario(indice) {
+
+    const restaurado =
+        papelera.splice(indice,1)[0];
+
+    if (!restaurado) return;
+
+    delete restaurado.eliminado;
+
+    diarios.push(restaurado);
+
+    guardarDatos();
+
+    mostrarPapelera();
+
+}
+
+
+function eliminarDefinitivamente(indice) {
+
+    const confirmar =
+        confirm(
+            "¿Eliminar este diario definitivamente?"
+        );
+
+    if (!confirmar) return;
+
+    papelera.splice(indice,1);
+
+    guardarDatos();
+
+    mostrarPapelera();
+
+}
+
+
+function guardarDatos() {
+
+    localStorage.setItem(
+        "sor_diarios",
+        JSON.stringify(diarios)
+    );
+
+    localStorage.setItem(
+        "sor_papelera",
+        JSON.stringify(papelera)
+    );
+
+}
+
+
+function volverAlDiario() {
+
+    diarioEditando = null;
+
+    openScreen("diario");
+
+}
+
+
+function escapeHTML(texto) {
+
+    return String(texto)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   CUENTA
+===================================================== */
+
+let cuenta =
+    JSON.parse(
+        localStorage.getItem("sor_cuenta")
+    ) || null;
+
+let fotoPerfilTemporal = null;
+
+
+function abrirCuenta() {
+
+    cargarDatosCuenta();
+
+    openScreen("cuenta");
+
+}
+
+
+function cargarDatosCuenta() {
+
+    const email =
+        document.getElementById("accountEmail");
+
+    const password =
+        document.getElementById("accountPassword");
+
+    const confirmacion =
+        document.getElementById("accountPasswordConfirm");
+
+    const crear =
+        document.getElementById("createAccountButton");
+
+    const creado =
+        document.getElementById("accountCreated");
+
+    const cerrar =
+        document.getElementById("logoutButton");
+
+    if (cuenta) {
+
+        email.value = cuenta.email;
+
+        email.disabled = true;
+
+        password.style.display = "none";
+
+        confirmacion.style.display = "none";
+
+        crear.style.display = "none";
+
+        creado.style.display = "block";
+
+        cerrar.style.display = "block";
+
+        mostrarFotoPerfil();
+
+    }
+
+    else {
+
+        email.disabled = false;
+
+        password.style.display = "block";
+
+        confirmacion.style.display = "block";
+
+        crear.style.display = "block";
+
+        creado.style.display = "none";
+
+        cerrar.style.display = "none";
+
+    }
+
+}
+
+
+function cargarFotoPerfil(event) {
+
+    const archivo =
+        event.target.files[0];
+
+    if (!archivo) return;
+
+    if (!archivo.type.startsWith("image/")) {
+
+        alert("Selecciona una imagen.");
+
+        return;
+    }
+
+    const lector =
+        new FileReader();
+
+    lector.onload = function(e) {
+
+        fotoPerfilTemporal =
+            e.target.result;
+
+        document.getElementById(
+            "profilePreview"
+        ).innerHTML =
+            `<img src="${fotoPerfilTemporal}">`;
+
+    };
+
+    lector.readAsDataURL(archivo);
+
+}
+
+
+function mostrarFotoPerfil() {
+
+    const preview =
+        document.getElementById("profilePreview");
+
+    if (cuenta && cuenta.foto) {
+
+        preview.innerHTML =
+            `<img src="${cuenta.foto}">`;
+
+    }
+
+    else {
+
+        preview.innerHTML = "👤";
+
+    }
+
+}
+
+
+function crearCuenta() {
+
+    const email =
+        document.getElementById("accountEmail")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("accountPassword")
+        .value;
+
+    const confirmacion =
+        document.getElementById("accountPasswordConfirm")
+        .value;
+
+    if (!email || !email.includes("@")) {
+
+        alert("Escribe un Gmail válido.");
+
+        return;
+    }
+
+    if (!password) {
+
+        alert("Escribe una contraseña.");
+
+        return;
+    }
+
+    if (password !== confirmacion) {
+
+        alert("Las contraseñas no coinciden.");
+
+        return;
+    }
+
+    cuenta = {
+
+        email: email,
+
+        password: password,
+
+        foto: fotoPerfilTemporal || null,
+
+        racha: 0,
+
+        segundosUso: 0,
+
+        ultimaActividad: Date.now(),
+
+        ultimaRacha: null
+
+    };
+
+    localStorage.setItem(
+        "sor_cuenta",
+        JSON.stringify(cuenta)
+    );
+
+    fotoPerfilTemporal = null;
+
+    actualizarInterfazCuenta();
+
+    cargarDatosCuenta();
+
+}
+
+
+function cerrarCuenta() {
+
+    const confirmar =
+        confirm(
+            "¿Quieres cerrar y eliminar esta cuenta de este dispositivo?"
+        );
+
+    if (!confirmar) return;
+
+    localStorage.removeItem("sor_cuenta");
+
+    cuenta = null;
+
+    fotoPerfilTemporal = null;
+
+    actualizarInterfazCuenta();
+
+    closeScreens();
+
+}
+
+
+function actualizarInterfazCuenta() {
+
+    const boton =
+        document.getElementById("accountButton");
+
+    const streak =
+        document.getElementById("streakButton");
+
+    if (cuenta) {
+
+        boton.textContent = "👤 CUENTA";
+
+        streak.style.display = "block";
+
+        streak.textContent =
+            "🔥" + cuenta.racha + " Racha";
+
+    }
+
+    else {
+
+        boton.textContent = "👤 CUENTA";
+
+        streak.style.display = "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   SISTEMA DE RACHA
+===================================================== */
+
+let intervaloRacha = null;
+
+function iniciarSistemaRacha() {
+
+    if (intervaloRacha) {
+
+        clearInterval(intervaloRacha);
+
+    }
+
+    intervaloRacha =
+        setInterval(
+            actualizarUso,
+            1000
+        );
+
+}
+
+
+function actualizarUso() {
+
+    if (!cuenta) return;
+
+    const ahora = Date.now();
+
+    const ultima =
+        cuenta.ultimaActividad || ahora;
+
+    if (
+        ahora - ultima >
+        24 * 60 * 60 * 1000
+    ) {
+
+        cuenta.racha = 0;
+
+        cuenta.segundosUso = 0;
+
+        cuenta.ultimaRacha = null;
+
+    }
+
+    cuenta.segundosUso++;
+
+    cuenta.ultimaActividad = ahora;
+
+    if (
+        cuenta.segundosUso >= 180 &&
+        (
+            cuenta.ultimaRacha === null ||
+            ahora - cuenta.ultimaRacha >=
+            24 * 60 * 60 * 1000
+        )
+    ) {
+
+        cuenta.racha++;
+
+        cuenta.segundosUso = 0;
+
+        cuenta.ultimaRacha = ahora;
+
+        alert(
+            "🔥 ¡Racha aumentada! Ahora tienes " +
+            cuenta.racha +
+            " día" +
+            (cuenta.racha === 1 ? "" : "s") +
+            "."
+        );
+
+    }
+
+    localStorage.setItem(
+        "sor_cuenta",
+        JSON.stringify(cuenta)
+    );
+
+    actualizarInterfazCuenta();
+
+    actualizarRachaPantalla();
+
+}
+
+
+function actualizarRachaPantalla() {
+
+    const numero =
+        document.getElementById("streakNumber");
+
+    const tiempo =
+        document.getElementById("streakTime");
+
+    if (!numero || !tiempo) return;
+
+    const dias =
+        cuenta ? cuenta.racha : 0;
+
+    numero.textContent =
+        dias +
+        (dias === 1 ? " día" : " días");
+
+    const segundos =
+        cuenta ? cuenta.segundosUso : 0;
+
+    const minutos =
+        Math.floor(segundos / 60);
+
+    const segundosRestantes =
+        segundos % 60;
+
+    tiempo.textContent =
+        "Tiempo utilizado: " +
+        minutos +
+        ":" +
+        String(segundosRestantes).padStart(2,"0") +
+        " / 3:00";
+
+}
+
+
+/* =====================================================
+   SORIA — MOTOR INTELIGENTE LOCAL
+===================================================== */
+
+/*
+    SorIA sigue funcionando 100% dentro del HTML.
+
+    No usa API externa.
+
+    Tiene:
+    - Memoria de conversación actual.
+    - Contexto.
+    - Base de conocimientos.
+    - Reconocimiento de preguntas.
+    - Seguimiento de temas.
+    - Calculadora matemática segura.
+    - Respuestas sobre SOR.
+*/
+
+
+/* =====================================================
+   MEMORIA DE SORIA
+===================================================== */
+
+let soriaHistory = [];
+
+let soriaTopic = "";
+
+let soriaProcesando = false;
+
+
+/* =====================================================
+   NORMALIZAR TEXTO
+===================================================== */
+
+function normalizar(texto) {
+
+    return String(texto)
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .trim();
+
+}
+
+
+/* =====================================================
+   AGREGAR MENSAJE
+===================================================== */
+
+function agregarMensajeSorIA(texto, tipo, extraClase="") {
+
+    const contenedor =
+        document.getElementById("soriaMessages");
+
+    const mensaje =
+        document.createElement("div");
+
+    mensaje.className =
+        "soria-message " +
+        tipo +
+        (extraClase ? " " + extraClase : "");
+
+    mensaje.textContent = texto;
+
+    contenedor.appendChild(mensaje);
+
+    contenedor.scrollTop =
+        contenedor.scrollHeight;
+
+    return mensaje;
+
+}
+
+
+/* =====================================================
+   CONOCIMIENTOS GENERALES
+===================================================== */
+
+const conocimientosSorIA = {
+
+    gripe: {
+        tema: "gripe",
+        respuesta:
+        "La gripe, también llamada influenza, es una infección causada por virus que afectan principalmente al sistema respiratorio. Puede producir fiebre, tos, dolor de garganta, cansancio y dolores musculares. Normalmente se transmite mediante partículas respiratorias y el contacto cercano."
+    },
+
+    agujeroNegro: {
+        tema: "agujero negro",
+        respuesta:
+        "Un agujero negro es una región del espacio donde la gravedad es tan intensa que nada que cruce su horizonte de sucesos puede escapar, ni siquiera la luz. Muchos se forman cuando estrellas muy masivas terminan su evolución y colapsan."
+    },
+
+    atomo: {
+        tema: "átomo",
+        respuesta:
+        "Un átomo es una unidad básica de la materia. Está formado principalmente por un núcleo, que contiene protones y neutrones, y electrones que se encuentran alrededor del núcleo."
+    },
+
+    gravedad: {
+        tema: "gravedad",
+        respuesta:
+        "La gravedad es una interacción física que hace que los objetos con masa se atraigan. Es la razón por la que permanecemos sobre la Tierra y por la que los planetas orbitan alrededor de las estrellas."
+    },
+
+    inteligenciaArtificial: {
+        tema: "inteligencia artificial",
+        respuesta:
+        "La inteligencia artificial es un conjunto de técnicas que permiten a los sistemas informáticos realizar tareas que normalmente requieren capacidades humanas, como reconocer patrones, procesar lenguaje, analizar información o generar contenido."
+    },
+
+    internet: {
+        tema: "internet",
+        respuesta:
+        "Internet es una enorme red mundial de redes y dispositivos conectados. Permite intercambiar información mediante distintos protocolos, entre ellos TCP/IP."
+    },
+
+    celula: {
+        tema: "célula",
+        respuesta:
+        "La célula es la unidad básica de los seres vivos. Algunos organismos están formados por una sola célula y otros, como los seres humanos, están formados por una enorme cantidad de ellas."
+    },
+
+    adn: {
+        tema: "ADN",
+        respuesta:
+        "El ADN es una molécula que almacena información genética. Contiene instrucciones que participan en el desarrollo, funcionamiento y reproducción de los organismos."
+    },
+
+    electricidad: {
+        tema: "electricidad",
+        respuesta:
+        "La electricidad está relacionada con la presencia y el movimiento de cargas eléctricas. En un circuito, el movimiento de cargas puede utilizarse para transportar energía y hacer funcionar dispositivos."
+    },
+
+    fotosintesis: {
+        tema: "fotosíntesis",
+        respuesta:
+        "La fotosíntesis es el proceso mediante el cual las plantas, algas y algunos microorganismos utilizan energía de la luz para transformar agua y dióxido de carbono en materia orgánica, liberando oxígeno como parte del proceso."
+    },
+
+    planeta: {
+        tema: "planeta",
+        respuesta:
+        "Un planeta es un cuerpo celeste que orbita una estrella y tiene suficiente gravedad para adquirir una forma aproximadamente redonda. En nuestro sistema solar existen ocho planetas."
+    },
+
+    galaxia: {
+        tema: "galaxia",
+        respuesta:
+        "Una galaxia es una enorme estructura formada por estrellas, gas, polvo, planetas y materia oscura unidos principalmente por la gravedad. La Vía Láctea es la galaxia donde se encuentra el Sistema Solar."
+    },
+
+    luna: {
+        tema: "Luna",
+        respuesta:
+        "La Luna es el satélite natural de la Tierra. Su gravedad influye en fenómenos como las mareas y tarda aproximadamente un mes en completar un ciclo de fases visto desde nuestro planeta."
+    },
+
+    sol: {
+        tema: "Sol",
+        respuesta:
+        "El Sol es una estrella situada en el centro del Sistema Solar. Su energía procede principalmente de reacciones de fusión nuclear que ocurren en su interior."
+    },
+
+    volcan: {
+        tema: "volcán",
+        respuesta:
+        "Un volcán es una estructura geológica por la que puede salir magma, gases y otros materiales desde el interior de un planeta hacia su superficie. Cuando el magma llega al exterior recibe el nombre de lava."
+    },
+
+    terremoto: {
+        tema: "terremoto",
+        respuesta:
+        "Un terremoto es una liberación repentina de energía en el interior de la Tierra que produce ondas sísmicas. Muchos terremotos están relacionados con el movimiento de las placas tectónicas."
+    },
+
+    agua: {
+        tema: "agua",
+        respuesta:
+        "El agua es una sustancia formada por dos átomos de hidrógeno y uno de oxígeno, H₂O. Es fundamental para la vida conocida y puede encontrarse como sólido, líquido o gas."
+    },
+
+    oxigeno: {
+        tema: "oxígeno",
+        respuesta:
+        "El oxígeno es un elemento químico cuyo símbolo es O. Es muy importante para la respiración de muchos organismos y también participa en numerosas reacciones químicas."
+    },
+
+    energia: {
+        tema: "energía",
+        respuesta:
+        "La energía es la capacidad de un sistema para producir cambios o realizar trabajo. Puede presentarse de distintas formas, como energía cinética, potencial, térmica, química o eléctrica."
+    },
+
+    tiempo: {
+        tema: "tiempo",
+        respuesta:
+        "El tiempo es una magnitud que utilizamos para ordenar acontecimientos y medir su duración. En física, forma parte de la descripción del espacio-tiempo."
+    },
+
+    espacio: {
+        tema: "espacio",
+        respuesta:
+        "El espacio es la extensión en la que se encuentran los objetos y ocurren los fenómenos. En física moderna se estudia junto con el tiempo como parte del espacio-tiempo."
+    },
+
+    universo: {
+        tema: "universo",
+        respuesta:
+        "El universo comprende todo el espacio, el tiempo, la materia, la energía y las estructuras que conocemos. Según el modelo cosmológico actual, comenzó a expandirse desde un estado extremadamente caliente y denso hace unos 13.800 millones de años."
+    }
+
+};
+
+
+/* =====================================================
+   PERSONAS CONOCIDAS
+===================================================== */
+
+const personasSorIA = {
+
+    "albert einstein":
+        "Albert Einstein fue un físico nacido en 1879, conocido principalmente por desarrollar la teoría de la relatividad y por sus importantes aportes a la física moderna.",
+
+    "isaac newton":
+        "Isaac Newton fue un físico, matemático y científico inglés. Desarrolló las leyes del movimiento y la ley de gravitación universal, y realizó importantes trabajos sobre óptica y cálculo.",
+
+    "marie curie":
+        "Marie Curie fue una científica polaco-francesa pionera en el estudio de la radiactividad. Recibió dos premios Nobel en disciplinas científicas diferentes.",
+
+    "nikola tesla":
+        "Nikola Tesla fue un inventor e ingeniero conocido por sus contribuciones al desarrollo de sistemas eléctricos de corriente alterna y por numerosos inventos relacionados con la electricidad.",
+
+    "leonardo da vinci":
+        "Leonardo da Vinci fue un artista, inventor, científico e investigador del Renacimiento italiano. Es conocido por obras como La Mona Lisa y La Última Cena, además de sus numerosos estudios científicos y diseños.",
+
+    "denis diderot":
+        "Denis Diderot fue un filósofo y escritor francés de la Ilustración. Fue una de las figuras principales detrás de la Encyclopédie, una gran obra destinada a reunir y difundir conocimientos.",
+
+    "galileo galilei":
+        "Galileo Galilei fue un astrónomo, físico e ingeniero italiano. Realizó observaciones astronómicas que ayudaron a apoyar el modelo heliocéntrico y realizó importantes estudios sobre el movimiento.",
+
+    "charles darwin":
+        "Charles Darwin fue un naturalista inglés conocido por desarrollar la teoría de la evolución mediante selección natural.",
+
+    "william shakespeare":
+        "William Shakespeare fue un dramaturgo y poeta inglés considerado una de las figuras más importantes de la literatura en lengua inglesa.",
+
+    "johannes gutenberg":
+        "Johannes Gutenberg fue un inventor alemán asociado con el desarrollo de la imprenta de tipos móviles en Europa, lo que facilitó enormemente la difusión de libros.",
+
+    "stephen hawking":
+        "Stephen Hawking fue un físico teórico británico conocido por sus trabajos sobre agujeros negros, cosmología y gravedad, además de sus libros de divulgación científica.",
+
+    "aristoteles":
+        "Aristóteles fue un filósofo y científico de la Antigua Grecia. Escribió sobre lógica, ética, política, naturaleza, metafísica y muchos otros campos del conocimiento."
+
+};
+
+
+/* =====================================================
+   DETECTAR TEMA
+===================================================== */
+
+function detectarTema(texto) {
+
+    const t = normalizar(texto);
+
+    const temas = [
+
+        {
+            palabras:["gripe","influenza"],
+            tema:"gripe"
+        },
+
+        {
+            palabras:["agujero negro","agujeros negros"],
+            tema:"agujero negro"
+        },
+
+        {
+            palabras:["atomo","atomos"],
+            tema:"átomo"
+        },
+
+        {
+            palabras:["gravedad"],
+            tema:"gravedad"
+        },
+
+        {
+            palabras:["inteligencia artificial","ia"],
+            tema:"inteligencia artificial"
+        },
+
+        {
+            palabras:["internet"],
+            tema:"internet"
+        },
+
+        {
+            palabras:["celula","celulas"],
+            tema:"célula"
+        },
+
+        {
+            palabras:["adn"],
+            tema:"ADN"
+        },
+
+        {
+            palabras:["electricidad","electrico","eléctrico"],
+            tema:"electricidad"
+        },
+
+        {
+            palabras:["fotosintesis","fotosíntesis"],
+            tema:"fotosíntesis"
+        },
+
+        {
+            palabras:["planeta","planetas"],
+            tema:"planeta"
+        },
+
+        {
+            palabras:["galaxia","galaxias"],
+            tema:"galaxia"
+        },
+
+        {
+            palabras:["luna"],
+            tema:"Luna"
+        },
+
+        {
+            palabras:["sol"],
+            tema:"Sol"
+        },
+
+        {
+            palabras:["volcan","volcanes"],
+            tema:"volcán"
+        },
+
+        {
+            palabras:["terremoto","terremotos"],
+            tema:"terremoto"
+        },
+
+        {
+            palabras:["agua"],
+            tema:"agua"
+        },
+
+        {
+            palabras:["oxigeno"],
+            tema:"oxígeno"
+        },
+
+        {
+            palabras:["energia"],
+            tema:"energía"
+        },
+
+        {
+            palabras:["universo"],
+            tema:"universo"
+        },
+
+        {
+            palabras:["espacio"],
+            tema:"espacio"
+        },
+
+        {
+            palabras:["tiempo"],
+            tema:"tiempo"
+        }
+
+    ];
+
+    for (const item of temas) {
+
+        for (const palabra of item.palabras) {
+
+            if (t.includes(normalizar(palabra))) {
+
+                return item.tema;
+
+            }
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+/* =====================================================
+   RESPUESTA POR TEMA
+===================================================== */
+
+function respuestaPorTema(tema) {
+
+    const mapa = {
+
+        "gripe": conocimientosSorIA.gripe.respuesta,
+
+        "agujero negro":
+            conocimientosSorIA.agujeroNegro.respuesta,
+
+        "átomo":
+            conocimientosSorIA.atomo.respuesta,
+
+        "gravedad":
+            conocimientosSorIA.gravedad.respuesta,
+
+        "inteligencia artificial":
+            conocimientosSorIA.inteligenciaArtificial.respuesta,
+
+        "internet":
+            conocimientosSorIA.internet.respuesta,
+
+        "célula":
+            conocimientosSorIA.celula.respuesta,
+
+        "ADN":
+            conocimientosSorIA.adn.respuesta,
+
+        "electricidad":
+            conocimientosSorIA.electricidad.respuesta,
+
+        "fotosíntesis":
+            conocimientosSorIA.fotosintesis.respuesta,
+
+        "planeta":
+            conocimientosSorIA.planeta.respuesta,
+
+        "galaxia":
+            conocimientosSorIA.galaxia.respuesta,
+
+        "Luna":
+            conocimientosSorIA.luna.respuesta,
+
+        "Sol":
+            conocimientosSorIA.sol.respuesta,
+
+        "volcán":
+            conocimientosSorIA.volcan.respuesta,
+
+        "terremoto":
+            conocimientosSorIA.terremoto.respuesta,
+
+        "agua":
+            conocimientosSorIA.agua.respuesta,
+
+        "oxígeno":
+            conocimientosSorIA.oxigeno.respuesta,
+
+        "energía":
+            conocimientosSorIA.energia.respuesta,
+
+        "universo":
+            conocimientosSorIA.universo.respuesta,
+
+        "espacio":
+            conocimientosSorIA.espacio.respuesta,
+
+        "tiempo":
+            conocimientosSorIA.tiempo.respuesta
+
+    };
+
+    return mapa[tema] || null;
+
+}
+
+
+/* =====================================================
+   DETECTAR SI ES PREGUNTA DE SEGUIMIENTO
+===================================================== */
+
+function esSeguimiento(texto) {
+
+    const t = normalizar(texto);
+
+    const frases = [
+
+        "y eso",
+        "y eso que",
+        "y como",
+        "y cómo",
+        "como funciona",
+        "cómo funciona",
+        "por que",
+        "por qué",
+        "porque",
+        "y despues",
+        "y después",
+        "que significa",
+        "qué significa",
+        "explicame mas",
+        "explícame más",
+        "puedes explicar mas",
+        "puedes explicarme",
+        "mas informacion",
+        "más información",
+        "cuentame mas",
+        "cuéntame más",
+        "y luego",
+        "y entonces",
+        "que quieres decir",
+        "qué quieres decir"
+
+    ];
+
+    return frases.some(
+        frase => t.includes(normalizar(frase))
+    );
+
+}
+
+
+/* =====================================================
+   BUSCAR PERSONA
+===================================================== */
+
+function buscarPersona(texto) {
+
+    const t = normalizar(texto);
+
+    for (const nombre in personasSorIA) {
+
+        if (t.includes(nombre)) {
+
+            return {
+                nombre,
+                respuesta: personasSorIA[nombre]
+            };
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/* =====================================================
+   PREGUNTAS "QUIÉN ES"
+===================================================== */
+
+function extraerNombrePersona(texto) {
+
+    const limpio =
+        texto
+            .replace(/[¿?¡!.,]/g," ")
+            .replace(/\s+/g," ")
+            .trim();
+
+    const t = normalizar(limpio);
+
+    const patrones = [
+        "quien es ",
+        "quién es ",
+        "quien fue ",
+        "quién fue ",
+        "hablame de ",
+        "háblame de ",
+        "informacion sobre ",
+        "información sobre ",
+        "que sabes de ",
+        "qué sabes de "
+    ];
+
+    for (const patron of patrones) {
+
+        const p = normalizar(patron);
+
+        if (t.startsWith(p)) {
+
+            return limpio
+                .slice(patron.length)
+                .trim();
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+/* =====================================================
+   CALCULADORA SEGURA
+===================================================== */
+
+/*
+    No usamos eval().
+
+    Se utiliza un pequeño parser matemático
+    que entiende:
+
+    +  -  *  ×
+    /  ÷  %
+    ^
+
+    y paréntesis.
+*/
+
+
+function pareceMatematica(texto) {
+
+    const t = normalizar(texto);
+
+    if (
+        /\d/.test(t) &&
+        (
+            /[\+\-\*\/\^%×÷]/.test(t) ||
+            t.includes(" cuanto es ") ||
+            t.startsWith("cuanto es") ||
+            t.startsWith("calcula") ||
+            t.startsWith("calcular") ||
+            t.includes(" por ") ||
+            t.includes(" dividido ")
+        )
+    ) {
+
+        return true;
+
+    }
+
+    return false;
+
+}
+
+
+function prepararOperacion(texto) {
+
+    let t =
+        normalizar(texto)
+            .replace(/,/g,".")
+            .replace(/×/g,"*")
+            .replace(/÷/g,"/")
+            .replace(/\bx\b/g,"*");
+
+    t = t
+        .replace(/cuanto es/g,"")
+        .replace(/calcula/g,"")
+        .replace(/calcular/g,"")
+        .replace(/resultado de/g,"")
+        .replace(/cuanto da/g,"")
+        .trim();
+
+    /*
+       Porcentajes naturales:
+       "15% de 200"
+       "20 por ciento de 500"
+    */
+
+    const porcentaje =
+        t.match(
+            /^(-?\d+(?:\.\d+)?)\s*%\s*(?:de|del)\s*(-?\d+(?:\.\d+)?)$/
+        );
+
+    if (porcentaje) {
+
+        const a =
+            Number(porcentaje[1]);
+
+        const b =
+            Number(porcentaje[2]);
+
+        return String(
+            (a / 100) * b
+        );
+
+    }
+
+    const porcentajeTexto =
+        t.match(
+            /^(-?\d+(?:\.\d+)?)\s*por\s*ciento\s*(?:de|del)\s*(-?\d+(?:\.\d+)?)$/
+        );
+
+    if (porcentajeTexto) {
+
+        const a =
+            Number(porcentajeTexto[1]);
+
+        const b =
+            Number(porcentajeTexto[2]);
+
+        return String(
+            (a / 100) * b
+        );
+
+    }
+
+    t = t
+        .replace(/\bpor\b/g,"*")
+        .replace(/\bdividido por\b/g,"/")
+        .replace(/\bdividido entre\b/g,"/")
+        .replace(/\bentre\b/g,"/");
+
+    /*
+       Permitimos únicamente caracteres matemáticos.
+    */
+
+    if (!/^[0-9+\-*/^().%\s]+$/.test(t)) {
+        return null;
+    }
+
+    return t;
+
+}
+
+
+/* =====================================================
+   PARSER MATEMÁTICO
+===================================================== */
+
+function calcularMatematica(expresion) {
+
+    let pos = 0;
+
+    function saltarEspacios() {
+
+        while (
+            pos < expresion.length &&
+            /\s/.test(expresion[pos])
+        ) {
+
+            pos++;
+
+        }
+
+    }
+
+
+    function numero() {
+
+        saltarEspacios();
+
+        let inicio = pos;
+
+        if (expresion[pos] === "+") {
+            pos++;
+        }
+
+        else if (expresion[pos] === "-") {
+            pos++;
+        }
+
+        let tieneNumero = false;
+
+        while (
+            pos < expresion.length &&
+            /[0-9.]/.test(expresion[pos])
+        ) {
+
+            if (/[0-9]/.test(expresion[pos])) {
+                tieneNumero = true;
+            }
+
+            pos++;
+
+        }
+
+        if (!tieneNumero) {
+            throw new Error("Número inválido");
+        }
+
+        const valor =
+            Number(
+                expresion.slice(inicio,pos)
+            );
+
+        if (!Number.isFinite(valor)) {
+            throw new Error("Número inválido");
+        }
+
+        return valor;
+
+    }
+
+
+    function primario() {
+
+        saltarEspacios();
+
+        if (expresion[pos] === "(") {
+
+            pos++;
+
+            const valor =
+                sumaResta();
+
+            saltarEspacios();
+
+            if (expresion[pos] !== ")") {
+                throw new Error("Paréntesis");
+            }
+
+            pos++;
+
+            return valor;
+
+        }
+
+        return numero();
+
+    }
+
+
+    function potencia() {
+
+        let izquierda =
+            primario();
+
+        saltarEspacios();
+
+        if (expresion[pos] === "^") {
+
+            pos++;
+
+            const derecha =
+                potencia();
+
+            izquierda =
+                Math.pow(
+                    izquierda,
+                    derecha
+                );
+
+        }
+
+        return izquierda;
+
+    }
+
+
+    function multiplicacionDivision() {
+
+        let izquierda =
+            potencia();
+
+        while (true) {
+
+            saltarEspacios();
+
+            const operador =
+                expresion[pos];
+
+            if (
+                operador !== "*" &&
+                operador !== "/" &&
+                operador !== "%"
+            ) {
+
+                break;
+
+            }
+
+            pos++;
+
+            const derecha =
+                potencia();
+
+            if (operador === "*") {
+
+                izquierda *= derecha;
+
+            }
+
+            else if (operador === "/") {
+
+                if (derecha === 0) {
+                    throw new Error("División por cero");
+                }
+
+                izquierda /= derecha;
+
+            }
+
+            else {
+
+                izquierda %= derecha;
+
+            }
+
+        }
+
+        return izquierda;
+
+    }
+
+
+    function sumaResta() {
+
+        let izquierda =
+            multiplicacionDivision();
+
+        while (true) {
+
+            saltarEspacios();
+
+            const operador =
+                expresion[pos];
+
+            if (
+                operador !== "+" &&
+                operador !== "-"
+            ) {
+
+                break;
+
+            }
+
+            pos++;
+
+            const derecha =
+                multiplicacionDivision();
+
+            if (operador === "+") {
+
+                izquierda += derecha;
+
+            }
+
+            else {
+
+                izquierda -= derecha;
+
+            }
+
+        }
+
+        return izquierda;
+
+    }
+
+
+    const resultado =
+        sumaResta();
+
+    saltarEspacios();
+
+    if (pos !== expresion.length) {
+        throw new Error("Expresión inválida");
+    }
+
+    if (!Number.isFinite(resultado)) {
+        throw new Error("Resultado inválido");
+    }
+
+    return resultado;
+
+}
+
+
+/* =====================================================
+   FORMATEAR RESULTADO MATEMÁTICO
+===================================================== */
+
+function formatearNumero(numero) {
+
+    if (Number.isInteger(numero)) {
+
+        return numero.toLocaleString("es-ES");
+
+    }
+
+    return Number(
+        numero.toFixed(10)
+    ).toLocaleString("es-ES");
+
+}
+
+
+/* =====================================================
+   INTENTAR RESOLVER MATEMÁTICA
+===================================================== */
+
+function intentarMatematica(texto) {
+
+    if (!pareceMatematica(texto)) {
+        return null;
+    }
+
+    const expresion =
+        prepararOperacion(texto);
+
+    if (!expresion) {
+        return null;
+    }
+
+    try {
+
+        const resultado =
+            calcularMatematica(expresion);
+
+        return "El resultado es: " +
+            formatearNumero(resultado);
+
+    }
+
+    catch (error) {
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
+   CONTEXTO DE SORIA
+===================================================== */
+
+function obtenerUltimoTema() {
+
+    if (soriaTopic) {
+        return soriaTopic;
+    }
+
+    for (
+        let i = soriaHistory.length - 1;
+        i >= 0;
+        i--
+    ) {
+
+        if (
+            soriaHistory[i].tipo === "user"
+        ) {
+
+            const tema =
+                detectarTema(
+                    soriaHistory[i].texto
+                );
+
+            if (tema) {
+                return tema;
+            }
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+/* =====================================================
+   RESPUESTA A SEGUIMIENTOS
+===================================================== */
+
+function responderSeguimiento(texto) {
+
+    const tema =
+        obtenerUltimoTema();
+
+    if (!tema) {
+
+        return "Puedo seguir el contexto, pero necesito que me indiques el tema al que te refieres.";
+
+    }
+
+    if (
+        tema === "agujero negro"
+    ) {
+
+        const t = normalizar(texto);
+
+        if (
+            t.includes("como funciona") ||
+            t.includes("como se forma") ||
+            t.includes("forman")
+        ) {
+
+            return "Un agujero negro puede formarse cuando una estrella muy masiva agota gran parte de su combustible y su núcleo colapsa por efecto de la gravedad. Si el colapso produce las condiciones necesarias, se forma un horizonte de sucesos.";
+
+        }
+
+        if (
+            t.includes("porque") ||
+            t.includes("por que")
+        ) {
+
+            return "La enorme gravedad de un agujero negro se debe a que una gran cantidad de masa queda concentrada en una región extremadamente pequeña.";
+
+        }
+
+        return "Cuando dices «" +
+            texto +
+            "», entiendo que sigues hablando de " +
+            tema +
+            ". Puedes preguntarme cómo se forma, cómo funciona su gravedad, qué es el horizonte de sucesos o qué ocurre cerca de uno.";
+
+    }
+
+
+    if (
+        tema === "gripe"
+    ) {
+
+        return "Siguiendo con la gripe: es una infección viral del sistema respiratorio. Si quieres profundizar, puedo explicarte cómo se transmite, cuáles son sus síntomas generales, cómo se diferencia de un resfriado o cómo prevenirla.";
+
+    }
+
+
+    if (
+        tema === "gravedad"
+    ) {
+
+        return "Siguiendo con la gravedad: es la interacción que produce atracción entre objetos con masa. Puedes preguntarme cómo funciona, quién formuló las principales teorías sobre ella o qué relación tiene con las órbitas.";
+
+    }
+
+
+    if (
+        tema === "inteligencia artificial"
+    ) {
+
+        return "Siguiendo con la inteligencia artificial: los sistemas de IA procesan información mediante modelos y algoritmos. Puedes preguntarme cómo aprende una IA, qué es una red neuronal o cuál es la diferencia entre una IA local y una IA conectada a Internet.";
+
+    }
+
+
+    const respuesta =
+        respuestaPorTema(tema);
+
+    if (respuesta) {
+
+        return respuesta +
+            "\n\nSi quieres, puedo explicarte más sobre " +
+            tema +
+            ", su funcionamiento, ejemplos o datos interesantes.";
+
+    }
+
+    return "Seguimos hablando de " +
+        tema +
+        ". Puedes hacerme una pregunta más específica sobre ese tema.";
+
+}
+
+
+/* =====================================================
+   RESPUESTA PRINCIPAL
+===================================================== */
+
+function respuestaSorIA(pregunta) {
+
+    const texto =
+        String(pregunta).trim();
+
+    const t =
+        normalizar(texto);
+
+
+    /* -------------------------
+       MATEMÁTICA
+    ------------------------- */
+
+    const matematica =
+        intentarMatematica(texto);
+
+    if (matematica) {
+
+        soriaTopic = "matemáticas";
+
+        return matematica;
+
+    }
+
+
+    /* -------------------------
+       SEGUIMIENTO
+    ------------------------- */
+
+    if (
+        esSeguimiento(texto) &&
+        soriaHistory.length > 0
+    ) {
+
+        return responderSeguimiento(texto);
+
+    }
+
+
+    /* -------------------------
+       SALUDOS
+    ------------------------- */
+
+    if (
+        /^(hola|holaa|holaaa|buenas|hey|ey|hi|hello)\b/.test(t)
+    ) {
+
+        return [
+            "Hola. Soy SorIA. ¿Qué quieres saber?",
+            "Hola. SorIA está lista. Pregúntame lo que quieras.",
+            "Hola. ¿En qué puedo ayudarte?"
+        ][
+            Math.floor(
+                Math.random() * 3
+            )
+        ];
+
+    }
+
+
+    if (
+        t.includes("buenos dias")
+    ) {
+
+        return "Buenos días. SorIA está activa. ¿Qué quieres saber?";
+
+    }
+
+
+    if (
+        t.includes("buenas tardes")
+    ) {
+
+        return "Buenas tardes. Estoy lista para ayudarte.";
+
+    }
+
+
+    if (
+        t.includes("buenas noches")
+    ) {
+
+        return "Buenas noches. ¿Qué quieres consultar?";
+
+    }
+
+
+    /* -------------------------
+       ESTADO
+    ------------------------- */
+
+    if (
+        t.includes("como estas") ||
+        t.includes("como te encuentras")
+    ) {
+
+        return "Estoy funcionando correctamente dentro de SOR.";
+
+    }
+
+
+    /* -------------------------
+       IDENTIDAD
+    ------------------------- */
+
+    if (
+        t === "que eres" ||
+        t.includes("que eres tu") ||
+        t.includes("quien eres")
+    ) {
+
+        return "Soy SorIA, el asistente local integrado en SOR. Puedo mantener el contexto de esta conversación, responder sobre varios temas y realizar cálculos.";
+
+    }
+
+
+    if (
+        t.includes("quien te creo") ||
+        t.includes("quien te hizo")
+    ) {
+
+        return "Fui programada como parte de esta versión local de SOR. No soy una IA externa conectada a un servidor: mi conocimiento está incorporado en este HTML.";
+
+    }
+
+
+    /* -------------------------
+       SOR
+    ------------------------- */
+
+    if (
+        t === "que es sor" ||
+        t.includes("que significa sor") ||
+        t.includes("que es el sor")
+    ) {
+
+        soriaTopic = "SOR";
+
+        return "SOR significa «sistema rápido». Es la aplicación que estás utilizando y reúne funciones como Diario, Papelera, Archivos, Configuración, Cuenta, Racha y SorIA.";
+
+    }
+
+
+    if (
+        t.includes("para que sirve sor") ||
+        t.includes("para que sirve esta aplicacion")
+    ) {
+
+        soriaTopic = "SOR";
+
+        return "SOR sirve como una aplicación rápida y personal. Puedes utilizar el Diario para guardar textos, la Papelera para recuperar diarios eliminados, Archivos para acceder a sitios, Configuración para personalizar la interfaz, Cuenta para guardar tu perfil y SorIA para conversar.";
+
+    }
+
+
+    /* -------------------------
+       DIARIO
+    ------------------------- */
+
+    if (
+        t.includes("diario") ||
+        t.includes("notas")
+    ) {
+
+        soriaTopic = "Diario";
+
+        if (
+            t.includes("borrar") ||
+            t.includes("eliminar")
+        ) {
+
+            return "En Diario puedes borrar un diario y enviarlo a Papelera. Desde Papelera puedes restaurarlo o eliminarlo definitivamente.";
+
+        }
+
+        if (
+            t.includes("crear") ||
+            t.includes("hacer")
+        ) {
+
+            return "En Diario pulsa «Crear», escribe un título y el contenido y después selecciona «GUARDAR DIARIO».";
+
+        }
+
+        return "Puedes utilizar Diario para crear, editar, guardar, borrar y restaurar tus diarios. Los datos se guardan localmente en este dispositivo.";
+
+    }
+
+
+    /* -------------------------
+       PAPELERA
+    ------------------------- */
+
+    if (
+        t.includes("papelera")
+    ) {
+
+        soriaTopic = "Papelera";
+
+        return "La Papelera contiene los diarios que has enviado a borrar. Desde allí puedes restaurarlos o eliminarlos definitivamente.";
+
+    }
+
+
+    /* -------------------------
+       ARCHIVOS
+    ------------------------- */
+
+    if (
+        t.includes("archivos")
+    ) {
+
+        soriaTopic = "Archivos";
+
+        return "Archivos funciona como una sección de accesos rápidos. Incluye YouTube, TikTok, Instagram, Poki, Crea, Aternos, ChatGPT, Gemini y ARQ, además de un buscador.";
+
+    }
+
+
+    /* -------------------------
+       CONFIGURACIÓN
+    ------------------------- */
+
+    if (
+        t.includes("configuracion") ||
+        t.includes("configuración")
+    ) {
+
+        soriaTopic = "Configuración";
+
+        if (
+            t.includes("color") ||
+            t.includes("colores")
+        ) {
+
+            return "Puedes cambiar el color de la interfaz desde Configuración > Configuración de pantalla. Hay varios colores disponibles.";
+
+        }
+
+        if (
+            t.includes("cursor") ||
+            t.includes("flecha")
+        ) {
+
+            return "Puedes cambiar el cursor desde Configuración > Config.capricious. Hay cursor de Windows, blanco, negro, rojo, puntero y precisión.";
+
+        }
+
+        if (
+            t.includes("efecto") ||
+            t.includes("efectos")
+        ) {
+
+            return "Los efectos especiales se pueden activar o desactivar desde Config.capricious.";
+
+        }
+
+        return "En Configuración puedes personalizar la apariencia de SOR, cambiar colores, modificar el cursor y activar o desactivar los efectos especiales.";
+
+    }
+
+
+    /* -------------------------
+       RACHA
+    ------------------------- */
+
+    if (
+        t.includes("racha")
+    ) {
+
+        soriaTopic = "Racha";
+
+        return "La racha aumenta al utilizar SOR durante al menos 3 minutos. Al completar esos 3 minutos obtienes +1 día de racha. Si pasan más de 24 horas sin utilizar SOR, la racha se reinicia.";
+
+    }
+
+
+    /* -------------------------
+       CUENTA
+    ------------------------- */
+
+    if (
+        t.includes("cuenta") ||
+        t.includes("perfil")
+    ) {
+
+        soriaTopic = "Cuenta";
+
+        return "La Cuenta permite guardar un Gmail, una contraseña y opcionalmente una foto de perfil. En esta versión los datos se guardan solamente en el dispositivo mediante localStorage.";
+
+    }
+
+
+    /* -------------------------
+       HORA
+    ------------------------- */
+
+    if (
+        t.includes("hora")
+    ) {
+
+        return "La hora actual de tu dispositivo es " +
+            new Date().toLocaleTimeString();
+
+    }
+
+
+    /* -------------------------
+       FECHA
+    ------------------------- */
+
+    if (
+        t.includes("fecha") ||
+        t.includes("que dia es") ||
+        t.includes("qué día es") ||
+        t === "dia"
+    ) {
+
+        return "La fecha actual de tu dispositivo es " +
+            new Date().toLocaleDateString();
+
+    }
+
+
+    /* -------------------------
+       GRACIAS
+    ------------------------- */
+
+    if (
+        t.includes("gracias") ||
+        t.includes("muchas gracias")
+    ) {
+
+        return [
+            "De nada.",
+            "No hay problema.",
+            "Para eso estoy.",
+            "Cuando quieras."
+        ][
+            Math.floor(
+                Math.random() * 4
+            )
+        ];
+
+    }
+
+
+    /* -------------------------
+       AYUDA
+    ------------------------- */
+
+    if (
+        t.includes("ayuda") ||
+        t === "que puedo preguntar" ||
+        t.includes("que sabes hacer")
+    ) {
+
+        return "Puedes preguntarme sobre SOR, ciencia, tecnología, historia, conceptos generales, personas conocidas o matemáticas. También puedo seguir el contexto de la conversación y responder preguntas de seguimiento.";
+
+    }
+
+
+    /* -------------------------
+       MATEMÁTICAS EXPLÍCITAS
+    ------------------------- */
+
+    if (
+        t.includes("matematica") ||
+        t.includes("matemáticas") ||
+        t.includes("matematicas") ||
+        t.includes("calculo")
+    ) {
+
+        return "Puedo resolver operaciones con números, paréntesis, suma, resta, multiplicación, división, porcentajes y potencias. Por ejemplo: «25 × 8», «(5 + 3) × 2» o «15% de 200».";
+
+    }
+
+
+    /* -------------------------
+       PERSONAS
+    ------------------------- */
+
+    const persona =
+        buscarPersona(texto);
+
+    if (persona) {
+
+        soriaTopic =
+            persona.nombre;
+
+        return persona.respuesta;
+
+    }
+
+
+    const nombrePersona =
+        extraerNombrePersona(texto);
+
+    if (nombrePersona) {
+
+        const nombreNormalizado =
+            normalizar(nombrePersona);
+
+        if (
+            personasSorIA[nombreNormalizado]
+        ) {
+
+            soriaTopic =
+                nombrePersona;
+
+            return personasSorIA[
+                nombreNormalizado
+            ];
+
+        }
+
+        return "No tengo información fiable incorporada sobre «" +
+            nombrePersona +
+            "». Mi conocimiento está limitado a la información incluida en esta versión local de SorIA.";
+
+    }
+
+
+    /* -------------------------
+       TEMAS GENERALES
+    ------------------------- */
+
+    const tema =
+        detectarTema(texto);
+
+    if (tema) {
+
+        soriaTopic = tema;
+
+        const respuesta =
+            respuestaPorTema(tema);
+
+        if (respuesta) {
+
+            return respuesta;
+
+        }
+
+    }
+
+
+    /* -------------------------
+       PREGUNTAS "QUÉ ES"
+    ------------------------- */
+
+    if (
+        t.startsWith("que es ") ||
+        t.startsWith("qué es ") ||
+        t.startsWith("que son ") ||
+        t.startsWith("qué son ")
+    ) {
+
+        const concepto =
+            texto
+                .replace(/^¿?/,"")
+                .replace(/^qué es /i,"")
+                .replace(/^que es /i,"")
+                .replace(/^qué son /i,"")
+                .replace(/^que son /i,"")
+                .replace(/[?¿]/g,"")
+                .trim();
+
+        return "No tengo una explicación incorporada específicamente para «" +
+            concepto +
+            "». Puedo intentar ayudarte si me das un poco más de contexto.";
+
+    }
+
+
+    /* -------------------------
+       PREGUNTAS DE POR QUÉ
+    ------------------------- */
+
+    if (
+        t.startsWith("por que") ||
+        t.startsWith("porque")
+    ) {
+
+        const temaActual =
+            obtenerUltimoTema();
+
+        if (temaActual) {
+
+            return "Si te refieres a " +
+                temaActual +
+                ", puedo explicarte la causa con más detalle. Formula la pregunta completa y seguiré el contexto.";
+
+        }
+
+    }
+
+
+    /* -------------------------
+       PREGUNTAS DE CÓMO
+    ------------------------- */
+
+    if (
+        t.startsWith("como ") ||
+        t.startsWith("cómo ")
+    ) {
+
+        const temaActual =
+            obtenerUltimoTema();
+
+        if (temaActual) {
+
+            return "Entiendo que preguntas cómo funciona algo relacionado con " +
+                temaActual +
+                ". Especifica qué parte quieres entender y te lo explico.";
+
+        }
+
+    }
+
+
+    /* -------------------------
+       RESPUESTA FALLBACK
+    ------------------------- */
+
+    return "Entiendo lo que preguntas, pero esa información no está incluida en mi conocimiento local. Puedo responder sobre SOR, varios temas de ciencia y tecnología, algunas personas conocidas y operaciones matemáticas. Si tu pregunta continúa un tema anterior, también puedo seguir el contexto.";
+
+}
+
+
+/* =====================================================
+   ENVIAR MENSAJE A SORIA
+===================================================== */
+
+function enviarSorIA() {
+
+    if (soriaProcesando) {
+        return;
+    }
+
+    const input =
+        document.getElementById("soriaInput");
+
+    const pregunta =
+        input.value.trim();
+
+    if (!pregunta) {
+        return;
+    }
+
+    soriaProcesando = true;
+
+    const boton =
+        document.getElementById("soriaSendButton");
+
+    if (boton) {
+        boton.disabled = true;
+        boton.style.opacity = ".5";
+    }
+
+
+    /* -------------------------
+       GUARDAR USUARIO
+    ------------------------- */
+
+    agregarMensajeSorIA(
+        pregunta,
+        "user"
+    );
+
+    soriaHistory.push({
+
+        tipo: "user",
+
+        texto: pregunta,
+
+        fecha: Date.now()
+
+    });
+
+    input.value = "";
+
+
+    /* -------------------------
+       DETECTAR TEMA ACTUAL
+    ------------------------- */
+
+    const posibleTema =
+        detectarTema(pregunta);
+
+    if (posibleTema) {
+
+        soriaTopic =
+            posibleTema;
+
+    }
+
+    else {
+
+        const persona =
+            buscarPersona(pregunta);
+
+        if (persona) {
+
+            soriaTopic =
+                persona.nombre;
+
+        }
+
+    }
+
+
+    /* -------------------------
+       MOSTRAR ANALIZANDO
+    ------------------------- */
+
+    const analizando =
+        agregarMensajeSorIA(
+            "Analizando...",
+            "ai",
+            "analyzing"
+        );
+
+
+    /*
+       Pequeña pausa para que SorIA
+       parezca que está procesando.
+    */
+
+    const tiempo =
+        650 +
+        Math.floor(
+            Math.random() * 450
+        );
+
+
+    setTimeout(() => {
+
+        const respuesta =
+            respuestaSorIA(pregunta);
+
+
+        /* -------------------------
+           REEMPLAZAR ANALIZANDO
+        ------------------------- */
+
+        if (analizando) {
+
+            analizando.textContent =
+                respuesta;
+
+            analizando.classList.remove(
+                "analyzing"
+            );
+
+        }
+
+
+        /* -------------------------
+           GUARDAR RESPUESTA
+        ------------------------- */
+
+        soriaHistory.push({
+
+            tipo: "ai",
+
+            texto: respuesta,
+
+            fecha: Date.now()
+
+        });
+
+
+        soriaProcesando = false;
+
+        if (boton) {
+
+            boton.disabled = false;
+
+            boton.style.opacity = "1";
+
+        }
+
+        input.focus();
+
+    }, tiempo);
 
 }
 
@@ -1758,14 +5793,74 @@ document.addEventListener(
 
 
 /* =====================================================
-   INICIALIZAR
+   CARGAR COLOR
 ===================================================== */
 
-updateMoney();
+const colorGuardado =
+    localStorage.getItem("sor_color") || "rojo";
 
-updateMentalButton();
+aplicarColor(
+    colorGuardado,
+    false
+);
 
-updateFobyButton();
+actualizarColorSeleccionado();
+
+
+/* =====================================================
+   CARGAR CURSOR
+===================================================== */
+
+const cursorGuardado =
+    localStorage.getItem("sor_cursor")
+    || "windows";
+
+cambiarCursor(
+    cursorGuardado
+);
+
+
+/* =====================================================
+   CARGAR EFECTOS
+===================================================== */
+
+const efectosGuardados =
+    localStorage.getItem("sor_effects")
+    || "off";
+
+cambiarEfectos(
+    efectosGuardados === "on"
+);
+
+
+/* =====================================================
+   CARGAR CUENTA Y RACHA
+===================================================== */
+
+if (cuenta) {
+
+    if (
+        Date.now() -
+        (cuenta.ultimaActividad || Date.now()) >
+        24 * 60 * 60 * 1000
+    ) {
+
+        cuenta.racha = 0;
+        cuenta.segundosUso = 0;
+        cuenta.ultimaRacha = null;
+
+        localStorage.setItem(
+            "sor_cuenta",
+            JSON.stringify(cuenta)
+        );
+
+    }
+
+}
+
+actualizarInterfazCuenta();
+
+iniciarSistemaRacha();
 
 </script>
 
