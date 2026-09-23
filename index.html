@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +10,7 @@
     box-sizing:border-box;
     margin:0;
     padding:0;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
 }
 
 html{
@@ -24,6 +23,116 @@ body{
     min-height:100vh;
     overflow-x:hidden;
 }
+
+/* =========================
+   CUENTAS
+========================= */
+
+.account-screen{
+    min-height:100vh;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:
+        radial-gradient(circle at center,rgba(59,130,246,.15),transparent 40%),
+        linear-gradient(135deg,#080d18,#111827,#172033);
+}
+
+.account-box{
+    width:100%;
+    max-width:430px;
+    background:#0f172a;
+    border:2px solid #334155;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.account-logo{
+    font-size:50px;
+    margin-bottom:10px;
+}
+
+.account-title{
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.account-subtitle{
+    color:#94a3b8;
+    margin-bottom:25px;
+}
+
+.account-input{
+    width:100%;
+    padding:13px;
+    margin-bottom:12px;
+    background:#1e293b;
+    border:1px solid #475569;
+    border-radius:10px;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+.account-input:focus{
+    border-color:#3b82f6;
+}
+
+.account-button{
+    width:100%;
+    padding:13px;
+    margin-top:8px;
+    border:0;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+    transition:.2s;
+}
+
+.account-button:hover{
+    transform:scale(1.02);
+}
+
+.create-account{
+    background:#2563eb;
+}
+
+.create-account:hover{
+    background:#1d4ed8;
+}
+
+.login-account{
+    background:#22c55e;
+}
+
+.login-account:hover{
+    background:#16a34a;
+}
+
+.account-message{
+    min-height:22px;
+    margin-top:15px;
+    color:#facc15;
+    font-size:14px;
+}
+
+.account-note{
+    margin-top:20px;
+    color:#64748b;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* =========================
+   HEADER
+========================= */
 
 header{
     background:#0f172a;
@@ -75,6 +184,36 @@ header{
     background:#1e293b;
     padding:10px 15px;
     border-radius:12px;
+}
+
+.account-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.account-name{
+    background:#1e293b;
+    border:1px solid #475569;
+    padding:10px 12px;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.logout-button{
+    background:#7f1d1d;
+    border:1px solid #991b1b;
+    color:white;
+    padding:10px 12px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.logout-button:hover{
+    background:#991b1b;
 }
 
 main{
@@ -218,7 +357,6 @@ h2{
             0 0 45px rgba(168,85,247,.45),
             inset 0 0 18px rgba(168,85,247,.20);
     }
-
     to{
         box-shadow:
             0 0 18px #c084fc,
@@ -229,18 +367,9 @@ h2{
 }
 
 @keyframes auraPulse{
-    from{
-        opacity:.25;
-    }
-
-    to{
-        opacity:.85;
-    }
+    from{opacity:.25;}
+    to{opacity:.85;}
 }
-
-/* =========================
-   VARIEDADES DE EMOJIS
-========================= */
 
 .runway-slot.variant-gold,
 .base-slot.variant-gold{
@@ -319,9 +448,7 @@ h2{
     cursor:pointer;
 }
 
-.sell:hover{
-    background:#dc2626;
-}
+.sell:hover{background:#dc2626;}
 
 .feed{
     margin-top:10px;
@@ -335,9 +462,7 @@ h2{
     cursor:pointer;
 }
 
-.feed:hover{
-    background:#d97706;
-}
+.feed:hover{background:#d97706;}
 
 .income{
     text-align:center;
@@ -346,7 +471,7 @@ h2{
 }
 
 /* =========================
-   PANTALLA DE TIENDA
+   TIENDA
 ========================= */
 
 .shop-screen{
@@ -354,21 +479,15 @@ h2{
     min-height:100vh;
     width:100%;
     background:
-        radial-gradient(circle at 50% 20%,
-        rgba(120,53,15,.15),
-        transparent 35%),
+        radial-gradient(circle at 50% 20%,rgba(120,53,15,.15),transparent 35%),
         linear-gradient(135deg,#100b07,#21140c,#120c08);
     position:relative;
     overflow:hidden;
 }
 
-.shop-screen.active{
-    display:block;
-}
+.shop-screen.active{display:block;}
 
-.game-screen.hidden{
-    display:none;
-}
+.game-screen.hidden{display:none;}
 
 .shop-header{
     background:rgba(15,10,6,.95);
@@ -421,28 +540,10 @@ h2{
     pointer-events:none;
 }
 
-.web1{
-    top:-15px;
-    left:-10px;
-}
-
-.web2{
-    top:-10px;
-    right:-10px;
-    transform:scaleX(-1);
-}
-
-.web3{
-    bottom:0;
-    left:-10px;
-    font-size:55px;
-}
-
-.web4{
-    bottom:0;
-    right:-10px;
-    font-size:55px;
-}
+.web1{top:-15px;left:-10px;}
+.web2{top:-10px;right:-10px;transform:scaleX(-1);}
+.web3{bottom:0;left:-10px;font-size:55px;}
+.web4{bottom:0;right:-10px;font-size:55px;}
 
 .shop-sign{
     width:max-content;
@@ -451,9 +552,7 @@ h2{
     background:#2a1b11;
     border:3px solid #765033;
     border-radius:8px;
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.55),
-        inset 0 0 15px rgba(0,0,0,.55);
+    box-shadow:0 8px 20px rgba(0,0,0,.55),inset 0 0 15px rgba(0,0,0,.55);
     color:#d8c0a3;
     font-size:25px;
     font-weight:bold;
@@ -470,23 +569,10 @@ h2{
     padding:35px;
     position:relative;
     overflow:hidden;
-
     background:
-        linear-gradient(
-            rgba(24,15,9,.72),
-            rgba(17,10,6,.90)
-        ),
-        repeating-linear-gradient(
-            90deg,
-            #4a3020 0px,
-            #4a3020 45px,
-            #392416 46px,
-            #392416 49px
-        );
-
-    box-shadow:
-        inset 0 0 100px rgba(0,0,0,.85),
-        0 20px 45px rgba(0,0,0,.45);
+        linear-gradient(rgba(24,15,9,.72),rgba(17,10,6,.90)),
+        repeating-linear-gradient(90deg,#4a3020 0px,#4a3020 45px,#392416 46px,#392416 49px);
+    box-shadow:inset 0 0 100px rgba(0,0,0,.85),0 20px 45px rgba(0,0,0,.45);
 }
 
 .old-shop::before{
@@ -497,11 +583,7 @@ h2{
     top:-220px;
     left:50%;
     transform:translateX(-50%);
-    background:radial-gradient(
-        circle,
-        rgba(255,194,92,.15),
-        transparent 68%
-    );
+    background:radial-gradient(circle,rgba(255,194,92,.15),transparent 68%);
     pointer-events:none;
 }
 
@@ -515,27 +597,14 @@ h2{
 
 .charly-counter{
     min-height:180px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #533820,
-            #2c1b10
-        );
-
+    background:linear-gradient(145deg,#533820,#2c1b10);
     border:3px solid #765033;
     border-radius:14px 14px 6px 6px;
-
     display:flex;
     align-items:flex-end;
     justify-content:center;
-
     padding-bottom:18px;
-
-    box-shadow:
-        0 18px 30px rgba(0,0,0,.6),
-        inset 0 0 25px rgba(0,0,0,.45);
-
+    box-shadow:0 18px 30px rgba(0,0,0,.6),inset 0 0 25px rgba(0,0,0,.45);
     position:relative;
 }
 
@@ -551,9 +620,7 @@ h2{
     transition:.2s;
 }
 
-.charly:hover{
-    transform:translateX(-50%) scale(1.1);
-}
+.charly:hover{transform:translateX(-50%) scale(1.1);}
 
 .charly-label{
     color:#d8c0a3;
@@ -576,9 +643,7 @@ h2{
     box-shadow:0 8px 18px rgba(0,0,0,.4);
 }
 
-.shop-message.show{
-    display:block;
-}
+.shop-message.show{display:block;}
 
 .products-title{
     margin:45px 0 18px;
@@ -598,21 +663,16 @@ h2{
 }
 
 .product{
-    background:
-        linear-gradient(145deg,#382315,#21140c);
+    background:linear-gradient(145deg,#382315,#21140c);
     border:2px solid #765033;
     border-radius:15px;
     padding:22px;
     text-align:center;
-    box-shadow:
-        0 12px 22px rgba(0,0,0,.45),
-        inset 0 0 18px rgba(0,0,0,.35);
+    box-shadow:0 12px 22px rgba(0,0,0,.45),inset 0 0 18px rgba(0,0,0,.35);
     position:relative;
 }
 
-.product-emoji{
-    font-size:58px;
-}
+.product-emoji{font-size:58px;}
 
 .product-name{
     font-size:20px;
@@ -651,35 +711,14 @@ h2{
 
 .aura-product{
     border:2px solid #9333ea;
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(168,85,247,.25),
-            #21140c 65%
-        );
-
-    box-shadow:
-        0 0 15px rgba(168,85,247,.45),
-        0 0 35px rgba(147,51,234,.25),
-        inset 0 0 25px rgba(168,85,247,.15);
-
+    background:radial-gradient(circle at center,rgba(168,85,247,.25),#21140c 65%);
+    box-shadow:0 0 15px rgba(168,85,247,.45),0 0 35px rgba(147,51,234,.25),inset 0 0 25px rgba(168,85,247,.15);
     animation:shopAura 2s infinite alternate;
 }
 
 @keyframes shopAura{
-    from{
-        box-shadow:
-            0 0 12px rgba(168,85,247,.35),
-            0 0 25px rgba(147,51,234,.20),
-            inset 0 0 20px rgba(168,85,247,.10);
-    }
-
-    to{
-        box-shadow:
-            0 0 20px rgba(192,132,252,.65),
-            0 0 45px rgba(147,51,234,.35),
-            inset 0 0 30px rgba(168,85,247,.25);
-    }
+    from{box-shadow:0 0 12px rgba(168,85,247,.35),0 0 25px rgba(147,51,234,.20),inset 0 0 20px rgba(168,85,247,.10);}
+    to{box-shadow:0 0 20px rgba(192,132,252,.65),0 0 45px rgba(147,51,234,.35),inset 0 0 30px rgba(168,85,247,.25);}
 }
 
 .aura-icon{
@@ -729,13 +768,10 @@ h2{
     padding:20px;
     position:relative;
     z-index:10;
-    box-shadow:
-        0 0 25px rgba(147,51,234,.25);
+    box-shadow:0 0 25px rgba(147,51,234,.25);
 }
 
-.apply-panel.show{
-    display:block;
-}
+.apply-panel.show{display:block;}
 
 .apply-title{
     text-align:center;
@@ -767,9 +803,7 @@ h2{
     transform:translateY(-3px);
 }
 
-.apply-slot .small-emoji{
-    font-size:35px;
-}
+.apply-slot .small-emoji{font-size:35px;}
 
 .apply-slot .small-name{
     font-size:11px;
@@ -784,23 +818,9 @@ h2{
     z-index:2;
 }
 
-.dec1{
-    left:30px;
-    bottom:35px;
-}
-
-.dec2{
-    right:30px;
-    bottom:35px;
-}
-
-.dec3{
-    left:48%;
-    bottom:18px;
-    font-size:25px;
-}
-
-/* BOTONES EXTRA */
+.dec1{left:30px;bottom:35px;}
+.dec2{right:30px;bottom:35px;}
+.dec3{left:48%;bottom:18px;font-size:25px;}
 
 .header-actions{
     display:flex;
@@ -808,21 +828,13 @@ h2{
     flex-wrap:wrap;
 }
 
-.index-button{
-    background:#334155;
-}
-
-.reward-button{
-    background:#8a5a16;
-    border-color:#b7791f;
-}
-
-/* =========================
-   INDEX
-========================= */
+.index-button{background:#334155;}
+.reward-button{background:#8a5a16;border-color:#b7791f;}
+.tops-button{background:#713f12;border-color:#a16207;}
 
 .index-screen,
-.rewards-screen{
+.rewards-screen,
+.tops-screen{
     display:none;
     min-height:100vh;
     width:100%;
@@ -830,12 +842,14 @@ h2{
 }
 
 .index-screen.active,
-.rewards-screen.active{
+.rewards-screen.active,
+.tops-screen.active{
     display:block;
 }
 
 .index-header,
-.rewards-header{
+.rewards-header,
+.tops-header{
     background:#0f172a;
     border-bottom:2px solid #334155;
     padding:18px 30px;
@@ -848,14 +862,16 @@ h2{
 }
 
 .index-title,
-.rewards-title{
+.rewards-title,
+.tops-title{
     font-size:28px;
     font-weight:bold;
     letter-spacing:2px;
 }
 
 .index-content,
-.rewards-content{
+.rewards-content,
+.tops-content{
     width:95%;
     max-width:1200px;
     margin:30px auto 60px;
@@ -905,13 +921,7 @@ h2{
     color:#cbd5e1;
 }
 
-.index-card.locked .index-info{
-    color:#475569;
-}
-
-/* =========================
-   RECOMPENSAS
-========================= */
+.index-card.locked .index-info{color:#475569;}
 
 .reward-box{
     max-width:650px;
@@ -924,10 +934,7 @@ h2{
     box-shadow:0 0 30px rgba(245,158,11,.15);
 }
 
-.reward-icon{
-    font-size:80px;
-    margin-bottom:15px;
-}
+.reward-icon{font-size:80px;margin-bottom:15px;}
 
 .reward-title{
     font-size:26px;
@@ -964,35 +971,67 @@ h2{
     font-weight:bold;
 }
 
-/* Notificación */
+/* =========================
+   TOPS
+========================= */
 
-.notification{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    background:#0f172a;
-    border:1px solid #475569;
-    padding:14px 18px;
-    border-radius:12px;
-    opacity:0;
-    transform:translateY(20px);
-    transition:.3s;
-    pointer-events:none;
-    z-index:100;
+.tops-content{
+    max-width:800px;
 }
 
-.notification.show{
-    opacity:1;
-    transform:translateY(0);
+.tops-box{
+    background:#0f172a;
+    border:2px solid #334155;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+}
+
+.tops-description{
+    text-align:center;
+    color:#94a3b8;
+    margin-bottom:22px;
+}
+
+.top-row{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#1e293b;
+    border:1px solid #334155;
+    border-radius:13px;
+    padding:15px;
+    margin-bottom:10px;
+}
+
+.top-position{
+    width:45px;
+    text-align:center;
+    font-size:23px;
+    font-weight:bold;
+}
+
+.top-player{
+    flex:1;
+    font-weight:bold;
+}
+
+.top-money{
+    color:#facc15;
+    font-weight:bold;
+}
+
+.top-empty{
+    text-align:center;
+    color:#64748b;
+    padding:30px;
 }
 
 /* =========================
-   AURAS EXTRA
+   BASE UPGRADE
 ========================= */
 
-.extra-products{
-    margin-top:22px;
-}
+.extra-products{margin-top:22px;}
 
 .yellow-aura-product{
     border:2px solid #facc15;
@@ -1054,9 +1093,17 @@ h2{
     z-index:20;
 }
 
-.base-upgrade-title{font-size:28px;font-weight:bold;letter-spacing:2px;}
+.base-upgrade-title{
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
 
-.base-upgrade-content{width:95%;max-width:800px;margin:50px auto;}
+.base-upgrade-content{
+    width:95%;
+    max-width:800px;
+    margin:50px auto;
+}
 
 .base-upgrade-box{
     background:#0f2430;
@@ -1075,7 +1122,6 @@ h2{
 .base-upgrade-buy:hover{background:#06b6d4;}
 .base-upgrade-buy:disabled{opacity:.5;cursor:not-allowed;}
 
-/* Auras visuales en la base */
 .base-slot.yellow-aura{
     border:2px solid #facc15;
     background:radial-gradient(circle,rgba(250,204,21,.25),#1e293b 72%);
@@ -1088,76 +1134,61 @@ h2{
     box-shadow:0 0 15px #ef4444,0 0 40px rgba(220,38,38,.55),inset 0 0 25px rgba(239,68,68,.2);
 }
 
-/* Mejora de emoji */
-.upgrade-emoji{margin-top:10px;width:100%;padding:9px;border:none;border-radius:9px;background:#0ea5e9;color:white;font-weight:bold;cursor:pointer;}
+.upgrade-emoji{
+    margin-top:10px;
+    width:100%;
+    padding:9px;
+    border:none;
+    border-radius:9px;
+    background:#0ea5e9;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
 .upgrade-emoji:hover{background:#0284c7;}
 .upgrade-emoji:disabled{opacity:.45;cursor:not-allowed;}
 
-/* Responsive */
+.notification{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#0f172a;
+    border:1px solid #475569;
+    padding:14px 18px;
+    border-radius:12px;
+    opacity:0;
+    transform:translateY(20px);
+    transition:.3s;
+    pointer-events:none;
+    z-index:100;
+}
+
+.notification.show{
+    opacity:1;
+    transform:translateY(0);
+}
 
 @media(max-width:1000px){
-
-    .runway{
-        flex-wrap:nowrap;
-    }
-
-    .products{
-        grid-template-columns:1fr;
-    }
-
-    .apply-list{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .index-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
+    .runway{flex-wrap:nowrap;}
+    .products{grid-template-columns:1fr;}
+    .apply-list{grid-template-columns:repeat(3,1fr);}
+    .index-grid{grid-template-columns:repeat(3,1fr);}
 }
 
 @media(max-width:650px){
-
-    .runway{
-        flex-wrap:nowrap;
-    }
-
-    .base{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    header{
-        flex-direction:column;
-        gap:12px;
-    }
-
-    .header-left{
-        width:100%;
-        justify-content:space-between;
-    }
-
-    .old-shop{
-        padding:20px 12px;
-    }
-
-    .shop-header{
-        padding:15px;
-    }
-
-    .shop-title{
-        font-size:21px;
-    }
-
-    .apply-list{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .index-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .index-header,
-    .rewards-header{
-        padding:15px;
-    }
+    .runway{flex-wrap:nowrap;}
+    .base{grid-template-columns:repeat(2,1fr);}
+    header{flex-direction:column;gap:12px;}
+    .header-left{width:100%;justify-content:space-between;align-items:flex-start;}
+    .old-shop{padding:20px 12px;}
+    .shop-header{padding:15px;}
+    .shop-title{font-size:21px;}
+    .apply-list{grid-template-columns:repeat(2,1fr);}
+    .index-grid{grid-template-columns:repeat(2,1fr);}
+    .index-header,.rewards-header,.tops-header{padding:15px;}
+    .stats{width:100%;justify-content:center;}
+    .account-header{justify-content:center;}
 }
 </style>
 </head>
@@ -1165,10 +1196,73 @@ h2{
 <body>
 
 <!-- =========================
+     CUENTAS
+========================= -->
+
+<div id="accountScreen" class="account-screen">
+
+    <div class="account-box">
+
+        <div class="account-logo">😄</div>
+
+        <div class="account-title">
+            Emojis
+        </div>
+
+        <div class="account-subtitle">
+            👤 Sistema de Cuentas
+        </div>
+
+        <input
+            id="accountUsername"
+            class="account-input"
+            type="text"
+            maxlength="20"
+            placeholder="Nombre de la cuenta"
+        >
+
+        <input
+            id="accountPassword"
+            class="account-input"
+            type="password"
+            maxlength="50"
+            placeholder="Contraseña"
+        >
+
+        <button
+            class="account-button create-account"
+            onclick="createAccount()"
+        >
+            📝 Crear cuenta
+        </button>
+
+        <button
+            class="account-button login-account"
+            onclick="loginAccount()"
+        >
+            🔐 Iniciar sesión
+        </button>
+
+        <div
+            id="accountMessage"
+            class="account-message"
+        ></div>
+
+        <div class="account-note">
+            Las cuentas de esta versión se guardan localmente
+            en este navegador.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
      PANTALLA PRINCIPAL
 ========================= -->
 
-<div id="gameScreen" class="game-screen">
+<div id="gameScreen" class="game-screen hidden">
 
 <header>
 
@@ -1180,31 +1274,23 @@ h2{
 
         <div class="header-actions">
 
-            <button
-                class="shop-button"
-                onclick="openShop()"
-            >
+            <button class="shop-button" onclick="openShop()">
                 ᴛɪᴇɴᴅᴀ
             </button>
 
-            <button
-                class="shop-button reward-button"
-                onclick="openRewards()"
-            >
+            <button class="shop-button reward-button" onclick="openRewards()">
                 🎁 Recompensas
             </button>
 
-            <button
-                class="shop-button index-button"
-                onclick="openIndex()"
-            >
+            <button class="shop-button index-button" onclick="openIndex()">
                 📖 Index
             </button>
 
-            <button
-                class="shop-button base-upgrade-button"
-                onclick="openBaseUpgrade()"
-            >
+            <button class="shop-button tops-button" onclick="openTops()">
+                🏆 TOPS
+            </button>
+
+            <button class="shop-button base-upgrade-button" onclick="openBaseUpgrade()">
                 🛠️ Mejora Base
             </button>
 
@@ -1212,15 +1298,30 @@ h2{
 
     </div>
 
-    <div class="stats">
+    <div class="account-header">
 
-        <div class="stat">
-            💰 <span id="money">10.00</span>€
+        <div class="account-name">
+            👤 <span id="headerAccountName"></span>
         </div>
 
-        <div class="stat">
-            ⚡ <span id="bolts">0</span> Rayos
+        <div class="stats">
+
+            <div class="stat">
+                💰 <span id="money">10.00</span>€
+            </div>
+
+            <div class="stat">
+                ⚡ <span id="bolts">0</span> Rayos
+            </div>
+
         </div>
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+            🚪 Salir
+        </button>
 
     </div>
 
@@ -1260,13 +1361,10 @@ h2{
 
 
 <!-- =========================
-     PANTALLA TIENDA
+     TIENDA
 ========================= -->
 
-<div
-    id="shopScreen"
-    class="shop-screen"
->
+<div id="shopScreen" class="shop-screen">
 
     <div class="shop-header">
 
@@ -1274,10 +1372,7 @@ h2{
             ᴛɪᴇɴᴅᴀ
         </div>
 
-        <button
-            class="back-button"
-            onclick="closeShop()"
-        >
+        <button class="back-button" onclick="closeShop()">
             ← Volver
         </button>
 
@@ -1285,21 +1380,10 @@ h2{
 
     <div class="shop-content">
 
-        <div class="shop-web web1">
-            🕸️
-        </div>
-
-        <div class="shop-web web2">
-            🕸️
-        </div>
-
-        <div class="shop-web web3">
-            🕸️
-        </div>
-
-        <div class="shop-web web4">
-            🕸️
-        </div>
+        <div class="shop-web web1">🕸️</div>
+        <div class="shop-web web2">🕸️</div>
+        <div class="shop-web web3">🕸️</div>
+        <div class="shop-web web4">🕸️</div>
 
         <div class="shop-sign">
             🏚️ ᴛɪᴇɴᴅᴀ ᴅᴇ ᴄʜᴀʀʟʏ
@@ -1402,36 +1486,64 @@ h2{
             <div class="products extra-products">
 
                 <div class="product yellow-aura-product">
-                    <div class="aura-icon yellow-aura-icon">✨</div>
-                    <div class="aura-name yellow-aura-name">Aura Amarilla</div>
-                    <div class="product-price">10.000€</div>
+
+                    <div class="aura-icon yellow-aura-icon">
+                        ✨
+                    </div>
+
+                    <div class="aura-name yellow-aura-name">
+                        Aura Amarilla
+                    </div>
+
+                    <div class="product-price">
+                        10.000€
+                    </div>
+
                     <div class="aura-description">
                         Una aura dorada extremadamente poderosa.<br>
                         Al aplicarla a un emoji, aumentará su generación a <b>x6</b>.
                     </div>
-                    <button class="buy-aura yellow-buy" onclick="buyYellowAura()">
+
+                    <button
+                        class="buy-aura yellow-buy"
+                        onclick="buyYellowAura()"
+                    >
                         ✨ Comprar Aura — 10.000€
                     </button>
+
                 </div>
 
                 <div class="product red-aura-product">
-                    <div class="aura-icon red-aura-icon">🔥</div>
-                    <div class="aura-name red-aura-name">Aura Roja</div>
-                    <div class="product-price">250.000€</div>
+
+                    <div class="aura-icon red-aura-icon">
+                        🔥
+                    </div>
+
+                    <div class="aura-name red-aura-name">
+                        Aura Roja
+                    </div>
+
+                    <div class="product-price">
+                        250.000€
+                    </div>
+
                     <div class="aura-description">
                         Una aura roja de poder brutal.<br>
                         Al aplicarla a un emoji, aumentará su generación a <b>x20</b>.
                     </div>
-                    <button class="buy-aura red-buy" onclick="buyRedAura()">
+
+                    <button
+                        class="buy-aura red-buy"
+                        onclick="buyRedAura()"
+                    >
                         🔥 Comprar Aura — 250.000€
                     </button>
+
                 </div>
 
             </div>
 
-            <div class="apply-panel"
-                id="applyPanel"
-            >
+            <div class="apply-panel" id="applyPanel">
 
                 <div class="apply-title">
                     ✨ Elige un emoji para aplicar el Aura
@@ -1444,17 +1556,9 @@ h2{
 
             </div>
 
-            <div class="shop-decoration dec1">
-                🕯️
-            </div>
-
-            <div class="shop-decoration dec2">
-                🪵
-            </div>
-
-            <div class="shop-decoration dec3">
-                🕷️
-            </div>
+            <div class="shop-decoration dec1">🕯️</div>
+            <div class="shop-decoration dec2">🪵</div>
+            <div class="shop-decoration dec3">🕷️</div>
 
         </div>
 
@@ -1464,13 +1568,10 @@ h2{
 
 
 <!-- =========================
-     PANTALLA INDEX
+     INDEX
 ========================= -->
 
-<div
-    id="indexScreen"
-    class="index-screen"
->
+<div id="indexScreen" class="index-screen">
 
     <div class="index-header">
 
@@ -1478,10 +1579,7 @@ h2{
             📖 INDEX
         </div>
 
-        <button
-            class="back-button"
-            onclick="closeIndex()"
-        >
+        <button class="back-button" onclick="closeIndex()">
             ← Volver
         </button>
 
@@ -1504,13 +1602,10 @@ h2{
 
 
 <!-- =========================
-     PANTALLA RECOMPENSAS
+     RECOMPENSAS
 ========================= -->
 
-<div
-    id="rewardsScreen"
-    class="rewards-screen"
->
+<div id="rewardsScreen" class="rewards-screen">
 
     <div class="rewards-header">
 
@@ -1518,10 +1613,7 @@ h2{
             🎁 RECOMPENSAS
         </div>
 
-        <button
-            class="back-button"
-            onclick="closeRewards()"
-        >
+        <button class="back-button" onclick="closeRewards()">
             ← Volver
         </button>
 
@@ -1566,29 +1658,100 @@ h2{
 
 
 <!-- =========================
-     PANTALLA MEJORA DE BASE
+     TOPS
+========================= -->
+
+<div id="topsScreen" class="tops-screen">
+
+    <div class="tops-header">
+
+        <div class="tops-title">
+            🏆 TOPS
+        </div>
+
+        <button class="back-button" onclick="closeTops()">
+            ← Volver
+        </button>
+
+    </div>
+
+    <div class="tops-content">
+
+        <div class="tops-box">
+
+            <h2 style="text-align:center;">
+                🏆 TOP DE DINERO
+            </h2>
+
+            <div class="tops-description">
+                Las cuentas con más dinero aparecen aquí.
+            </div>
+
+            <div id="topsList"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MEJORA DE BASE
 ========================= -->
 
 <div id="baseUpgradeScreen" class="base-upgrade-screen">
+
     <div class="base-upgrade-header">
-        <div class="base-upgrade-title">🛠️ MEJORA DE BASE</div>
-        <button class="back-button" onclick="closeBaseUpgrade()">← Volver</button>
+
+        <div class="base-upgrade-title">
+            🛠️ MEJORA DE BASE
+        </div>
+
+        <button class="back-button" onclick="closeBaseUpgrade()">
+            ← Volver
+        </button>
+
     </div>
+
     <div class="base-upgrade-content">
+
         <div class="base-upgrade-box">
-            <div class="base-upgrade-icon">🏠</div>
-            <div class="base-upgrade-heading">Más espacio para emojis</div>
+
+            <div class="base-upgrade-icon">
+                🏠
+            </div>
+
+            <div class="base-upgrade-heading">
+                Más espacio para emojis
+            </div>
+
             <div class="base-upgrade-text">
                 Cada mejora añade <b>1 espacio</b> a tu base.<br>
                 Coste inicial: <b>50€ + 5⚡</b>.<br>
                 Cada compra aumenta el precio de la siguiente mejora un <b>x1.5</b>.<br>
                 Máximo: <b>20 mejoras</b>.
             </div>
-            <div class="base-upgrade-stats" id="baseUpgradeStats"></div>
-            <button class="base-upgrade-buy" id="baseUpgradeBuy" onclick="upgradeBase()">🛠️ Mejorar Base</button>
+
+            <div
+                class="base-upgrade-stats"
+                id="baseUpgradeStats"
+            ></div>
+
+            <button
+                class="base-upgrade-buy"
+                id="baseUpgradeBuy"
+                onclick="upgradeBase()"
+            >
+                🛠️ Mejorar Base
+            </button>
+
         </div>
+
     </div>
+
 </div>
+
 
 <div
     class="notification"
@@ -1607,32 +1770,96 @@ let yellowAuraOwned = false;
 let redAuraOwned = false;
 let baseUpgradeLevel = 0;
 
+let currentAccountKey = null;
+let currentAccountName = "";
+
+const ACCOUNT_KEY = "emojisAccounts";
+const SESSION_KEY = "emojisCurrentAccount";
+
+
 const varietyData = {
-    Normal:   {label:"Normal",   multiplier:1,   weight:100},
-    Oro:      {label:"Oro",      multiplier:2,   weight:8},
-    Diamante: {label:"Diamante", multiplier:3,   weight:3},
-    Ruby:     {label:"Ruby",     multiplier:5,   weight:1},
-    Rainbow:  {label:"Reinbow",  multiplier:9,   weight:0.2}
+
+    Normal:{
+        label:"Normal",
+        multiplier:1,
+        weight:100
+    },
+
+    Oro:{
+        label:"Oro",
+        multiplier:2,
+        weight:8
+    },
+
+    Diamante:{
+        label:"Diamante",
+        multiplier:3,
+        weight:3
+    },
+
+    Ruby:{
+        label:"Ruby",
+        multiplier:5,
+        weight:1
+    },
+
+    Rainbow:{
+        label:"Reinbow",
+        multiplier:9,
+        weight:0.2
+    }
+
 };
 
+
 function randomVariety(){
-    const entries = Object.entries(varietyData);
-    const total = entries.reduce((sum,[,data])=>sum + data.weight,0);
-    let roll = Math.random() * total;
-    for(const [name,data] of entries){
+
+    const entries =
+        Object.entries(varietyData);
+
+    const total =
+        entries.reduce(
+            (sum,[,data])=>sum + data.weight,
+            0
+        );
+
+    let roll =
+        Math.random()*total;
+
+    for(
+        const [name,data]
+        of entries
+    ){
+
         roll -= data.weight;
-        if(roll < 0) return name;
+
+        if(roll < 0)
+            return name;
+
     }
+
     return "Normal";
+
 }
+
 
 function getVarietyMultiplier(item){
-    return varietyData[item?.variety || "Normal"]?.multiplier || 1;
+
+    return varietyData[
+        item?.variety || "Normal"
+    ]?.multiplier || 1;
+
 }
 
+
 function getVarietyLabel(item){
-    return varietyData[item?.variety || "Normal"]?.label || "Normal";
+
+    return varietyData[
+        item?.variety || "Normal"
+    ]?.label || "Normal";
+
 }
+
 
 const emojis = [
 
@@ -1745,11 +1972,80 @@ const emojis = [
         chance:"0.3%"
     },
 
-    {emoji:"😋",name:"Saboreo",price:300,income:10,rarity:"Legendario",chance:"4%"},
-    {emoji:"🪨",name:"Roco",price:500,income:16,rarity:"Legendario",chance:"3%"},
-    {emoji:"💰",name:"Money",price:0,income:0,rarity:"Especial",chance:"0.9%",moneyReward:true},
-    {emoji:"😱",name:"Sorp",price:1100,income:30,rarity:"Legendario",chance:"2%"},
-    {emoji:"🥶",name:"Cong",price:1500,income:50,rarity:"Legendario",chance:"1%"}
+    {
+        emoji:"😋",
+        name:"Saboreo",
+        price:300,
+        income:10,
+        rarity:"Legendario",
+        chance:"4%"
+    },
+
+    {
+        emoji:"🪨",
+        name:"Roco",
+        price:500,
+        income:16,
+        rarity:"Legendario",
+        chance:"3%"
+    },
+
+    {
+        emoji:"💰",
+        name:"Money",
+        price:0,
+        income:0,
+        rarity:"Especial",
+        chance:"0.9%",
+        moneyReward:true
+    },
+
+    {
+        emoji:"😱",
+        name:"Sorp",
+        price:1100,
+        income:30,
+        rarity:"Legendario",
+        chance:"2%"
+    },
+
+    {
+        emoji:"🥶",
+        name:"Cong",
+        price:1500,
+        income:50,
+        rarity:"Legendario",
+        chance:"1%"
+    },
+
+    {
+    
+        emoji:"🤡",
+        name:"Payasin",
+        price:5000,
+        income:65,
+        rarity:"Legendario",
+        chance:"0.2%"
+    },
+
+    {
+        emoji:"🤢",
+        name:"Nauses",
+        price:10000,
+        income:90,
+        rarity:"Legendario",
+        chance:"0.1%"
+    },
+
+    {
+        emoji:"👥",
+        name:"Duplo",
+        price:1000000,
+        income:7500,
+        rarity:"Mitico",
+        chance:"0.002%"
+    }
+    
 
 ];
 
@@ -1762,12 +2058,505 @@ let base = [
     null
 ];
 
-let rewardNextClaim =
-    Number(
-        localStorage.getItem(
-            "emojisRewardNextClaim"
-        ) || 0
+
+let rewardNextClaim = 0;
+
+
+/* =========================
+   CUENTAS
+========================= */
+
+function getAccounts(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(ACCOUNT_KEY) || "{}"
+        );
+
+    }catch(e){
+
+        return {};
+
+    }
+
+}
+
+
+function saveAccounts(accounts){
+
+    localStorage.setItem(
+        ACCOUNT_KEY,
+        JSON.stringify(accounts)
     );
+
+}
+
+
+function normalizeAccountName(name){
+
+    return name
+        .trim()
+        .toLowerCase();
+
+}
+
+
+function hashPassword(password){
+
+    let hash = 0;
+
+    for(
+        let i=0;
+        i<password.length;
+        i++
+    ){
+
+        hash =
+            ((hash << 5) -
+            hash) +
+            password.charCodeAt(i);
+
+        hash |= 0;
+
+    }
+
+    return String(hash);
+
+}
+
+
+function getDefaultGame(){
+
+    return {
+
+        money:10,
+
+        bolts:0,
+
+        food:0,
+
+        base:[
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+
+        purpleAuraOwned:false,
+
+        yellowAuraOwned:false,
+
+        redAuraOwned:false,
+
+        baseUpgradeLevel:0,
+
+        rewardNextClaim:0
+
+    };
+
+}
+
+
+function captureGame(){
+
+    return {
+
+        money,
+
+        bolts,
+
+        food,
+
+        base,
+
+        purpleAuraOwned,
+
+        yellowAuraOwned,
+
+        redAuraOwned,
+
+        baseUpgradeLevel,
+
+        rewardNextClaim
+
+    };
+
+}
+
+
+function createAccount(){
+
+    const name =
+        document
+        .getElementById("accountUsername")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("accountPassword")
+        .value;
+
+    const message =
+        document
+        .getElementById("accountMessage");
+
+
+    if(name.length < 3){
+
+        message.textContent =
+            "❌ El nombre debe tener al menos 3 caracteres.";
+
+        return;
+
+    }
+
+
+    if(password.length < 3){
+
+        message.textContent =
+            "❌ La contraseña debe tener al menos 3 caracteres.";
+
+        return;
+
+    }
+
+
+    const key =
+        normalizeAccountName(name);
+
+    const accounts =
+        getAccounts();
+
+
+    if(accounts[key]){
+
+        message.textContent =
+            "❌ Esa cuenta ya existe.";
+
+        return;
+
+    }
+
+
+    accounts[key] = {
+
+        name:name,
+
+        password:hashPassword(password),
+
+        game:getDefaultGame()
+
+    };
+
+
+    saveAccounts(accounts);
+
+
+    currentAccountKey = key;
+
+    currentAccountName = name;
+
+
+    localStorage.setItem(
+        SESSION_KEY,
+        key
+    );
+
+
+    loadAccountGame(
+        accounts[key].game
+    );
+
+
+    message.textContent = "";
+
+
+    showGame();
+
+
+    notification(
+        `👤 Cuenta ${name} creada correctamente.`
+    );
+
+}
+
+
+function loginAccount(){
+
+    const name =
+        document
+        .getElementById("accountUsername")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("accountPassword")
+        .value;
+
+    const message =
+        document
+        .getElementById("accountMessage");
+
+
+    const key =
+        normalizeAccountName(name);
+
+    const accounts =
+        getAccounts();
+
+
+    if(!accounts[key]){
+
+        message.textContent =
+            "❌ La cuenta no existe.";
+
+        return;
+
+    }
+
+
+    if(
+        accounts[key].password !==
+        hashPassword(password)
+    ){
+
+        message.textContent =
+            "❌ Contraseña incorrecta.";
+
+        return;
+
+    }
+
+
+    currentAccountKey = key;
+
+    currentAccountName =
+        accounts[key].name;
+
+
+    localStorage.setItem(
+        SESSION_KEY,
+        key
+    );
+
+
+    loadAccountGame(
+        accounts[key].game
+    );
+
+
+    message.textContent = "";
+
+
+    showGame();
+
+
+    notification(
+        `👋 Bienvenido, ${currentAccountName}.`
+    );
+
+}
+
+
+function loadAccountGame(saved){
+
+    if(!saved)
+        saved = getDefaultGame();
+
+
+    money =
+        Number(saved.money ?? 10);
+
+    bolts =
+        Number(saved.bolts ?? 0);
+
+    food =
+        Number(saved.food ?? 0);
+
+
+    purpleAuraOwned =
+        !!saved.purpleAuraOwned;
+
+    yellowAuraOwned =
+        !!saved.yellowAuraOwned;
+
+    redAuraOwned =
+        !!saved.redAuraOwned;
+
+
+    baseUpgradeLevel =
+        Math.min(
+            20,
+            Number(
+                saved.baseUpgradeLevel ?? 0
+            )
+        );
+
+
+    if(Array.isArray(saved.base)){
+
+        base =
+            saved.base.map(item=>{
+
+                if(!item)
+                    return null;
+
+                return {
+
+                    ...item,
+
+                    variety:
+                        item.variety || "Normal",
+
+                    level:
+                        Math.min(
+                            50,
+                            Number(
+                                item.level || 1
+                            )
+                        ),
+
+                    upgradeCost:
+                        Number(
+                            item.upgradeCost || 100
+                        )
+
+                };
+
+            });
+
+    }else{
+
+        base = [
+            null,
+            null,
+            null,
+            null,
+            null
+        ];
+
+    }
+
+
+    const targetSlots =
+        5 + baseUpgradeLevel;
+
+
+    while(
+        base.length < targetSlots
+    ){
+
+        base.push(null);
+
+    }
+
+
+    if(base.length > 25)
+        base =
+            base.slice(0,25);
+
+
+    rewardNextClaim =
+        Number(
+            saved.rewardNextClaim || 0
+        );
+
+
+    updateMoney();
+    updateBolts();
+    updateFood();
+    renderBase();
+    updateRewardButton();
+    updateBaseUpgradeUI();
+
+}
+
+
+function showGame(){
+
+    document
+        .getElementById("accountScreen")
+        .style.display = "none";
+
+    document
+        .getElementById("gameScreen")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("headerAccountName")
+        .textContent =
+        currentAccountName;
+
+    updateMoney();
+    updateBolts();
+    updateFood();
+    renderBase();
+    createRunway();
+    updateRewardButton();
+
+}
+
+
+function logout(){
+
+    saveGame();
+
+    localStorage.removeItem(
+        SESSION_KEY
+    );
+
+
+    currentAccountKey = null;
+    currentAccountName = "";
+
+
+    document
+        .getElementById("gameScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("shopScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("indexScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("rewardsScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("topsScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("baseUpgradeScreen")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("accountUsername")
+        .value = "";
+
+    document
+        .getElementById("accountPassword")
+        .value = "";
+
+    document
+        .getElementById("accountMessage")
+        .textContent = "";
+
+
+    document
+        .getElementById("accountScreen")
+        .style.display = "flex";
+
+}
 
 
 /* =========================
@@ -1776,90 +2565,23 @@ let rewardNextClaim =
 
 function saveGame(){
 
-    localStorage.setItem(
-        "emojisGameSave",
-        JSON.stringify({
-            money,
-            bolts,
-            food,
-            base,
-            purpleAuraOwned,
-            yellowAuraOwned,
-            redAuraOwned,
-            baseUpgradeLevel
-        })
-    );
-
-}
+    if(!currentAccountKey)
+        return;
 
 
-/* =========================
-   CARGAR PARTIDA
-========================= */
+    const accounts =
+        getAccounts();
 
-function loadGame(){
 
-    try{
+    if(!accounts[currentAccountKey])
+        return;
 
-        const saved =
-            JSON.parse(
-                localStorage.getItem(
-                    "emojisGameSave"
-                )
-            );
 
-        if(!saved)
-            return;
+    accounts[currentAccountKey].game =
+        captureGame();
 
-        money =
-            Number(
-                saved.money ?? 10
-            );
 
-        bolts =
-            Number(
-                saved.bolts ?? 0
-            );
-
-        food =
-            Number(
-                saved.food ?? 0
-            );
-
-        purpleAuraOwned = !!saved.purpleAuraOwned;
-        yellowAuraOwned = !!saved.yellowAuraOwned;
-        redAuraOwned = !!saved.redAuraOwned;
-        baseUpgradeLevel = Math.min(20, Number(saved.baseUpgradeLevel ?? Math.max(0, (saved.base?.length || 5) - 5)));
-
-        if(
-            Array.isArray(
-                saved.base
-            )
-        ){
-
-            base = saved.base.map(item => {
-                if(!item) return null;
-                return {
-                    ...item,
-                    variety:item.variety || "Normal",
-                    level:Math.min(50, Number(item.level || 1)),
-                    upgradeCost:100
-                };
-            });
-            const targetSlots = 5 + baseUpgradeLevel;
-            while(base.length < targetSlots) base.push(null);
-            if(base.length > 25) base = base.slice(0,25);
-
-        }
-
-    }catch(e){
-
-        console.warn(
-            "No se pudo cargar la partida",
-            e
-        );
-
-    }
+    saveAccounts(accounts);
 
 }
 
@@ -1883,6 +2605,10 @@ function openShop(){
         .classList.remove("active");
 
     document
+        .getElementById("topsScreen")
+        .classList.remove("active");
+
+    document
         .getElementById("baseUpgradeScreen")
         .classList.remove("active");
 
@@ -1895,13 +2621,12 @@ function openShop(){
 }
 
 
-/* =========================
-   CERRAR TIENDA
-========================= */
-
 function closeShop(){
 
-    document.getElementById("baseUpgradeScreen").classList.remove("active");
+    document
+        .getElementById("baseUpgradeScreen")
+        .classList.remove("active");
+
     document
         .getElementById("shopScreen")
         .classList.remove("active");
@@ -1915,7 +2640,9 @@ function closeShop(){
 }
 
 
-/* DINERO */
+/* =========================
+   DINERO
+========================= */
 
 function updateMoney(){
 
@@ -1927,8 +2654,6 @@ function updateMoney(){
 }
 
 
-/* RAYOS */
-
 function updateBolts(){
 
     document
@@ -1939,8 +2664,6 @@ function updateBolts(){
 }
 
 
-/* COMIDA */
-
 function updateFood(){
 
     document
@@ -1950,8 +2673,6 @@ function updateFood(){
 
 }
 
-
-/* NOTIFICACIÓN */
 
 function notification(text){
 
@@ -1973,8 +2694,6 @@ function notification(text){
 }
 
 
-/* CHARLY */
-
 function talkCharly(){
 
     document
@@ -1989,14 +2708,43 @@ function talkCharly(){
 ========================= */
 
 function randomEmoji(){
-    const weighted = emojis.map(item => [item, parseFloat(item.chance) || 0]);
-    const totalWeight = weighted.reduce((sum, pair) => sum + pair[1], 0);
-    let roll = Math.random() * totalWeight;
-    for(const [item,weight] of weighted){
+
+    const weighted =
+        emojis.map(
+            item=>[
+                item,
+                parseFloat(item.chance) || 0
+            ]
+        );
+
+
+    const totalWeight =
+        weighted.reduce(
+            (sum,pair)=>sum + pair[1],
+            0
+        );
+
+
+    let roll =
+        Math.random() *
+        totalWeight;
+
+
+    for(
+        const [item,weight]
+        of weighted
+    ){
+
         roll -= weight;
-        if(roll < 0) return item;
+
+        if(roll < 0)
+            return item;
+
     }
+
+
     return emojis[0];
+
 }
 
 
@@ -2013,6 +2761,7 @@ function createRunway(){
 
     runway.innerHTML = "";
 
+
     for(
         let i=0;
         i<10;
@@ -2020,18 +2769,31 @@ function createRunway(){
     ){
 
         const item = {
+
             ...randomEmoji(),
-            variety:randomVariety()
+
+            variety:
+                randomVariety()
+
         };
+
 
         const slot =
             document.createElement(
                 "div"
             );
 
+
         slot.className =
             "runway-slot" +
-            (item.variety !== "Normal" ? ` variant-${item.variety.toLowerCase()}` : "");
+            (
+                item.variety !== "Normal"
+                ?
+                ` variant-${item.variety.toLowerCase()}`
+                :
+                ""
+            );
+
 
         slot.innerHTML = `
 
@@ -2051,7 +2813,8 @@ function createRunway(){
                     ${item.rarity}<br>
 
                     ✨ Variedad:
-                    ${getVarietyLabel(item)} x${getVarietyMultiplier(item)}<br>
+                    ${getVarietyLabel(item)}
+                    x${getVarietyMultiplier(item)}<br>
 
                     💵 Precio:
                     ${item.price}€<br>
@@ -2069,17 +2832,35 @@ function createRunway(){
 
         `;
 
-        const buyButton = slot.querySelector(".buy");
+
+        const buyButton =
+            slot.querySelector(".buy");
+
 
         buyButton.onclick = ()=>{
-            const bought = buyEmoji(item);
+
+            const bought =
+                buyEmoji(item);
+
+
             if(bought){
-                buyButton.disabled = true;
-                buyButton.textContent = "✅ Comprado";
-                buyButton.style.opacity = "0.55";
-                buyButton.style.cursor = "not-allowed";
+
+                buyButton.disabled =
+                    true;
+
+                buyButton.textContent =
+                    "✅ Comprado";
+
+                buyButton.style.opacity =
+                    "0.55";
+
+                buyButton.style.cursor =
+                    "not-allowed";
+
             }
+
         };
+
 
         runway.appendChild(slot);
 
@@ -2095,18 +2876,33 @@ function createRunway(){
 function buyEmoji(item){
 
     if(item.moneyReward){
-        const reward = Math.floor(Math.random()*193)+8;
+
+        const reward =
+            Math.floor(
+                Math.random()*193
+            ) + 8;
+
+
         money += reward;
+
         updateMoney();
+
         saveGame();
-        notification(`💰 Canjeaste Money y recibiste ${reward}€`);
+
+        notification(
+            `💰 Canjeaste Money y recibiste ${reward}€`
+        );
+
         return true;
+
     }
+
 
     const emptySlot =
         base.findIndex(
-            x => x === null
+            x=>x === null
         );
+
 
     if(emptySlot === -1){
 
@@ -2118,6 +2914,7 @@ function buyEmoji(item){
 
     }
 
+
     if(money < item.price){
 
         notification(
@@ -2128,21 +2925,31 @@ function buyEmoji(item){
 
     }
 
+
     money -= item.price;
+
 
     base[emptySlot] = {
 
         ...item,
 
         multiplied:false,
+
         epicAura:false,
+
         yellowAura:false,
+
         redAura:false,
+
         level:1,
+
         upgradeCost:100,
-        variety:item.variety || "Normal"
+
+        variety:
+            item.variety || "Normal"
 
     };
+
 
     updateMoney();
 
@@ -2150,9 +2957,11 @@ function buyEmoji(item){
 
     saveGame();
 
+
     notification(
         `✅ Compraste ${item.emoji} ${item.name}${item.variety && item.variety !== "Normal" ? ` — ${getVarietyLabel(item)} x${getVarietyMultiplier(item)}` : ""}`
     );
+
 
     return true;
 
@@ -2172,6 +2981,7 @@ function renderBase(){
 
     baseElement.innerHTML = "";
 
+
     base.forEach(
         (item,index)=>{
 
@@ -2179,6 +2989,7 @@ function renderBase(){
             document.createElement(
                 "div"
             );
+
 
         slot.className =
             "base-slot";
@@ -2196,11 +3007,26 @@ function renderBase(){
         }
 
 
-        if(item && item.epicAura){ slot.classList.add("epic-aura"); }
-        if(item && item.yellowAura){ slot.classList.add("yellow-aura"); }
-        if(item && item.redAura){ slot.classList.add("red-aura"); }
-        if(item && item.variety && item.variety !== "Normal"){
-            slot.classList.add(`variant-${item.variety.toLowerCase()}`);
+        if(item && item.epicAura)
+            slot.classList.add("epic-aura");
+
+        if(item && item.yellowAura)
+            slot.classList.add("yellow-aura");
+
+        if(item && item.redAura)
+            slot.classList.add("red-aura");
+
+
+        if(
+            item &&
+            item.variety &&
+            item.variety !== "Normal"
+        ){
+
+            slot.classList.add(
+                `variant-${item.variety.toLowerCase()}`
+            );
+
         }
 
 
@@ -2222,7 +3048,8 @@ function renderBase(){
 
         }else{
 
-            let currentIncome = getEmojiIncome(item);
+            let currentIncome =
+                getEmojiIncome(item);
 
 
             slot.innerHTML = `
@@ -2230,16 +3057,12 @@ function renderBase(){
                 <div class="emoji-card">
 
                     <div class="name">
-
                         ${item.emoji}
                         ${item.name}
-
                     </div>
 
                     <div class="emoji">
-
                         ${item.emoji}
-
                     </div>
 
                     <div class="info">
@@ -2252,26 +3075,38 @@ function renderBase(){
                         💰 Genera:
                         ${currentIncome.toFixed(2)}€/10Seg<br>
 
-                        🔼 Nivel: ${item.level || 1}/50<br>
-                        ✨ Variedad: ${getVarietyLabel(item)} x${getVarietyMultiplier(item)}<br>
-                        🛠️ Mejora: ${item.level >= 50 ? "MAX" : (item.upgradeCost || 100).toFixed(2)+"€ + 2⚡"}
+                        🔼 Nivel:
+                        ${item.level || 1}/50<br>
+
+                        ✨ Variedad:
+                        ${getVarietyLabel(item)}
+                        x${getVarietyMultiplier(item)}<br>
+
+                        🛠️ Mejora:
+                        ${
+                            item.level >= 50
+                            ?
+                            "MAX"
+                            :
+                            (item.upgradeCost || 100).toFixed(2)
+                            +"€ + 2⚡"
+                        }
 
                     </div>
 
-                    <button class="upgrade-emoji" ${item.level >= 50 ? "disabled" : ""}>
+                    <button
+                        class="upgrade-emoji"
+                        ${item.level >= 50 ? "disabled" : ""}
+                    >
                         🔼 Mejorar Emoji
                     </button>
 
                     <button class="feed">
-
                         🍪 Alimentar
-
                     </button>
 
                     <button class="sell">
-
                         💵 Vender por 5€
-
                     </button>
 
                 </div>
@@ -2279,7 +3114,11 @@ function renderBase(){
             `;
 
 
-            slot.querySelector(".upgrade-emoji").onclick = ()=>upgradeEmoji(index);
+            slot
+                .querySelector(".upgrade-emoji")
+                .onclick =
+                ()=>upgradeEmoji(index);
+
 
             slot
                 .querySelector(".feed")
@@ -2318,15 +3157,18 @@ function buyFood(){
 
     }
 
+
     money -= 15;
 
     food++;
+
 
     updateMoney();
 
     updateFood();
 
     saveGame();
+
 
     notification(
         "🍪 Compraste comida de emoji."
@@ -2341,9 +3183,7 @@ function buyFood(){
 
 function feedEmoji(index){
 
-    if(
-        base[index] === null
-    )
+    if(base[index] === null)
         return;
 
 
@@ -2375,6 +3215,7 @@ function feedEmoji(index){
         base[index].multiplied =
             true;
 
+
         notification(
             `⚡ ${base[index].emoji} ${base[index].name} recibió comida y ahora genera x2 💰`
         );
@@ -2405,9 +3246,7 @@ function feedEmoji(index){
 
 function sellEmoji(index){
 
-    if(
-        base[index] === null
-    )
+    if(base[index] === null)
         return;
 
 
@@ -2435,184 +3274,693 @@ function sellEmoji(index){
 
 
 /* =========================
-   COMPRAR AURA
+   AURAS
 ========================= */
 
 function buyAura(){
-    if(purpleAuraOwned){ showApplyPanel("purple"); return; }
-    if(money < 1000){ notification("❌ Necesitas 1000€ para comprar el Aura Morada."); return; }
-    money -= 1000; purpleAuraOwned = true; updateMoney(); saveGame();
-    notification("✨ Compraste el Aura Morada. ¡Elige un emoji!");
-    showApplyPanel("purple");
-}
 
-function buyYellowAura(){
-    if(yellowAuraOwned){ showApplyPanel("yellow"); return; }
-    if(money < 10000){ notification("❌ Necesitas 10.000€ para comprar el Aura Amarilla."); return; }
-    money -= 10000; yellowAuraOwned = true; updateMoney(); saveGame();
-    notification("✨ Compraste el Aura Amarilla. ¡Elige un emoji!");
-    showApplyPanel("yellow");
-}
+    if(purpleAuraOwned){
 
-function buyRedAura(){
-    if(redAuraOwned){ showApplyPanel("red"); return; }
-    if(money < 250000){ notification("❌ Necesitas 250.000€ para comprar el Aura Roja."); return; }
-    money -= 250000; redAuraOwned = true; updateMoney(); saveGame();
-    notification("🔥 Compraste el Aura Roja. ¡Elige un emoji!");
-    showApplyPanel("red");
-}
+        showApplyPanel("purple");
 
-
-/* =========================
-   MOSTRAR EMOJIS
-   PARA APLICAR AURA
-========================= */
-
-function showApplyPanel(type="purple"){
-    const panel=document.getElementById("applyPanel");
-    const list=document.getElementById("applyList");
-    const title=document.querySelector("#applyPanel .apply-title");
-    const names={purple:"✨ Aura Morada x3",yellow:"✨ Aura Amarilla x6",red:"🔥 Aura Roja x20"};
-    title.textContent=`Elige un emoji para aplicar ${names[type]}`;
-    list.innerHTML="";
-    if(base.every(item=>item===null)){
-        list.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#c4b5fd;padding:15px;">❌ No tienes emojis en tu base.</div>';
-        panel.classList.add("show"); return;
-    }
-    base.forEach((item,index)=>{
-        if(!item) return;
-        const button=document.createElement("div"); button.className="apply-slot";
-        const already = type==="purple"?item.epicAura:type==="yellow"?item.yellowAura:item.redAura;
-        if(already){
-            button.style.opacity=".45";
-            button.innerHTML=`<div class="small-emoji">${item.emoji}</div><div class="small-name">${item.name}</div><div style="color:#d8b4fe;font-size:10px;margin-top:4px;">✨ Ya tiene esta Aura</div>`;
-        }else{
-            button.innerHTML=`<div class="small-emoji">${item.emoji}</div><div class="small-name">${item.name}</div>`;
-            button.onclick=()=>applyAura(index,type);
-        }
-        list.appendChild(button);
-    });
-    panel.classList.add("show");
-}
-
-function applyAura(index,type="purple"){
-    const item=base[index]; if(!item) return;
-    if(type==="purple" && !purpleAuraOwned) return;
-    if(type==="yellow" && !yellowAuraOwned) return;
-    if(type==="red" && !redAuraOwned) return;
-    if(type==="purple" && item.epicAura) return;
-    if(type==="yellow" && item.yellowAura) return;
-    if(type==="red" && item.redAura) return;
-    if(type==="purple"){ item.epicAura=true; purpleAuraOwned=false; }
-    if(type==="yellow"){ item.yellowAura=true; yellowAuraOwned=false; }
-    if(type==="red"){ item.redAura=true; redAuraOwned=false; }
-    document.getElementById("applyPanel").classList.remove("show");
-    renderBase(); saveGame();
-    const label={purple:"Aura Morada x3",yellow:"Aura Amarilla x6",red:"Aura Roja x20"}[type];
-    notification(`✨ ¡${item.emoji} ${item.name} ahora tiene ${label}!`);
-}
-
-function upgradeEmoji(index){
-    const item=base[index];
-    if(!item) return;
-
-    const level=item.level||1;
-
-    if(level>=50){
-        notification("🏆 Este emoji ya está en nivel máximo.");
         return;
+
     }
 
-    const cost=item.upgradeCost||100;
 
-    if(money<cost){
-        notification(`❌ Necesitas ${cost.toFixed(2)}€ para mejorar este emoji.`);
+    if(money < 1000){
+
+        notification(
+            "❌ Necesitas 1000€ para comprar el Aura Morada."
+        );
+
         return;
+
     }
 
-    if(bolts<2){
-        notification("❌ Necesitas 2⚡ Rayos para mejorar este emoji.");
-        return;
-    }
 
-    money-=cost;
-    bolts-=2;
-    item.level=level+1;
-    item.upgradeCost=cost*1.8;
+    money -= 1000;
+
+    purpleAuraOwned = true;
 
     updateMoney();
-    updateBolts();
-    renderBase();
+
     saveGame();
 
-    notification(`🔼 ${item.emoji} ${item.name} subió a nivel ${item.level}. Ganancia +0.25%`);
+    notification(
+        "✨ Compraste el Aura Morada. ¡Elige un emoji!"
+    );
+
+    showApplyPanel("purple");
+
 }
 
-function openBaseUpgrade(){
-    document.getElementById("gameScreen").classList.add("hidden");
-    document.getElementById("shopScreen").classList.remove("active");
-    document.getElementById("indexScreen").classList.remove("active");
-    document.getElementById("rewardsScreen").classList.remove("active");
-    document.getElementById("baseUpgradeScreen").classList.add("active");
-    updateBaseUpgradeUI(); window.scrollTo(0,0);
-}
 
-function closeBaseUpgrade(){
-    document.getElementById("baseUpgradeScreen").classList.remove("active");
-    document.getElementById("gameScreen").classList.remove("hidden");
-    window.scrollTo(0,0);
-}
+function buyYellowAura(){
 
-function updateBaseUpgradeUI(){
-    const level=baseUpgradeLevel;
-    const stats=document.getElementById("baseUpgradeStats");
-    const button=document.getElementById("baseUpgradeBuy");
-    if(level>=20){
-        stats.innerHTML=`🛠️ Mejoras: <b>20/20</b><br>🏠 Espacios: <b>${base.length}</b><br>🏆 ¡BASE AL MÁXIMO!`;
-        button.disabled=true; button.textContent="🏆 Base al máximo"; return;
+    if(yellowAuraOwned){
+
+        showApplyPanel("yellow");
+
+        return;
+
     }
-    const cost=Math.round(50*Math.pow(1.5,level)*100)/100;
-    stats.innerHTML=`🛠️ Mejoras: <b>${level}/20</b><br>🏠 Espacios actuales: <b>${base.length}</b><br>💰 Próxima mejora: <b>${cost.toFixed(2)}€</b> + <b>5⚡</b>`;
-    button.disabled=false; button.textContent=`🛠️ Mejorar Base — ${cost.toFixed(2)}€ + 5⚡`;
+
+
+    if(money < 10000){
+
+        notification(
+            "❌ Necesitas 10.000€ para comprar el Aura Amarilla."
+        );
+
+        return;
+
+    }
+
+
+    money -= 10000;
+
+    yellowAuraOwned = true;
+
+    updateMoney();
+
+    saveGame();
+
+    notification(
+        "✨ Compraste el Aura Amarilla. ¡Elige un emoji!"
+    );
+
+    showApplyPanel("yellow");
+
 }
 
-function upgradeBase(){
-    if(baseUpgradeLevel>=20){ notification("🏆 Tu base ya está al máximo."); return; }
-    const cost=Math.round(50*Math.pow(1.5,baseUpgradeLevel)*100)/100;
-    if(money<cost){ notification(`❌ Necesitas ${cost.toFixed(2)}€ para mejorar la base.`); return; }
-    if(bolts<5){ notification("❌ Necesitas 5⚡ Rayos para mejorar la base."); return; }
-    money-=cost; bolts-=5; baseUpgradeLevel++; base.push(null);
-    updateMoney(); updateBolts(); renderBase(); updateBaseUpgradeUI(); saveGame();
-    notification(`🏠 Base mejorada. Ahora tienes ${base.length} espacios.`);
+
+function buyRedAura(){
+
+    if(redAuraOwned){
+
+        showApplyPanel("red");
+
+        return;
+
+    }
+
+
+    if(money < 250000){
+
+        notification(
+            "❌ Necesitas 250.000€ para comprar el Aura Roja."
+        );
+
+        return;
+
+    }
+
+
+    money -= 250000;
+
+    redAuraOwned = true;
+
+    updateMoney();
+
+    saveGame();
+
+    notification(
+        "🔥 Compraste el Aura Roja. ¡Elige un emoji!"
+    );
+
+    showApplyPanel("red");
+
+}
+
+
+function showApplyPanel(type="purple"){
+
+    const panel =
+        document.getElementById(
+            "applyPanel"
+        );
+
+    const list =
+        document.getElementById(
+            "applyList"
+        );
+
+    const title =
+        document.querySelector(
+            "#applyPanel .apply-title"
+        );
+
+
+    const names = {
+
+        purple:"✨ Aura Morada x3",
+
+        yellow:"✨ Aura Amarilla x6",
+
+        red:"🔥 Aura Roja x20"
+
+    };
+
+
+    title.textContent =
+        `Elige un emoji para aplicar ${names[type]}`;
+
+
+    list.innerHTML = "";
+
+
+    if(
+        base.every(
+            item=>item===null
+        )
+    ){
+
+        list.innerHTML =
+            '<div style="grid-column:1/-1;text-align:center;color:#c4b5fd;padding:15px;">❌ No tienes emojis en tu base.</div>';
+
+        panel.classList.add("show");
+
+        return;
+
+    }
+
+
+    base.forEach(
+        (item,index)=>{
+
+        if(!item)
+            return;
+
+
+        const button =
+            document.createElement(
+                "div"
+            );
+
+
+        button.className =
+            "apply-slot";
+
+
+        const already =
+            type==="purple"
+            ?
+            item.epicAura
+            :
+            type==="yellow"
+            ?
+            item.yellowAura
+            :
+            item.redAura;
+
+
+        if(already){
+
+            button.style.opacity =
+                ".45";
+
+
+            button.innerHTML = `
+
+                <div class="small-emoji">
+                    ${item.emoji}
+                </div>
+
+                <div class="small-name">
+                    ${item.name}
+                </div>
+
+                <div style="color:#d8b4fe;font-size:10px;margin-top:4px;">
+                    ✨ Ya tiene esta Aura
+                </div>
+
+            `;
+
+        }else{
+
+            button.innerHTML = `
+
+                <div class="small-emoji">
+                    ${item.emoji}
+                </div>
+
+                <div class="small-name">
+                    ${item.name}
+                </div>
+
+            `;
+
+
+            button.onclick =
+                ()=>applyAura(
+                    index,
+                    type
+                );
+
+        }
+
+
+        list.appendChild(button);
+
+    });
+
+
+    panel.classList.add("show");
+
+}
+
+
+function applyAura(
+    index,
+    type="purple"
+){
+
+    const item =
+        base[index];
+
+
+    if(!item)
+        return;
+
+
+    if(
+        type==="purple" &&
+        !purpleAuraOwned
+    )
+        return;
+
+
+    if(
+        type==="yellow" &&
+        !yellowAuraOwned
+    )
+        return;
+
+
+    if(
+        type==="red" &&
+        !redAuraOwned
+    )
+        return;
+
+
+    if(
+        type==="purple" &&
+        item.epicAura
+    )
+        return;
+
+
+    if(
+        type==="yellow" &&
+        item.yellowAura
+    )
+        return;
+
+
+    if(
+        type==="red" &&
+        item.redAura
+    )
+        return;
+
+
+    if(type==="purple"){
+
+        item.epicAura = true;
+
+        purpleAuraOwned = false;
+
+    }
+
+
+    if(type==="yellow"){
+
+        item.yellowAura = true;
+
+        yellowAuraOwned = false;
+
+    }
+
+
+    if(type==="red"){
+
+        item.redAura = true;
+
+        redAuraOwned = false;
+
+    }
+
+
+    document
+        .getElementById("applyPanel")
+        .classList.remove("show");
+
+
+    renderBase();
+
+    saveGame();
+
+
+    const label = {
+
+        purple:"Aura Morada x3",
+
+        yellow:"Aura Amarilla x6",
+
+        red:"Aura Roja x20"
+
+    }[type];
+
+
+    notification(
+        `✨ ¡${item.emoji} ${item.name} ahora tiene ${label}!`
+    );
+
 }
 
 
 /* =========================
-   GENERACIÓN DE DINERO
+   MEJORA EMOJI
+========================= */
+
+function upgradeEmoji(index){
+
+    const item =
+        base[index];
+
+
+    if(!item)
+        return;
+
+
+    const level =
+        item.level || 1;
+
+
+    if(level >= 50){
+
+        notification(
+            "🏆 Este emoji ya está en nivel máximo."
+        );
+
+        return;
+
+    }
+
+
+    const cost =
+        item.upgradeCost || 100;
+
+
+    if(money < cost){
+
+        notification(
+            `❌ Necesitas ${cost.toFixed(2)}€ para mejorar este emoji.`
+        );
+
+        return;
+
+    }
+
+
+    if(bolts < 2){
+
+        notification(
+            "❌ Necesitas 2⚡ Rayos para mejorar este emoji."
+        );
+
+        return;
+
+    }
+
+
+    money -= cost;
+
+    bolts -= 2;
+
+    item.level =
+        level + 1;
+
+    item.upgradeCost =
+        cost * 1.8;
+
+
+    updateMoney();
+
+    updateBolts();
+
+    renderBase();
+
+    saveGame();
+
+
+    notification(
+        `🔼 ${item.emoji} ${item.name} subió a nivel ${item.level}. Ganancia +0.25%`
+    );
+
+}
+
+
+/* =========================
+   MEJORA BASE
+========================= */
+
+function openBaseUpgrade(){
+
+    document
+        .getElementById("gameScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("shopScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("indexScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("rewardsScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("topsScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("baseUpgradeScreen")
+        .classList.add("active");
+
+
+    updateBaseUpgradeUI();
+
+    window.scrollTo(0,0);
+
+}
+
+
+function closeBaseUpgrade(){
+
+    document
+        .getElementById("baseUpgradeScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("gameScreen")
+        .classList.remove("hidden");
+
+    window.scrollTo(0,0);
+
+}
+
+
+function updateBaseUpgradeUI(){
+
+    const level =
+        baseUpgradeLevel;
+
+
+    const stats =
+        document.getElementById(
+            "baseUpgradeStats"
+        );
+
+
+    const button =
+        document.getElementById(
+            "baseUpgradeBuy"
+        );
+
+
+    if(level >= 20){
+
+        stats.innerHTML =
+            `🛠️ Mejoras: <b>20/20</b><br>🏠 Espacios: <b>${base.length}</b><br>🏆 ¡BASE AL MÁXIMO!`;
+
+        button.disabled = true;
+
+        button.textContent =
+            "🏆 Base al máximo";
+
+        return;
+
+    }
+
+
+    const cost =
+        Math.round(
+            50 *
+            Math.pow(
+                1.5,
+                level
+            ) *
+            100
+        ) / 100;
+
+
+    stats.innerHTML =
+        `🛠️ Mejoras: <b>${level}/20</b><br>🏠 Espacios actuales: <b>${base.length}</b><br>💰 Próxima mejora: <b>${cost.toFixed(2)}€</b> + <b>5⚡</b>`;
+
+
+    button.disabled = false;
+
+    button.textContent =
+        `🛠️ Mejorar Base — ${cost.toFixed(2)}€ + 5⚡`;
+
+}
+
+
+function upgradeBase(){
+
+    if(baseUpgradeLevel >= 20){
+
+        notification(
+            "🏆 Tu base ya está al máximo."
+        );
+
+        return;
+
+    }
+
+
+    const cost =
+        Math.round(
+            50 *
+            Math.pow(
+                1.5,
+                baseUpgradeLevel
+            ) *
+            100
+        ) / 100;
+
+
+    if(money < cost){
+
+        notification(
+            `❌ Necesitas ${cost.toFixed(2)}€ para mejorar la base.`
+        );
+
+        return;
+
+    }
+
+
+    if(bolts < 5){
+
+        notification(
+            "❌ Necesitas 5⚡ Rayos para mejorar la base."
+        );
+
+        return;
+
+    }
+
+
+    money -= cost;
+
+    bolts -= 5;
+
+    baseUpgradeLevel++;
+
+    base.push(null);
+
+
+    updateMoney();
+
+    updateBolts();
+
+    renderBase();
+
+    updateBaseUpgradeUI();
+
+    saveGame();
+
+
+    notification(
+        `🏠 Base mejorada. Ahora tienes ${base.length} espacios.`
+    );
+
+}
+
+
+/* =========================
+   GENERACIÓN DINERO
 ========================= */
 
 function getEmojiIncome(item){
-    if(!item) return 0;
 
-    const level=item.level||1;
-    let income=item.income;
+    if(!item)
+        return 0;
 
-    // Cada nivel aumenta la ganancia un 0.25%.
-    income *= (1 + 0.0025*(level-1));
 
-    if(item.multiplied) income *= 2;
+    const level =
+        item.level || 1;
 
-    if(item.epicAura) income *= 3;
-    if(item.yellowAura) income *= 6;
-    if(item.redAura) income *= 20;
 
-    // La variedad se aplica además de las demás mecánicas.
-    income *= getVarietyMultiplier(item);
+    let income =
+        item.income;
+
+
+    income *=
+        (
+            1 +
+            0.0025 *
+            (level - 1)
+        );
+
+
+    if(item.multiplied)
+        income *= 2;
+
+
+    if(item.epicAura)
+        income *= 3;
+
+
+    if(item.yellowAura)
+        income *= 6;
+
+
+    if(item.redAura)
+        income *= 20;
+
+
+    income *=
+        getVarietyMultiplier(item);
+
 
     return income;
+
 }
 
+
 function generateMoney(){
+
+    if(!currentAccountKey)
+        return;
+
 
     let total = 0;
 
@@ -2624,7 +3972,8 @@ function generateMoney(){
             return;
 
 
-        total += getEmojiIncome(item);
+        total +=
+            getEmojiIncome(item);
 
     });
 
@@ -2636,6 +3985,7 @@ function generateMoney(){
         updateMoney();
 
         saveGame();
+
 
         notification(
             `💰 Tus emojis generaron ${total.toFixed(2)}€`
@@ -2665,12 +4015,17 @@ function openIndex(){
         .classList.remove("active");
 
     document
+        .getElementById("topsScreen")
+        .classList.remove("active");
+
+    document
         .getElementById("baseUpgradeScreen")
         .classList.remove("active");
 
     document
         .getElementById("indexScreen")
         .classList.add("active");
+
 
     renderIndex();
 
@@ -2681,7 +4036,6 @@ function openIndex(){
 
 function closeIndex(){
 
-    document.getElementById("baseUpgradeScreen").classList.remove("active");
     document
         .getElementById("indexScreen")
         .classList.remove("active");
@@ -2701,13 +4055,17 @@ function renderIndex(){
         new Set(
             base
                 .filter(Boolean)
-                .map(item => item.name)
+                .map(
+                    item=>item.name
+                )
         );
+
 
     const grid =
         document.getElementById(
             "indexGrid"
         );
+
 
     grid.innerHTML = "";
 
@@ -2717,14 +4075,22 @@ function renderIndex(){
         const unlocked =
             owned.has(item.name);
 
+
         const card =
             document.createElement(
                 "div"
             );
 
+
         card.className =
             "index-card" +
-            (unlocked ? "" : " locked");
+            (
+                unlocked
+                ?
+                ""
+                :
+                " locked"
+            );
 
 
         if(unlocked){
@@ -2805,8 +4171,13 @@ function openRewards(){
         .classList.remove("active");
 
     document
+        .getElementById("topsScreen")
+        .classList.remove("active");
+
+    document
         .getElementById("rewardsScreen")
         .classList.add("active");
+
 
     updateRewardButton();
 
@@ -2817,7 +4188,6 @@ function openRewards(){
 
 function closeRewards(){
 
-    document.getElementById("baseUpgradeScreen").classList.remove("active");
     document
         .getElementById("rewardsScreen")
         .classList.remove("active");
@@ -2838,10 +4208,12 @@ function updateRewardButton(){
             "claimRewardButton"
         );
 
+
     const timer =
         document.getElementById(
             "rewardTimer"
         );
+
 
     const remaining =
         rewardNextClaim -
@@ -2865,22 +4237,33 @@ function updateRewardButton(){
 
     button.disabled = true;
 
+
     const h =
         Math.floor(
-            remaining / 3600000
+            remaining /
+            3600000
         );
+
 
     const m =
         Math.floor(
-            (remaining % 3600000) /
+            (
+                remaining %
+                3600000
+            ) /
             60000
         );
 
+
     const sec =
         Math.floor(
-            (remaining % 60000) /
+            (
+                remaining %
+                60000
+            ) /
             1000
         );
+
 
     timer.textContent =
         `⏳ Disponible en ${h}h ${m}m ${sec}s`;
@@ -2909,16 +4292,14 @@ function claimReward(){
 
     rewardNextClaim =
         Date.now() +
-        24 * 60 * 60 * 1000;
-
-
-    localStorage.setItem(
-        "emojisRewardNextClaim",
-        String(rewardNextClaim)
-    );
+        24 *
+        60 *
+        60 *
+        1000;
 
 
     saveGame();
+
 
     updateMoney();
 
@@ -2935,44 +4316,252 @@ function claimReward(){
 
 
 /* =========================
-   CARGAR PARTIDA
+   TOPS
 ========================= */
 
-loadGame();
+function openTops(){
+
+    document
+        .getElementById("gameScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("shopScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("indexScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("rewardsScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("baseUpgradeScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("topsScreen")
+        .classList.add("active");
+
+
+    renderTops();
+
+    window.scrollTo(0,0);
+
+}
+
+
+function closeTops(){
+
+    document
+        .getElementById("topsScreen")
+        .classList.remove("active");
+
+    document
+        .getElementById("gameScreen")
+        .classList.remove("hidden");
+
+    window.scrollTo(0,0);
+
+}
+
+
+function renderTops(){
+
+    const list =
+        document.getElementById(
+            "topsList"
+        );
+
+
+    const accounts =
+        getAccounts();
+
+
+    const players =
+        Object.values(accounts)
+        .map(account=>{
+
+            return {
+
+                name:
+                    account.name,
+
+                money:
+                    Number(
+                        account.game?.money || 0
+                    )
+
+            };
+
+        })
+        .sort(
+            (a,b)=>
+                b.money -
+                a.money
+        )
+        .slice(0,10);
+
+
+    list.innerHTML = "";
+
+
+    if(players.length === 0){
+
+        list.innerHTML =
+            `<div class="top-empty">
+                🏆 Todavía no hay cuentas.
+            </div>`;
+
+        return;
+
+    }
+
+
+    players.forEach(
+        (player,index)=>{
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "top-row";
+
+
+        let medal =
+            index + 1;
+
+
+        if(index === 0)
+            medal = "🥇";
+
+        if(index === 1)
+            medal = "🥈";
+
+        if(index === 2)
+            medal = "🥉";
+
+
+        row.innerHTML = `
+
+            <div class="top-position">
+                ${medal}
+            </div>
+
+            <div class="top-player">
+                ${escapeHTML(player.name)}
+            </div>
+
+            <div class="top-money">
+                💰 ${player.money.toFixed(2)}€
+            </div>
+
+        `;
+
+
+        list.appendChild(row);
+
+    });
+
+}
+
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
 
 
 /* =========================
    INICIO
 ========================= */
 
-updateMoney();
+function initialize(){
 
-updateBolts();
+    const savedSession =
+        localStorage.getItem(
+            SESSION_KEY
+        );
 
-updateFood();
 
-createRunway();
+    if(savedSession){
 
-renderBase();
+        const accounts =
+            getAccounts();
 
-updateRewardButton();
+
+        if(accounts[savedSession]){
+
+            currentAccountKey =
+                savedSession;
+
+            currentAccountName =
+                accounts[savedSession].name;
+
+
+            loadAccountGame(
+                accounts[savedSession].game
+            );
+
+
+            showGame();
+
+        }
+
+    }
+
+
+    if(!currentAccountKey){
+
+        document
+            .getElementById("accountScreen")
+            .style.display = "flex";
+
+        document
+            .getElementById("gameScreen")
+            .classList.add("hidden");
+
+    }
+
+
+    createRunway();
+
+}
+
+
+initialize();
+
+
+/* ACTUALIZAR RECOMPENSA */
 
 setInterval(
     updateRewardButton,
     1000
 );
 
-saveGame();
-window.addEventListener("beforeunload",saveGame);
 
-
-/* PASARELA CADA 7 SEGUNDOS */
+/* PASARELA CADA 6 SEGUNDOS */
 
 setInterval(()=>{
 
-    createRunway();
+    if(currentAccountKey){
 
-},7000);
+        createRunway();
+
+    }
+
+},6000);
 
 
 /* DINERO CADA 10 SEGUNDOS */
@@ -2982,6 +4571,14 @@ setInterval(()=>{
     generateMoney();
 
 },10000);
+
+
+/* GUARDAR AL SALIR */
+
+window.addEventListener(
+    "beforeunload",
+    saveGame
+);
 
 </script>
 
