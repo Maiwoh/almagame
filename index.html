@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -402,6 +403,30 @@ h2{
     background-size:300% 300%;
     box-shadow:0 0 18px rgba(255,255,255,.8),0 0 38px rgba(168,85,247,.5),inset 0 0 25px rgba(255,255,255,.15);
     animation:rainbowAura 2.2s infinite linear;
+}
+
+.galactic-aura{
+    border:2px solid #f9a8d4;
+    background:
+        radial-gradient(circle at 20% 25%,rgba(255,255,255,.95) 0 1px,transparent 2px),
+        radial-gradient(circle at 75% 20%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+        radial-gradient(circle at 55% 70%,rgba(255,255,255,.95) 0 1px,transparent 2px),
+        radial-gradient(circle at 30% 80%,rgba(255,255,255,.8) 0 1px,transparent 2px),
+        linear-gradient(135deg,rgba(244,114,182,.55),rgba(255,255,255,.42),rgba(251,207,232,.55));
+    box-shadow:0 0 16px rgba(244,114,182,.9),0 0 38px rgba(255,255,255,.65),inset 0 0 25px rgba(255,255,255,.25);
+    animation:galacticAura 1.8s infinite alternate;
+}
+
+@keyframes galacticAura{
+    from{box-shadow:0 0 12px rgba(244,114,182,.7),0 0 28px rgba(255,255,255,.45),inset 0 0 18px rgba(255,255,255,.2);}
+    to{box-shadow:0 0 22px rgba(244,114,182,1),0 0 52px rgba(255,255,255,.8),inset 0 0 32px rgba(255,255,255,.35);}
+}
+
+/* Rainbow multicolor */
+.runway-slot.variant-rainbow,
+.base-slot.variant-rainbow{
+    background:linear-gradient(90deg,#ef4444,#f97316,#facc15,#22c55e,#06b6d4,#3b82f6,#8b5cf6,#ec4899,#ef4444);
+    background-size:400% 400%;
 }
 
 .variant-label{
@@ -1067,6 +1092,16 @@ h2{
     to{box-shadow:0 0 24px rgba(248,113,113,.72),0 0 52px rgba(220,38,38,.45),inset 0 0 32px rgba(239,68,68,.28);}
 }
 
+.galactic-aura-product{
+    border:2px solid #f9a8d4;
+    background:linear-gradient(135deg,rgba(244,114,182,.18),rgba(255,255,255,.16),rgba(251,207,232,.22));
+    box-shadow:0 0 18px rgba(244,114,182,.35),inset 0 0 22px rgba(255,255,255,.08);
+}
+.galactic-aura-icon{filter:drop-shadow(0 0 12px #f9a8d4);}
+.galactic-aura-name{color:#f9a8d4;}
+.galactic-buy{background:linear-gradient(90deg,#ec4899,#f9a8d4,#ffffff,#ec4899);color:#111827;}
+.galactic-buy:hover{filter:brightness(1.15);}
+
 .base-upgrade-button{
     background:#155e75;
     border-color:#0891b2;
@@ -1148,6 +1183,7 @@ h2{
 
 .upgrade-emoji:hover{background:#0284c7;}
 .upgrade-emoji:disabled{opacity:.45;cursor:not-allowed;}
+.feed:disabled{opacity:.45;cursor:not-allowed;}
 
 .notification{
     position:fixed;
@@ -1168,6 +1204,41 @@ h2{
     opacity:1;
     transform:translateY(0);
 }
+
+.gold-runway{
+    display:flex;
+    flex-wrap:nowrap;
+    gap:12px;
+    background:linear-gradient(135deg,#3b2500,#6b4300,#2a1a00);
+    padding:18px;
+    border-radius:18px;
+    border:2px solid #facc15;
+    overflow-x:auto;
+    box-shadow:0 0 25px rgba(250,204,21,.25),inset 0 0 25px rgba(250,204,21,.08);
+}
+
+.gold-runway .runway-slot{
+    background:linear-gradient(145deg,#5c3b00,#241600);
+    border-color:#facc15;
+    box-shadow:0 0 12px rgba(250,204,21,.28),inset 0 0 18px rgba(250,204,21,.08);
+}
+
+.gold-runway-locked{
+    background:linear-gradient(145deg,#241600,#0f172a);
+    border:2px solid #facc15;
+    border-radius:18px;
+    padding:28px;
+    text-align:center;
+    box-shadow:0 0 22px rgba(250,204,21,.2);
+}
+
+.gold-runway-icon{font-size:70px;}
+.gold-runway-title{font-size:26px;font-weight:bold;color:#fde047;margin:8px 0;}
+.gold-runway-description{color:#fef3c7;line-height:1.7;margin-bottom:12px;}
+.gold-runway-price{font-size:18px;font-weight:bold;color:#facc15;margin-bottom:15px;}
+.gold-runway-buy{width:100%;padding:12px;border:0;border-radius:10px;background:linear-gradient(90deg,#a16207,#facc15,#eab308);color:#1c1917;font-weight:bold;cursor:pointer;font-size:15px;}
+.gold-runway-buy:hover{filter:brightness(1.12);}
+.gold-runway-buy:disabled{opacity:.5;cursor:not-allowed;}
 
 @media(max-width:1000px){
     .runway{flex-wrap:nowrap;}
@@ -1336,6 +1407,30 @@ h2{
         <div
             class="runway"
             id="runway"
+        ></div>
+
+    </section>
+
+    <section class="section gold-runway-section">
+
+        <h2>🏆 Pasarela de Oro</h2>
+
+        <div id="goldRunwayLocked" class="gold-runway-locked">
+            <div class="gold-runway-icon">🏆</div>
+            <div class="gold-runway-title">Pasarela de Oro</div>
+            <div class="gold-runway-description">
+                Aumenta x2 las probabilidades de encontrar emojis Legendarios y Míticos.
+            </div>
+            <div class="gold-runway-price">15.000.000€ + 200⚡</div>
+            <button class="gold-runway-buy" onclick="buyGoldRunway()">
+                🏆 Comprar Pasarela de Oro
+            </button>
+        </div>
+
+        <div
+            class="gold-runway"
+            id="goldRunway"
+            style="display:none;"
         ></div>
 
     </section>
@@ -1542,6 +1637,33 @@ h2{
                 </div>
 
             </div>
+
+            <div class="product galactic-aura-product">
+
+                    <div class="aura-icon galactic-aura-icon">
+                        🪐
+                    </div>
+
+                    <div class="aura-name galactic-aura-name">
+                        Aura Galactica
+                    </div>
+
+                    <div class="product-price">
+                        10.000⚡ + 5.000.000€
+                    </div>
+
+                    <div class="aura-description">
+                        Una aura rosada y blanca con puntos simbolizando estrellas.
+                    </div>
+
+                    <button
+                        class="buy-aura galactic-buy"
+                        onclick="buyGalacticAura()"
+                    >
+                        🌌 Comprar Aura — 10.000⚡ + 5.000.000€
+                    </button>
+
+                </div>
 
             <div class="apply-panel" id="applyPanel">
 
@@ -1768,6 +1890,9 @@ let food = 0;
 let purpleAuraOwned = false;
 let yellowAuraOwned = false;
 let redAuraOwned = false;
+let galacticAuraOwned = false;
+let goldRunwayOwned = false;
+let moneyBagClaimed = false;
 let baseUpgradeLevel = 0;
 
 let currentAccountKey = null;
@@ -2041,11 +2166,46 @@ const emojis = [
         emoji:"👥",
         name:"Duplo",
         price:1000000,
-        income:7500,
+        income:950,
         rarity:"Mitico",
         chance:"0.002%"
+    },
+
+    {
+        emoji:"✏️",
+        name:"Péncil",
+        price:10000000,
+        income:1450,
+        rarity:"Mitico",
+        chance:"0.001%"
+    },
+
+    {
+        emoji:"🦧",
+        name:"Orangutan",
+        price:20000000,
+        income:1550,
+        rarity:"Mitico",
+        chance:"0.001%"
+    },
+
+    {
+        emoji:"🐉",
+        name:"Dragon",
+        price:950000000,
+        income:3800,
+        rarity:"Mitico",
+        chance:"0.0004%"
+    },
+
+    {
+        emoji:"🪐",
+        name:"Saturnito",
+        price:50000000,
+        income:1950,
+        rarity:"Mitico",
+        chance:"0.09%"
     }
-    
 
 ];
 
@@ -2150,6 +2310,9 @@ function getDefaultGame(){
 
         redAuraOwned:false,
 
+        galacticAuraOwned:false,
+        goldRunwayOwned:false,
+        moneyBagClaimed:false,
         baseUpgradeLevel:0,
 
         rewardNextClaim:0
@@ -2177,6 +2340,9 @@ function captureGame(){
 
         redAuraOwned,
 
+        galacticAuraOwned,
+        goldRunwayOwned,
+        moneyBagClaimed,
         baseUpgradeLevel,
 
         rewardNextClaim
@@ -2388,6 +2554,10 @@ function loadAccountGame(saved){
         !!saved.redAuraOwned;
 
 
+    galacticAuraOwned = !!saved.galacticAuraOwned;
+    goldRunwayOwned = !!saved.goldRunwayOwned;
+    moneyBagClaimed = !!saved.moneyBagClaimed;
+
     baseUpgradeLevel =
         Math.min(
             20,
@@ -2423,7 +2593,13 @@ function loadAccountGame(saved){
                     upgradeCost:
                         Number(
                             item.upgradeCost || 100
-                        )
+                        ),
+
+                    feedCount:
+                        Number(item.feedCount || 0),
+
+                    feedResetAt:
+                        Number(item.feedResetAt || 0)
 
                 };
 
@@ -2749,6 +2925,191 @@ function randomEmoji(){
 
 
 /* =========================
+   PASARELA DE ORO
+========================= */
+
+const moneyBag = {
+    emoji:"💰",
+    name:"Bolsa de dinero",
+    price:0,
+    income:0,
+    rarity:"Especial",
+    chance:"2%",
+    moneyBag:true
+};
+
+
+function randomGoldEmoji(){
+
+    const weighted = emojis.map(item=>[
+        item,
+        parseFloat(item.chance) *
+        (item.rarity === "Legendario" || item.rarity === "Mitico" ? 2 : 1)
+    ]);
+
+    if(!moneyBagClaimed)
+        weighted.push([moneyBag,2]);
+
+    const totalWeight = weighted.reduce(
+        (sum,pair)=>sum + pair[1],
+        0
+    );
+
+    let roll = Math.random() * totalWeight;
+
+    for(const [item,weight] of weighted){
+
+        roll -= weight;
+
+        if(roll < 0)
+            return item;
+
+    }
+
+    return emojis[0];
+
+}
+
+
+function createGoldRunway(){
+
+    const runway =
+        document.getElementById("goldRunway");
+
+    if(!runway || !goldRunwayOwned)
+        return;
+
+    runway.innerHTML = "";
+
+    for(let i=0;i<10;i++){
+
+        const item = {
+            ...randomGoldEmoji(),
+            variety:randomVariety()
+        };
+
+        const slot = document.createElement("div");
+        slot.className =
+            "runway-slot" +
+            (item.variety !== "Normal"
+                ? ` variant-${item.variety.toLowerCase()}`
+                : "");
+
+        const priceText = item.moneyBag
+            ? "0€"
+            : `${item.price}€`;
+
+        const buttonText = item.moneyBag
+            ? "💰 Comprar Bolsa — 0€"
+            : `🛒 Comprar ${item.price}€`;
+
+        slot.innerHTML = `
+            <div class="emoji-card">
+                <div class="name">${item.emoji} ${item.name}</div>
+                <div class="emoji">${item.emoji}</div>
+                <div class="info">
+                    ⭐ Rareza: ${item.rarity}<br>
+                    ✨ Variedad: ${getVarietyLabel(item)} x${getVarietyMultiplier(item)}<br>
+                    💵 Precio: ${priceText}<br>
+                    💰 ${item.moneyBag ? "Entrega: 1.000.000€ - 10.000.000€" : `Genera: ${item.income}€/10Seg`}
+                </div>
+                <button class="buy">
+                    ${buttonText}
+                </button>
+            </div>
+        `;
+
+        const buyButton = slot.querySelector(".buy");
+
+        buyButton.onclick = ()=>{
+
+            const bought = buyGoldEmoji(item);
+
+            if(bought){
+                buyButton.disabled = true;
+                buyButton.textContent = "✅ Comprado";
+                buyButton.style.opacity = "0.55";
+                buyButton.style.cursor = "not-allowed";
+            }
+
+        };
+
+        runway.appendChild(slot);
+
+    }
+
+}
+
+
+function buyGoldRunway(){
+
+    if(goldRunwayOwned){
+        createGoldRunway();
+        return;
+    }
+
+    if(money < 15000000 || bolts < 200){
+
+        notification(
+            "❌ Necesitas 15.000.000€ + 200⚡ para comprar la Pasarela de Oro."
+        );
+
+        return;
+
+    }
+
+    money -= 15000000;
+    bolts -= 200;
+    goldRunwayOwned = true;
+
+    updateMoney();
+    updateBolts();
+    saveGame();
+
+    document.getElementById("goldRunwayLocked").style.display = "none";
+    document.getElementById("goldRunway").style.display = "flex";
+
+    createGoldRunway();
+
+    notification(
+        "🏆 Compraste la Pasarela de Oro. ¡Las probabilidades Legendarias y Míticas aumentaron x2!"
+    );
+
+}
+
+
+function buyGoldEmoji(item){
+
+    if(item.moneyBag){
+
+        if(moneyBagClaimed){
+            notification("❌ Ya compraste la Bolsa de dinero.");
+            return false;
+        }
+
+        const reward =
+            Math.floor(Math.random() * 9000001) + 1000000;
+
+        money += reward;
+        moneyBagClaimed = true;
+
+        updateMoney();
+        saveGame();
+
+        notification(
+            `💰 Compraste la Bolsa de dinero y recibiste ${reward.toLocaleString("es-ES")}€`
+        );
+
+        return true;
+
+    }
+
+    return buyEmoji(item);
+
+}
+
+
+/* =========================
    PASARELA
 ========================= */
 
@@ -2941,9 +3302,13 @@ function buyEmoji(item){
 
         redAura:false,
 
+        galacticAura:false,
         level:1,
 
         upgradeCost:100,
+
+        feedCount:0,
+        feedResetAt:0,
 
         variety:
             item.variety || "Normal"
@@ -3016,6 +3381,9 @@ function renderBase(){
         if(item && item.redAura)
             slot.classList.add("red-aura");
 
+           if(item && item.galacticAura)
+             slot.classList.add("galactic-aura");
+
 
         if(
             item &&
@@ -3051,6 +3419,10 @@ function renderBase(){
             let currentIncome =
                 getEmojiIncome(item);
 
+            normalizeFeedLimit(item);
+            const feedCount = item.feedCount || 0;
+            const feedBlocked = feedCount >= 15;
+
 
             slot.innerHTML = `
 
@@ -3082,6 +3454,9 @@ function renderBase(){
                         ${getVarietyLabel(item)}
                         x${getVarietyMultiplier(item)}<br>
 
+                        🍪 Alimentaciones:
+                        ${feedCount}/15<br>
+
                         🛠️ Mejora:
                         ${
                             item.level >= 50
@@ -3101,8 +3476,8 @@ function renderBase(){
                         🔼 Mejorar Emoji
                     </button>
 
-                    <button class="feed">
-                        🍪 Alimentar
+                    <button class="feed" ${feedBlocked ? "disabled" : ""}>
+                        ${feedBlocked ? "⏳ Límite alcanzado" : "🍪 Alimentar"}
                     </button>
 
                     <button class="sell">
@@ -3181,10 +3556,46 @@ function buyFood(){
    ALIMENTAR
 ========================= */
 
+function normalizeFeedLimit(item){
+
+    if(!item)
+        return;
+
+    if(!item.feedCount)
+        item.feedCount = 0;
+
+    if(!item.feedResetAt)
+        item.feedResetAt = 0;
+
+    if(
+        item.feedResetAt > 0 &&
+        Date.now() >= item.feedResetAt
+    ){
+        item.feedCount = 0;
+        item.feedResetAt = 0;
+    }
+
+}
+
+
 function feedEmoji(index){
 
     if(base[index] === null)
         return;
+
+    const item = base[index];
+
+    normalizeFeedLimit(item);
+
+    if(item.feedCount >= 15){
+
+        notification(
+            "⏳ Ya alimentaste a este emoji 15 veces. Podrás volver a alimentarlo en 12 horas."
+        );
+
+        return;
+
+    }
 
 
     if(food <= 0){
@@ -3198,43 +3609,61 @@ function feedEmoji(index){
     }
 
 
-    food--;
+    if(item.feedCount === 0)
+        item.feedResetAt = Date.now() + 12 * 60 * 60 * 1000;
 
+
+    food--;
     bolts++;
+    item.feedCount++;
 
 
     const lucky =
         Math.random() < 0.05;
 
+    const cashLucky =
+        Math.random() < 0.02;
+
+    let message =
+        `⚡ Alimentaste a ${item.emoji} ${item.name}. +1 Rayo`;
+
 
     if(
         lucky &&
-        !base[index].multiplied
+        !item.multiplied
     ){
 
-        base[index].multiplied =
-            true;
+        item.multiplied = true;
 
-
-        notification(
-            `⚡ ${base[index].emoji} ${base[index].name} recibió comida y ahora genera x2 💰`
-        );
-
-    }else{
-
-        notification(
-            `⚡ Alimentaste a ${base[index].emoji} ${base[index].name}. +1 Rayo`
-        );
+        message =
+            `⚡ ${item.emoji} ${item.name} recibió comida y ahora genera x2 💰`;
 
     }
 
 
+    if(cashLucky){
+
+        const reward =
+            Math.floor(Math.random() * 6) + 5;
+
+        money += reward;
+        updateMoney();
+
+        message += ` 💰 ¡Además recibiste ${reward}€!`;
+
+    }
+
+
+    if(item.feedCount >= 15)
+        message += " ⏳ Límite de 15 alcanzado durante 12 horas.";
+
+
+    notification(message);
+
+
     updateFood();
-
     updateBolts();
-
     renderBase();
-
     saveGame();
 
 }
@@ -3394,6 +3823,46 @@ function buyRedAura(){
 }
 
 
+function buyGalacticAura(){
+
+    if(galacticAuraOwned){
+
+        showApplyPanel("galactic");
+
+        return;
+
+    }
+
+
+    if(money < 5000000 || bolts < 10000){
+
+        notification(
+            "❌ Necesitas 10.000⚡ + 5.000.000€ para comprar el Aura Galactica."
+        );
+
+        return;
+
+    }
+
+
+    money -= 5000000;
+    bolts -= 10000;
+
+    galacticAuraOwned = true;
+
+    updateMoney();
+
+    saveGame();
+
+    notification(
+        "🌌 Compraste el Aura Galactica. ¡Elige un emoji!"
+    );
+
+    showApplyPanel("galactic");
+
+}
+
+
 function showApplyPanel(type="purple"){
 
     const panel =
@@ -3472,7 +3941,11 @@ function showApplyPanel(type="purple"){
             ?
             item.yellowAura
             :
-            item.redAura;
+            type==="red"
+            ?
+            item.redAura
+            :
+            item.galacticAura;
 
 
         if(already){
@@ -3564,6 +4037,12 @@ function applyAura(
     )
         return;
 
+    if(
+        type==="galactic" &&
+        !galacticAuraOwned
+    )
+        return;
+
 
     if(
         type==="purple" &&
@@ -3582,6 +4061,12 @@ function applyAura(
     if(
         type==="red" &&
         item.redAura
+    )
+        return;
+
+    if(
+        type==="galactic" &&
+        item.galacticAura
     )
         return;
 
@@ -3612,6 +4097,14 @@ function applyAura(
 
     }
 
+    if(type==="galactic"){
+
+        item.galacticAura = true;
+
+        galacticAuraOwned = false;
+
+    }
+
 
     document
         .getElementById("applyPanel")
@@ -3629,7 +4122,9 @@ function applyAura(
 
         yellow:"Aura Amarilla x6",
 
-        red:"Aura Roja x20"
+        red:"Aura Roja x20",
+
+        galactic:"Aura Galactica x4"
 
     }[type];
 
@@ -3945,6 +4440,9 @@ function getEmojiIncome(item){
 
     if(item.redAura)
         income *= 20;
+
+    if(item.galacticAura)
+        income *= 4;
 
 
     income *=
@@ -4537,6 +5035,12 @@ function initialize(){
 
     createRunway();
 
+    if(goldRunwayOwned){
+        document.getElementById("goldRunwayLocked").style.display = "none";
+        document.getElementById("goldRunway").style.display = "flex";
+        createGoldRunway();
+    }
+
 }
 
 
@@ -4559,6 +5063,17 @@ setInterval(()=>{
 
         createRunway();
 
+    }
+
+},6000);
+
+
+/* PASARELA DE ORO CADA 6 SEGUNDOS */
+
+setInterval(()=>{
+
+    if(currentAccountKey && goldRunwayOwned){
+        createGoldRunway();
     }
 
 },6000);
